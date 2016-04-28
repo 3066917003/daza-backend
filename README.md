@@ -1,5 +1,7 @@
 # Phoenix Back-End
 
+[![Join the chat at https://gitter.im/lijy91/phoenix-backend](https://badges.gitter.im/lijy91/phoenix-backend.svg)](https://gitter.im/lijy91/phoenix-backend?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://api.travis-ci.org/lijy91/phoenix-backend.svg?branch=master)](https://travis-ci.org/lijy91/phoenix-backend)
 
 ## License
