@@ -69,7 +69,7 @@ definitions:
         type: string
         description: 头像
       age:
-        type: string
+        type: integer
         description: 年龄
       sex:
         type: string
@@ -110,13 +110,28 @@ definitions:
       id:
         type: integer
         description: Id
+      name:
+        type: string
+        description: 名称
   Tag:
     type: object
     properties:
       id:
         type: integer
         description: Id
+      name:
+        type: string
+        description: 名称
   Group:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Id
+      name:
+        type: string
+        description: 名称
+  Tweet:
     type: object
     properties:
       id:
@@ -128,6 +143,24 @@ definitions:
       id:
         type: integer
         description: Id
+      title:
+        type: string
+        description: 标题
+      content:
+        type: string
+        description: 内容
+  Event:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Id
+      title:
+        type: string
+        description: 标题
+      content:
+        type: string
+        description: 内容
   Message:
     type: object
     properties:
