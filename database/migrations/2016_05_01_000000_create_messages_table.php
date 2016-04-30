@@ -12,7 +12,11 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('messages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->softDeletes();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +26,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('messages');
     }
 }

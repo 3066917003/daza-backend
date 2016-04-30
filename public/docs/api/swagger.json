@@ -1,9 +1,39 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "0.0.0",
+        "version": "0.0.1",
         "title": "Phoenix RESTful API"
     },
+    "basePath": "/v1",
+    "tags": [
+        {
+            "name": "account"
+        },
+        {
+            "name": "users"
+        },
+        {
+            "name": "categories"
+        },
+        {
+            "name": "tags"
+        },
+        {
+            "name": "groups"
+        },
+        {
+            "name": "tweets"
+        },
+        {
+            "name": "posts"
+        },
+        {
+            "name": "events"
+        },
+        {
+            "name": "messages"
+        }
+    ],
     "parameters": {
         "user-id": {
             "name": "user_id",
@@ -11,9 +41,152 @@
             "description": "用户Id",
             "type": "integer",
             "required": true
+        },
+        "category-id": {
+            "name": "category_id",
+            "in": "path",
+            "description": "分类Id",
+            "type": "integer",
+            "required": true
+        },
+        "tag-id": {
+            "name": "tag_id",
+            "in": "path",
+            "description": "标签Id",
+            "type": "integer",
+            "required": true
+        },
+        "group-id": {
+            "name": "group_id",
+            "in": "path",
+            "description": "小组Id",
+            "type": "integer",
+            "required": true
+        },
+        "tweet-id": {
+            "name": "tweet_id",
+            "in": "path",
+            "description": "推文Id",
+            "type": "integer",
+            "required": true
+        },
+        "post-id": {
+            "name": "post_id",
+            "in": "path",
+            "description": "帖子Id",
+            "type": "integer",
+            "required": true
+        },
+        "event-id": {
+            "name": "event_id",
+            "in": "path",
+            "description": "活动Id",
+            "type": "integer",
+            "required": true
         }
     },
     "paths": {
+        "/account/register": {
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/account/login": {
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/account/logout": {
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/account/password_reset": {
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/account/password_modify": {
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users/{user_id}": {
             "parameters": [
                 {
@@ -21,6 +194,9 @@
                 }
             ],
             "get": {
+                "tags": [
+                    "users"
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -45,6 +221,9 @@
                 }
             ],
             "post": {
+                "tags": [
+                    "users"
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -52,6 +231,528 @@
                             "properties": {
                                 "status": {
                                     "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/groups": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/user-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Group"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/tweets": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/user-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Tweet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/posts": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/user-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Post"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/events": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/user-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Event"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Category"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{category_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/category-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Category"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tags": {
+            "get": {
+                "tags": [
+                    "tags"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Tag"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tags/{tag_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/tag-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "tags"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Tag"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups": {
+            "get": {
+                "tags": [
+                    "groups"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Group"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/group-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "groups"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Group"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tweets": {
+            "get": {
+                "tags": [
+                    "tweets"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Tweet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tweets/{tweet_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/tweet-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "tweets"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Tweet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tweets/{tweet_id}/comments": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/tweet-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "tweets"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Comment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts": {
+            "get": {
+                "tags": [
+                    "posts"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Post"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/{post_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/post-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "posts"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Post"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/{post_id}/comments": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/post-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "posts"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Comment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/events": {
+            "get": {
+                "tags": [
+                    "events"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Event"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/events/{event_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/event-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "events"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Event"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/events/{event_id}/comments": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/event-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "events"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Comment"
+                                    }
                                 }
                             }
                         }
@@ -148,6 +849,10 @@
                 "id": {
                     "type": "integer",
                     "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
                 }
             }
         },
@@ -161,6 +866,10 @@
                 "name": {
                     "type": "string",
                     "description": "名称"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "描述"
                 }
             }
         },
@@ -174,6 +883,10 @@
                 "name": {
                     "type": "string",
                     "description": "名称"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "描述"
                 }
             }
         },
@@ -187,6 +900,10 @@
                 "name": {
                     "type": "string",
                     "description": "名称"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "描述"
                 }
             }
         },
@@ -204,7 +921,11 @@
             "properties": {
                 "id": {
                     "type": "integer",
-                    "description": "Id"
+                    "description": "I"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
                 },
                 "title": {
                     "type": "string",
@@ -213,6 +934,10 @@
                 "content": {
                     "type": "string",
                     "description": "内容"
+                },
+                "comment_count": {
+                    "type": "integer",
+                    "description": "评论数"
                 }
             }
         },
@@ -230,6 +955,52 @@
                 "content": {
                     "type": "string",
                     "description": "内容"
+                },
+                "start_at": {
+                    "type": "string",
+                    "description": "开始时间"
+                },
+                "end_at": {
+                    "type": "string",
+                    "description": "结束时间"
+                },
+                "organizer": {
+                    "type": "string",
+                    "description": "主办方"
+                },
+                "organizer_link": {
+                    "type": "string",
+                    "description": "主办方链接"
+                },
+                "city": {
+                    "type": "string",
+                    "description": "城市"
+                },
+                "location": {
+                    "type": "string",
+                    "description": "地点"
+                },
+                "longitude": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "经度"
+                },
+                "latitude": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "纬度"
+                },
+                "comment_count": {
+                    "type": "integer",
+                    "description": "评论数"
+                }
+            }
+        },
+        "Comment": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
                 }
             }
         },
