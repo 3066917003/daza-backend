@@ -14,6 +14,7 @@ tags:
   - name: groups
   - name: tweets
   - name: posts
+  - name: articles
   - name: events
   - name: messages
 
@@ -52,6 +53,12 @@ parameters:
     name: post_id
     in: path
     description: 帖子Id
+    type: integer
+    required: true
+  article-id:
+    name: article_id
+    in: path
+    description: 文章Id
     type: integer
     required: true
   event-id:
@@ -321,6 +328,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Tweet'
+    post:
+      tags:
+        - tweets
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Tweet'
   /tweets/{tweet_id}:
     parameters:
       - $ref: '#/parameters/tweet-id'
@@ -336,6 +357,28 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Tweet'
+    put:
+      tags:
+        - tweets
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Tweet'
+    delete:
+      tags:
+        - tweets
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /tweets/{tweet_id}/comments:
     parameters:
       - $ref: '#/parameters/tweet-id'
@@ -353,6 +396,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Comment'
+    post:
+      tags:
+        - tweets
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Comment'
+    delete:
+      tags:
+        - tweets
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /posts:
     get:
       tags:
@@ -368,6 +433,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Post'
+    post:
+      tags:
+        - posts
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Post'
   /posts/{post_id}:
     parameters:
       - $ref: '#/parameters/post-id'
@@ -383,6 +460,28 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Post'
+    put:
+      tags:
+        - posts
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Post'
+    delete:
+      tags:
+        - posts
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /posts/{post_id}/comments:
     parameters:
       - $ref: '#/parameters/post-id'
@@ -400,6 +499,131 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Comment'
+    post:
+      tags:
+        - posts
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Comment'
+    delete:
+      tags:
+        - posts
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+  /articles:
+    get:
+      tags:
+        - articles
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Article'
+    post:
+      tags:
+        - articles
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Article'
+  /articles/{article_id}:
+    parameters:
+      - $ref: '#/parameters/article-id'
+    get:
+      tags:
+        - articles
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Article'
+    put:
+      tags:
+        - articles
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Article'
+    delete:
+      tags:
+        - articles
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+  /articles/{article_id}/comments:
+    parameters:
+      - $ref: '#/parameters/article-id'
+    get:
+      tags:
+        - articles
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Comment'
+    post:
+      tags:
+        - articles
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Comment'
+    delete:
+      tags:
+        - articles
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /events:
     get:
       tags:
@@ -415,10 +639,34 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Event'
+    post:
+      tags:
+        - events
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Event'
   /events/{event_id}:
     parameters:
       - $ref: '#/parameters/event-id'
     get:
+      tags:
+        - events
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Event'
+    put:
       tags:
         - events
       responses:
@@ -448,6 +696,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Comment'
+    post:
+      tags:
+        - events
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Comment'
+    delete:
+      tags:
+        - events
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
 
 definitions:
   User:
@@ -561,12 +831,46 @@ definitions:
       id:
         type: integer
         description: Id
+      user_id:
+        type: integer
+        description: 用户Id
+      content:
+        type: string
+        description: 内容
+      location:
+        type: string
+        description: 位置
+      longitude:
+        type: number
+        format: double
+        description: 经度
+      latitude:
+        type: number
+        format: double
+        description: 纬度
+      source:
+        type: string
+        description: 来源
+        enum:
+          - Web
+          - Android
+          - iPhone
+          - iPad
+          - WindowsPhone
+          - MacOS
+          - Windows
+      source_link:
+        type: string
+        description: 来源链接
+      comment_count:
+        type: integer
+        description: 评论数
   Post:
     type: object
     properties:
       id:
         type: integer
-        description: I
+        description: Id
       user_id:
         type: integer
         description: 用户Id
@@ -579,12 +883,34 @@ definitions:
       comment_count:
         type: integer
         description: 评论数
+  Article:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Id
+      user_id:
+        type: integer
+        description: 用户Id
+      title:
+        type: string
+        description: 标题
+      content:
+        type: string
+        description: 内容
+      comment_count:
+        type: integer
+        description: 评论数
+    
   Event:
     type: object
     properties:
       id:
         type: integer
         description: Id
+      user_id:
+        type: integer
+        description: 用户Id
       title:
         type: string
         description: 标题
@@ -608,7 +934,7 @@ definitions:
         description: 城市
       location:
         type: string
-        description: 地点
+        description: 位置
       longitude:
         type: number
         format: double
@@ -625,9 +951,28 @@ definitions:
     properties:
       id:
         type: integer
+      user_id:
+        type: integer
+        description: 用户Id
+      type: 
+        type: string
+        description: 类型
+        enum:
+          - tweet
+          - post
+          - event
+      content:
+        type: string
+        description: 内容
   Message:
     type: object
     properties:
       id:
         type: integer
         description: Id
+      user_id:
+        type: integer
+        description: 用户Id
+      type:
+        type: string
+        description: 类型
