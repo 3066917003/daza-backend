@@ -1259,9 +1259,14 @@
                     "type": "integer",
                     "description": "年龄"
                 },
-                "sex": {
+                "gender": {
                     "type": "string",
-                    "description": "性别"
+                    "description": "性别",
+                    "enum": [
+                        "secrecy",
+                        "male",
+                        "female"
+                    ]
                 },
                 "birthday": {
                     "type": "string",
@@ -1538,6 +1543,7 @@
                     "enum": [
                         "tweet",
                         "post",
+                        "article",
                         "event"
                     ]
                 },

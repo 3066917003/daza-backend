@@ -753,9 +753,13 @@ definitions:
       age:
         type: integer
         description: 年龄
-      sex:
+      gender:
         type: string
         description: 性别
+        enum:
+          - secrecy
+          - male
+          - female
       birthday:
         type: string
         description: 生日
@@ -960,6 +964,7 @@ definitions:
         enum:
           - tweet
           - post
+          - article
           - event
       content:
         type: string
