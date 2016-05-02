@@ -1263,6 +1263,7 @@
                     "type": "string",
                     "description": "性别",
                     "enum": [
+                        "unspecified",
                         "secrecy",
                         "male",
                         "female"
@@ -1299,6 +1300,10 @@
                 "bio": {
                     "type": "string",
                     "description": "简介"
+                },
+                "verified": {
+                    "type": "boolean",
+                    "description": "通过身份认证"
                 }
             }
         },
@@ -1363,6 +1368,23 @@
                 "description": {
                     "type": "string",
                     "description": "描述"
+                }
+            }
+        },
+        "GroupMembership": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "group_id": {
+                    "type": "integer",
+                    "description": "小组Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
                 }
             }
         },
@@ -1524,6 +1546,23 @@
                 "comment_count": {
                     "type": "integer",
                     "description": "评论数"
+                }
+            }
+        },
+        "EventMembership": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "event_id": {
+                    "type": "integer",
+                    "description": "活动Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
                 }
             }
         },

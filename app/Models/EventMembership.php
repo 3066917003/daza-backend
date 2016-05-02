@@ -1,11 +1,11 @@
 <?php
 
-namespace App\App\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Message extends Model
+class EventMembership extends Model
 {
     use SoftDeletes;
 }

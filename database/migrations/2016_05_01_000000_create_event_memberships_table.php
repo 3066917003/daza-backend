@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesTable extends Migration
+class CreateEventMembershipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,9 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('event_memberships', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();   // 名称
-            $table->string('description');      // 描述
+            $table->integer('user_id');   // 用户Id
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +27,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('categories');
+        Schema::drop('event_memberships');
     }
 }

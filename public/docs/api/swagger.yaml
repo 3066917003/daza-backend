@@ -757,6 +757,7 @@ definitions:
         type: string
         description: 性别
         enum:
+          - unspecified
           - secrecy
           - male
           - female
@@ -784,6 +785,9 @@ definitions:
       bio:
         type: string
         description: 简介
+      verified:
+        type: boolean
+        description: 通过身份认证
   UserRelationship:
     type: object
     properties:
@@ -829,6 +833,18 @@ definitions:
       description:
         type: string
         description: 描述
+  GroupMembership:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Id
+      group_id:
+        type: integer
+        description: 小组Id
+      user_id:
+        type: integer
+        description: 用户Id
   Tweet:
     type: object
     properties:
@@ -905,7 +921,6 @@ definitions:
       comment_count:
         type: integer
         description: 评论数
-    
   Event:
     type: object
     properties:
@@ -950,6 +965,18 @@ definitions:
       comment_count:
         type: integer
         description: 评论数
+  EventMembership:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Id
+      event_id:
+        type: integer
+        description: 活动Id
+      user_id:
+        type: integer
+        description: 用户Id
   Comment:
     type: object
     properties:
