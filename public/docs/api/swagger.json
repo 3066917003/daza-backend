@@ -34,6 +34,9 @@
             "name": "events"
         },
         {
+            "name": "orders"
+        },
+        {
             "name": "messages"
         }
     ],
@@ -91,6 +94,20 @@
             "name": "event_id",
             "in": "path",
             "description": "活动Id",
+            "type": "integer",
+            "required": true
+        },
+        "order-id": {
+            "name": "order_id",
+            "in": "path",
+            "description": "订单Id",
+            "type": "integer",
+            "required": true
+        },
+        "order-no": {
+            "name": "order_no",
+            "in": "path",
+            "description": "订单号",
             "type": "integer",
             "required": true
         }
@@ -1213,6 +1230,78 @@
                     }
                 }
             }
+        },
+        "/orders": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Order"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "orders"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Order"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/{order_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/order-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Order"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1476,9 +1565,21 @@
                     "type": "integer",
                     "description": "用户Id"
                 },
+                "author": {
+                    "type": "string",
+                    "description": "作者"
+                },
+                "author_link": {
+                    "type": "string",
+                    "description": "作者链接"
+                },
                 "title": {
                     "type": "string",
                     "description": "标题"
+                },
+                "excerpt": {
+                    "type": "string",
+                    "description": "摘要"
                 },
                 "content": {
                     "type": "string",
@@ -1570,7 +1671,8 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Id"
                 },
                 "user_id": {
                     "type": "integer",
@@ -1589,6 +1691,23 @@
                 "content": {
                     "type": "string",
                     "description": "内容"
+                }
+            }
+        },
+        "Order": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
+                },
+                "order_no": {
+                    "type": "string",
+                    "description": "订单号"
                 }
             }
         },
