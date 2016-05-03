@@ -12,7 +12,7 @@ class CreateUserRelationshipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_relationships', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id');   // 用户Id
             $table->rememberToken();
@@ -27,6 +27,6 @@ class CreateUserRelationshipsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::drop('user_relationships');
     }
 }

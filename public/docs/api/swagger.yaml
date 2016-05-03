@@ -38,6 +38,12 @@ parameters:
     description: 标签Id
     type: integer
     required: true
+  tag-name:
+    name: tag_name
+    in: path
+    description: 标签名称
+    type: integer
+    required: true
   group-id:
     name: group_id
     in: path
@@ -85,6 +91,17 @@ paths:
     post:
       tags:
         - account
+      parameters:
+        - name: username
+          in: formData
+          description: 用户名
+          type: string
+          required: true
+        - name: password
+          in: formData
+          description: 密码
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -98,6 +115,17 @@ paths:
     post:
       tags:
         - account
+      parameters:
+        - name: username
+          in: formData
+          description: 用户名
+          type: string
+          required: true
+        - name: password
+          in: formData
+          description: 密码
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -281,9 +309,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Tag'
-  /tags/{tag_id}:
+  /tags/{tag_name}:
     parameters:
-      - $ref: '#/parameters/tag-id'
+      - $ref: '#/parameters/tag-name'
     get:
       tags:
         - tags
@@ -296,6 +324,23 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Tag'
+  /tags/{tag_name}/posts:
+    parameters:
+      - $ref: '#/parameters/tag-name'
+    get:
+      tags:
+        - groups
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Post'
   /groups:
     get:
       tags:
@@ -326,6 +371,23 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Group'
+  /groups/{group_id}/posts:
+    parameters:
+      - $ref: '#/parameters/group-id'
+    get:
+      tags:
+        - groups
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Post'
   /tweets:
     get:
       tags:
@@ -887,7 +949,7 @@ definitions:
       description:
         type: string
         description: 描述
-  GroupMembership:
+  GroupMember:
     type: object
     properties:
       id:
@@ -1028,7 +1090,7 @@ definitions:
       comment_count:
         type: integer
         description: 评论数
-  EventMembership:
+  EventMember:
     type: object
     properties:
       id:

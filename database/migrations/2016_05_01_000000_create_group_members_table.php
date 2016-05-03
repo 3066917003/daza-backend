@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventMembershipsTable extends Migration
+class CreateGroupMembershipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class CreateEventMembershipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_memberships', function (Blueprint $table) {
+        Schema::create('group_members', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');   // 用户Id
+            $table->integer('user_id');     // 用户Id
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ class CreateEventMembershipsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('event_memberships');
+        Schema::drop('group_members');
     }
 }
