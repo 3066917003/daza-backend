@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 
+use Validator;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,7 +17,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         // 执行 auth 认证
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index(Request $request)
@@ -29,9 +31,15 @@ class CategoryController extends Controller
         return $this->failure();
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $category_id)
     {
-        return $this->failure();
+        $rules = array('category' => 'exists:categories,id');
+        $validator = Validator::make(['category' => $category_id], $rules);
+        if ($validator->fails()) {
+            return $this->failure($validator->errors()->all());
+        }
+        $data = Category::find($category_id);
+        return $this->success($data);
     }
 
     public function update(Request $request)
