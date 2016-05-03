@@ -371,6 +371,21 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Group'
+  /groups/{group_id}/members:
+    parameters:
+      - $ref: '#/parameters/group-id'
+    get:
+      tags:
+        - groups
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/User'
   /groups/{group_id}/posts:
     parameters:
       - $ref: '#/parameters/group-id'
@@ -753,7 +768,21 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Event'
-  
+  /events/{event_id}/members:
+    parameters:
+      - $ref: '#/parameters/event-id'
+    get:
+      tags:
+        - events
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/User'
   /events/{event_id}/comments:
     parameters:
       - $ref: '#/parameters/event-id'
