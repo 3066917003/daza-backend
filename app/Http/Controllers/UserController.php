@@ -39,8 +39,8 @@ class UserController extends Controller
         );
 
         $rules = array(
-            'username' => 'required|max:255|unique:users',
-            'password' => 'required|min:6',
+            'username' => 'required|min:4|max:32|alpha_dash|unique:users',
+            'password' => 'required|min:6|max:32',
         );
         $validator = Validator::make($params, $rules);
         if ($validator->fails()) {
@@ -68,8 +68,8 @@ class UserController extends Controller
         );
 
         $rules = array(
-            'username' => 'required|max:255',
-            'password' => 'required|min:6',
+            'username' => 'required|min:4|max:32|alpha_dash',
+            'password' => 'required|min:6|max:32',
         );
 
         $validator = Validator::make($credentials, $rules);
@@ -81,7 +81,7 @@ class UserController extends Controller
             return $this->success(Auth::user());
         }
 
-        return $this->failure();
+        return $this->failure(trans('auth.failed'));
     }
 
     public function logout(Request $request)

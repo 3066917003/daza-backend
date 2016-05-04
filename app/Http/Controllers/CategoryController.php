@@ -22,8 +22,8 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $query = Category::get();
-
+        $query = Category::orderBy('created_at', 'asc');
+        return $this->pagination($query->paginate());
     }
 
     public function store(Request $request)
