@@ -15,7 +15,6 @@ class CreateUserRelationshipsTable extends Migration
         Schema::create('user_relationships', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id');   // 用户Id
-            $table->rememberToken();
             $table->timestamps();
         });
     }

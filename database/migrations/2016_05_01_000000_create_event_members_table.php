@@ -14,7 +14,8 @@ class CreateEventMembersTable extends Migration
     {
         Schema::create('event_members', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');   // 用户Id
+            $table->integer('event_id');    // 活动Id
+            $table->integer('user_id');     // 用户Id
             $table->softDeletes();
             $table->timestamps();
         });

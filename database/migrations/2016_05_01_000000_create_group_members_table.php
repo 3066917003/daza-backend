@@ -14,6 +14,7 @@ class CreateGroupMembersTable extends Migration
     {
         Schema::create('group_members', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('group_id');    // 小组Id
             $table->integer('user_id');     // 用户Id
             $table->softDeletes();
             $table->timestamps();
