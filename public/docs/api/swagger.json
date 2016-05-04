@@ -41,6 +41,12 @@
         }
     ],
     "parameters": {
+        "page": {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "type": "integer"
+        },
         "user-id": {
             "name": "user_id",
             "in": "path",
@@ -314,6 +320,11 @@
                 "tags": [
                     "users"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -343,6 +354,11 @@
             "get": {
                 "tags": [
                     "users"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -374,6 +390,11 @@
                 "tags": [
                     "users"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -404,6 +425,11 @@
                 "tags": [
                     "users"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -428,6 +454,11 @@
             "get": {
                 "tags": [
                     "categories"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -480,6 +511,11 @@
             "get": {
                 "tags": [
                     "tags"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -538,6 +574,11 @@
                 "tags": [
                     "groups"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -562,6 +603,11 @@
             "get": {
                 "tags": [
                     "groups"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -620,6 +666,11 @@
                 "tags": [
                     "groups"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -647,6 +698,11 @@
                 "tags": [
                     "groups"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -671,6 +727,11 @@
             "get": {
                 "tags": [
                     "tweets"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -789,6 +850,11 @@
                 "tags": [
                     "tweets"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -850,6 +916,11 @@
             "get": {
                 "tags": [
                     "posts"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -965,6 +1036,11 @@
                 "tags": [
                     "posts"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1026,6 +1102,11 @@
             "get": {
                 "tags": [
                     "articles"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1141,6 +1222,11 @@
                 "tags": [
                     "articles"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1202,6 +1288,11 @@
             "get": {
                 "tags": [
                     "events"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1300,6 +1391,11 @@
                 "tags": [
                     "events"
                 ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1326,6 +1422,11 @@
             "get": {
                 "tags": [
                     "events"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1388,6 +1489,11 @@
             "get": {
                 "tags": [
                     "orders"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1857,6 +1963,13 @@
                 "user_id": {
                     "type": "integer",
                     "description": "用户Id"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "类型",
+                    "enum": [
+                        "event"
+                    ]
                 },
                 "order_no": {
                     "type": "string",

@@ -20,6 +20,11 @@ tags:
   - name: messages
 
 parameters:
+  page:
+    name: page
+    in: query
+    description: 页码
+    type: integer
   user-id:
     name: user_id
     in: path
@@ -202,6 +207,8 @@ paths:
     get:
       tags:
         - users
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -219,6 +226,8 @@ paths:
     get:
       tags:
         - users
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -236,6 +245,8 @@ paths:
     get:
       tags:
         - users
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -253,6 +264,8 @@ paths:
     get:
       tags:
         - users
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -268,6 +281,8 @@ paths:
     get:
       tags:
         - categories
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -298,6 +313,8 @@ paths:
     get:
       tags:
         - tags
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -330,6 +347,8 @@ paths:
     get:
       tags:
         - groups
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -345,6 +364,8 @@ paths:
     get:
       tags:
         - groups
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -377,6 +398,8 @@ paths:
     get:
       tags:
         - groups
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -392,6 +415,8 @@ paths:
     get:
       tags:
         - groups
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -407,6 +432,8 @@ paths:
     get:
       tags:
         - tweets
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -475,6 +502,8 @@ paths:
     get:
       tags:
         - tweets
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -512,6 +541,8 @@ paths:
     get:
       tags:
         - posts
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -578,6 +609,8 @@ paths:
     get:
       tags:
         - posts
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -615,6 +648,8 @@ paths:
     get:
       tags:
         - articles
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -681,6 +716,8 @@ paths:
     get:
       tags:
         - articles
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -718,6 +755,8 @@ paths:
     get:
       tags:
         - events
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -774,6 +813,8 @@ paths:
     get:
       tags:
         - events
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -789,6 +830,8 @@ paths:
     get:
       tags:
         - events
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -826,6 +869,8 @@ paths:
     get:
       tags:
         - orders
+      parameters:
+        - $ref: '#/parameters/page'
       responses:
         200:
           description: OK
@@ -1160,6 +1205,11 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
+      type:
+        type: string
+        description: 类型
+        enum:
+          - event
       order_no:
         type: string
         description: 订单号
