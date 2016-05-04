@@ -996,6 +996,9 @@ definitions:
       name:
         type: string
         description: 名称
+      image_url:
+        type: string
+        description: 图片网址
       description:
         type: string
         description: 描述
@@ -1008,6 +1011,9 @@ definitions:
       name:
         type: string
         description: 名称
+      image_url:
+        type: string
+        description: 图片网址
       description:
         type: string
         description: 描述
@@ -1020,6 +1026,9 @@ definitions:
       name:
         type: string
         description: 名称
+      image_url:
+        type: string
+        description: 图片网址
       description:
         type: string
         description: 描述
@@ -1090,6 +1099,17 @@ definitions:
       content:
         type: string
         description: 内容
+      location:
+        type: string
+        description: 位置
+      longitude:
+        type: number
+        format: double
+        description: 经度
+      latitude:
+        type: number
+        format: double
+        description: 纬度
       comment_count:
         type: integer
         description: 评论数
