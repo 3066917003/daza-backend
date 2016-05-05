@@ -166,6 +166,19 @@ paths:
     post:
       tags:
         - account
+      parameters:
+        - name: old_password
+          in: formData
+          description: 原密码
+          type: string
+          format: password
+          required: true
+        - name: new_password
+          in: formData
+          description: 新密码
+          type: string
+          format: password
+          required: true
       responses:
         200:
           description: OK
@@ -194,6 +207,12 @@ paths:
     post:
       tags:
         - users
+      parameters:
+        - name: action
+          in: formData
+          description: 动作 [follow, unfollow]
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -326,6 +345,24 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Tag'
+    post:
+      tags:
+        - tags
+      parameters:
+        - name: name
+          in: formData
+          description: 名称
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Tag'
   /tags/{tag_name}:
     parameters:
       - $ref: '#/parameters/tag-name'
@@ -392,6 +429,19 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Group'
+  /groups/{group_id}/join:
+    parameters:
+      - $ref: '#/parameters/group-id'
+    post:
+      tags:
+        - groups
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /groups/{group_id}/members:
     parameters:
       - $ref: '#/parameters/group-id'
@@ -448,6 +498,26 @@ paths:
     post:
       tags:
         - tweets
+      parameters:
+        - name: content
+          in: formData
+          description: 内容
+          type: string
+          required: true
+        - name: location
+          in: formData
+          type: string
+          description: 位置
+        - name: longitude
+          type: number
+          in: formData
+          format: double
+          description: 经度
+        - name: latitude
+          in: formData
+          type: number
+          format: double
+          description: 纬度
       responses:
         200:
           description: OK
@@ -463,18 +533,6 @@ paths:
     parameters:
       - $ref: '#/parameters/tweet-id'
     get:
-      tags:
-        - tweets
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              status:
-                type: string
-              data:
-                $ref: '#/definitions/Tweet'
-    put:
       tags:
         - tweets
       responses:
@@ -518,6 +576,12 @@ paths:
     post:
       tags:
         - tweets
+      parameters:
+        - name: content
+          in: formData
+          description: 内容
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -625,6 +689,12 @@ paths:
     post:
       tags:
         - posts
+      parameters:
+        - name: content
+          in: formData
+          description: 内容
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -732,6 +802,12 @@ paths:
     post:
       tags:
         - articles
+      parameters:
+        - name: content
+          in: formData
+          description: 内容
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -807,6 +883,19 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Event'
+  /events/{event_id}/join:
+    parameters:
+      - $ref: '#/parameters/event-id'
+    post:
+      tags:
+        - events
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /events/{event_id}/members:
     parameters:
       - $ref: '#/parameters/event-id'
@@ -846,6 +935,12 @@ paths:
     post:
       tags:
         - events
+      parameters:
+        - name: content
+          in: formData
+          description: 内容
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -912,6 +1007,7 @@ paths:
 definitions:
   User:
     type: object
+    description: 用户
     properties:
       id:
         type: integer
@@ -927,6 +1023,7 @@ definitions:
         description: 手机
       password:
         type: string
+        format: password
         description: 密码
       name:
         type: string
@@ -975,11 +1072,13 @@ definitions:
       bio:
         type: string
         description: 简介
-      verified:
-        type: boolean
-        description: 通过身份认证
+      verified_at:
+        type: string
+        format: date-time
+        description: 通过身份认证时间
   UserRelationship:
     type: object
+    description: 用户关系
     properties:
       id:
         type: integer
@@ -987,8 +1086,15 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
+      type:
+        type: string
+        description: 类型
+      target_user_id:
+        type: string
+        description: 目标用户Id
   Category:
     type: object
+    description: 分类
     properties:
       id:
         type: integer
@@ -1004,6 +1110,7 @@ definitions:
         description: 描述
   Tag:
     type: object
+    description: 标签
     properties:
       id:
         type: integer
@@ -1019,6 +1126,7 @@ definitions:
         description: 描述
   Group:
     type: object
+    description: 小组
     properties:
       id:
         type: integer
@@ -1034,6 +1142,7 @@ definitions:
         description: 描述
   GroupMember:
     type: object
+    description: 小组成员
     properties:
       id:
         type: integer
@@ -1044,8 +1153,17 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
+      invited_at:
+        type: string
+        format: date-time
+        description: 受邀时间
+      joined_at:
+        type: string
+        format: date-time
+        description: 加入时间
   Tweet:
     type: object
+    description: 推文
     properties:
       id:
         type: integer
@@ -1086,6 +1204,7 @@ definitions:
         description: 评论数
   Post:
     type: object
+    description: 帖子
     properties:
       id:
         type: integer
@@ -1115,6 +1234,7 @@ definitions:
         description: 评论数
   Article:
     type: object
+    description: 文章
     properties:
       id:
         type: integer
@@ -1142,6 +1262,7 @@ definitions:
         description: 评论数
   Event:
     type: object
+    description: 活动
     properties:
       id:
         type: integer
@@ -1186,6 +1307,7 @@ definitions:
         description: 评论数
   EventMember:
     type: object
+    description: 活动成员
     properties:
       id:
         type: integer
@@ -1196,8 +1318,13 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
+      joined_at:
+        type: string
+        format: date-time
+        description: 加入时间
   Comment:
     type: object
+    description: 评论
     properties:
       id:
         type: integer
@@ -1218,6 +1345,7 @@ definitions:
         description: 内容
   Order:
     type: object
+    description: 订单
     properties:
       id:
         type: integer
@@ -1235,6 +1363,7 @@ definitions:
         description: 订单号
   Message:
     type: object
+    description: 消息
     properties:
       id:
         type: integer
