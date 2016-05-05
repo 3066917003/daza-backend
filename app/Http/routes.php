@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/docs/api');
 });
 
 Route::group(['prefix' => 'v1'], function () {
@@ -27,6 +27,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('/groups', 'GroupController');
     Route::resource('/tweets', 'TweetController');
     Route::resource('/posts', 'PostController');
+    Route::resource('/articles', 'ArticleController');
     Route::resource('/events', 'EventController');
+    Route::resource('/ordres', 'OrderController');
     Route::resource('/messages', 'MessageController');
 });

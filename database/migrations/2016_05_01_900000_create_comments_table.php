@@ -14,7 +14,9 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');   // 用户Id
+            $table->integer('user_id');     // 用户Id
+            $table->string('type');         // 类型[tweet, post, article, event]
+            $table->string('content');      // 内容
             $table->softDeletes();
             $table->timestamps();
         });

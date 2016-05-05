@@ -16,6 +16,8 @@ class CreateGroupMembersTable extends Migration
             $table->increments('id');
             $table->integer('group_id');    // 小组Id
             $table->integer('user_id');     // 用户Id
+            $table->dateTime('invited_at'); // 受邀时间
+            $table->dateTime('joined_at');  // 加入时间
             $table->softDeletes();
             $table->timestamps();
         });

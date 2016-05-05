@@ -14,7 +14,9 @@ class CreateUserRelationshipsTable extends Migration
     {
         Schema::create('user_relationships', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id');   // 用户Id
+            $table->integer('user_id');             // 用户Id
+            $table->string('type');                 // 类型
+            $table->integer('target_user_id');      // 目标用户Id
             $table->timestamps();
         });
     }

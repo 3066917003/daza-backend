@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('company');                          // 公司
             $table->string('website');                          // 主页
             $table->string('bio');                              // 简介
-            $table->boolean('verified');                        // 通过身份认证
+            $table->dateTime('verified_at');                    // 通过身份认证时间
             $table->rememberToken();
             $table->timestamps();
         });

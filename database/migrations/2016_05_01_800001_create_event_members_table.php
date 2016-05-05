@@ -16,6 +16,7 @@ class CreateEventMembersTable extends Migration
             $table->increments('id');
             $table->integer('event_id');    // 活动Id
             $table->integer('user_id');     // 用户Id
+            $table->dateTime('joined_at');  // 加入时间
             $table->softDeletes();
             $table->timestamps();
         });
