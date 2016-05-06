@@ -628,7 +628,7 @@
             ],
             "get": {
                 "tags": [
-                    "groups"
+                    "tags"
                 ],
                 "parameters": [
                     {
@@ -1042,6 +1042,22 @@
             "post": {
                 "tags": [
                     "posts"
+                ],
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "formData",
+                        "description": "标题",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "内容",
+                        "type": "string",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {

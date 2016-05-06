@@ -57,6 +57,13 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->name,
+        'content' => $faker->text,
+    ];
+});
+
 $factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->name,

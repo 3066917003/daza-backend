@@ -24,9 +24,10 @@ class MockdataSeeder extends Seeder
         factory(User::class, 50)->create()->each(function($user) {
             $user->tweets()->save(factory(Tweet::class)->make());
             $user->posts()->save(factory(Post::class)->make());
+            $user->articles()->save(factory(Article::class)->make());
         });
-        factory(Category::class, 300)->create();
-        factory(Tag::class, 300)->create();
-        factory(Group::class, 300)->create();
+        factory(Category::class, 30)->create();
+        factory(Tag::class, 30)->create();
+        factory(Group::class, 30)->create();
     }
 }

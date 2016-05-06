@@ -39,6 +39,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Post');
     }
 
+    public function articles() {
+        return $this->hasMany('App\Models\Article');
+    }
+
     public function groups() {
         // TODO: 关联用户加入的小组
         return $this->hasMany('App\Models\Group');

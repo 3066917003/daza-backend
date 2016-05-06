@@ -15,12 +15,18 @@ class ArticleController extends Controller
     public function __construct()
     {
         // 执行 auth 认证
-        $this->middleware('auth');
+        $this->middleware('auth', [
+            'except' => [
+                'index',
+                'show'
+            ]
+        ]);
     }
 
     public function index(Request $request)
     {
-        return $this->failure();
+        $query = Article::orderBy('created_at', 'asc');
+        return $this->pagination($query->paginate());
     }
 
     public function store(Request $request)
@@ -28,9 +34,15 @@ class ArticleController extends Controller
         return $this->failure();
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $article_id)
     {
-        return $this->failure();
+        $rules = array('article' => 'exists:articles,id');
+        $validator = Validator::make(['article' => $article_id], $rules);
+        if ($validator->fails()) {
+            return $this->failure($validator->errors()->all());
+        }
+        $data = Article::find($article_id);
+        return $this->success($data);
     }
 
     public function update(Request $request)
