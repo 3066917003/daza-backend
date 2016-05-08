@@ -30,5 +30,5 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('/articles', 'ArticleController');
     Route::resource('/events', 'EventController');
     Route::resource('/ordres', 'OrderController');
-    Route::resource('/messages', 'MessageController');
+    Route::resource('/notifications', 'NotificationController');
 });

@@ -3,6 +3,33 @@ swagger: '2.0'
 info:
   version: "0.0.1"
   title: Phoenix RESTful API
+  description: |
+
+    ```json
+    {
+        "status": "success",
+        "errors": [
+            {
+                "code": 200
+                "message": "..."
+            }
+            ...
+        ],
+        "pagination": {
+            "total": 50,
+            "per_page": 30,
+            "current_page": 2,
+            "last_page": 2,
+            "next_page_url": null,
+            "prev_page_url": null,
+            "from": 31,
+            "to": 50
+        },
+        "data": {
+            ...
+        }
+    }
+    ```
 
 basePath: /v1
 
@@ -17,7 +44,7 @@ tags:
   - name: articles
   - name: events
   - name: orders
-  - name: messages
+  - name: notifications
 
 parameters:
   page:
@@ -47,7 +74,7 @@ parameters:
     name: tag_name
     in: path
     description: 标签名称
-    type: integer
+    type: string
     required: true
   group-id:
     name: group_id
@@ -1021,6 +1048,27 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Order'
+  /notifications:
+    get:
+      tags:
+        - notifications
+      parameters:
+        - $ref: '#/parameters/page'
+        - name: type
+          in: formData
+          description: 类型
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Notification'
 definitions:
   User:
     type: object
@@ -1378,9 +1426,9 @@ definitions:
       order_no:
         type: string
         description: 订单号
-  Message:
+  Notification:
     type: object
-    description: 消息
+    description: 通知
     properties:
       id:
         type: integer

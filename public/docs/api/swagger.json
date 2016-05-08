@@ -2,7 +2,8 @@
     "swagger": "2.0",
     "info": {
         "version": "0.0.1",
-        "title": "Phoenix RESTful API"
+        "title": "Phoenix RESTful API",
+        "description": "\n```json\n{\n    \"status\": \"success\",\n    \"errors\": [\n        {\n            \"code\": 200\n            \"message\": \"...\"\n        }\n        ...\n    ],\n    \"pagination\": {\n        \"total\": 50,\n        \"per_page\": 30,\n        \"current_page\": 2,\n        \"last_page\": 2,\n        \"next_page_url\": null,\n        \"prev_page_url\": null,\n        \"from\": 31,\n        \"to\": 50\n    },\n    \"data\": {\n        ...\n    }\n}\n```\n"
     },
     "basePath": "/v1",
     "tags": [
@@ -37,7 +38,7 @@
             "name": "orders"
         },
         {
-            "name": "messages"
+            "name": "notifications"
         }
     ],
     "parameters": {
@@ -72,7 +73,7 @@
             "name": "tag_name",
             "in": "path",
             "description": "标签名称",
-            "type": "integer",
+            "type": "string",
             "required": true
         },
         "group-id": {
@@ -1735,6 +1736,42 @@
                     }
                 }
             }
+        },
+        "/notifications": {
+            "get": {
+                "tags": [
+                    "notifications"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    },
+                    {
+                        "name": "type",
+                        "in": "formData",
+                        "description": "类型",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Notification"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -2215,9 +2252,9 @@
                 }
             }
         },
-        "Message": {
+        "Notification": {
             "type": "object",
-            "description": "消息",
+            "description": "通知",
             "properties": {
                 "id": {
                     "type": "integer",
