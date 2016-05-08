@@ -4,6 +4,9 @@
 
 [![Build Status](https://api.travis-ci.org/lijy91/phoenix-backend.svg?branch=master)](https://travis-ci.org/lijy91/phoenix-backend)
 
+## 演示
+[Live Demo](http://phoenix-backend.daoapp.io)
+
 ## 项目依赖
 - [PHP >= 5.5.9](http://php.net/)
 - [MySQL >= 5.6](https://www.mysql.com/)
