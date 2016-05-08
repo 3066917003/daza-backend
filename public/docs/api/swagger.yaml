@@ -155,6 +155,12 @@ paths:
     post:
       tags:
         - account
+      parameters:
+        - name: email
+          in: formData
+          description: 邮箱
+          type: string
+          required: true
       responses:
         200:
           description: OK
