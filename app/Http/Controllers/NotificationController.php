@@ -20,16 +20,23 @@ class NotificationController extends Controller
 
     public function index(Request $request)
     {
-        return $this->failure();
+        $type = $request->query('type');
+
+        $query = Notification::orderBy('created_at', 'asc');
+
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        return $this->pagination($query->paginate());
     }
 
-    public function store(Request $request)
+    public function show(Request $request, $notification_id)
     {
-        return $this->failure();
-    }
-
-    public function show(Request $request)
-    {
+        $result = Notification::find($notification_id);
+        if ($result) {
+            return $this->success($result);
+        }
         return $this->failure();
     }
 
