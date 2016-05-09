@@ -20,7 +20,8 @@ class TweetController extends Controller
 
     public function index(Request $request)
     {
-        return $this->failure();
+        $query = Tweet::orderBy('created_at', 'asc');
+        return $this->pagination($query->paginate());
     }
 
     public function store(Request $request)

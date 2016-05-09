@@ -30,16 +30,16 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        $username = $request->input('username');
+        $email = $request->input('email');
         $password = $request->input('password');
 
         $params = array(
-            'username' => $username,
+            'email' => $email,
             'password' => $password,
         );
 
         $rules = array(
-            'username' => 'required|min:4|max:32|alpha_dash|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6|max:32',
         );
         $validator = Validator::make($params, $rules);
@@ -58,17 +58,17 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $username = $request->input('username');
+        $email = $request->input('email');
         $password = $request->input('password');
         $remember = true;
 
         $credentials = array(
-            'username' => $username,
+            'email' => $email,
             'password' => $password
         );
 
         $rules = array(
-            'username' => 'required|min:4|max:32|alpha_dash',
+            'email' => 'required|email',
             'password' => 'required|min:6|max:32',
         );
 

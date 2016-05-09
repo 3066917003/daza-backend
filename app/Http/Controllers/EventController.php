@@ -20,7 +20,8 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        return $this->failure();
+        $query = Event::orderBy('created_at', 'asc');
+        return $this->pagination($query->paginate());
     }
 
     public function store(Request $request)

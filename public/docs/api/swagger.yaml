@@ -124,9 +124,9 @@ paths:
       tags:
         - account
       parameters:
-        - name: username
+        - name: email
           in: formData
-          description: 用户名
+          description: 邮箱
           type: string
           required: true
         - name: password
@@ -148,9 +148,9 @@ paths:
       tags:
         - account
       parameters:
-        - name: username
+        - name: email
           in: formData
-          description: 用户名
+          description: 邮箱
           type: string
           required: true
         - name: password
@@ -1137,10 +1137,6 @@ definitions:
       bio:
         type: string
         description: 简介
-      verified_at:
-        type: string
-        format: date-time
-        description: 通过身份认证时间
   UserRelationship:
     type: object
     description: 用户关系
