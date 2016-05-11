@@ -34,8 +34,12 @@ class TweetController extends Controller
         return $this->failure();
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $tweet_id)
     {
+        $tweet = Tweet::find($tweet_id);
+        if ($tweet) {
+            $this->success($tweet);
+        }
         return $this->failure();
     }
 
