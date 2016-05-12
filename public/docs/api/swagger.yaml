@@ -137,6 +137,10 @@ paths:
           description: 密码
           type: string
           required: true
+        - name: username
+          in: formData
+          description: 用户名
+          type: string
       responses:
         200:
           description: OK

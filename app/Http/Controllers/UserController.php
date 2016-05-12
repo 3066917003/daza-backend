@@ -30,52 +30,33 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        $email = $request->input('email');
-        $password = $request->input('password');
-
-        $params = array(
-            'email' => $email,
-            'password' => $password,
-        );
-
-        $rules = array(
+        $rules = [
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|max:32',
-        );
-        $validator = Validator::make($params, $rules);
-        if ($validator->fails()) {
-            return $this->failure($validator->errors()->all());
-        }
+            'username' => 'min:5|max:32|alpha_dash|unique:users',
+        ];
+        $this->validate($request, $rules);
 
-        $params['password'] = bcrypt($password);
+        $request->merge(['password' => bcrypt($request->input('password'))]);
 
-        $user = User::create($params);
+        $user = User::create($request->all());
         if ($user) {
-            return $this->login($request);
+            return $this->success($user);
         }
         return $this->failure();
     }
 
     public function login(Request $request)
     {
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $remember = true;
-
-        $credentials = array(
-            'email' => $email,
-            'password' => $password
-        );
-
-        $rules = array(
-            'email' => 'required|email',
+        $rules = [
+            'email' => 'required|email|exists:users',
             'password' => 'required|min:6|max:32',
-        );
+            'username' => 'min:5|max:32|alpha_dash|unique:users',
+        ];
+        $this->validate($request, $rules);
 
-        $validator = Validator::make($credentials, $rules);
-        if ($validator->fails()) {
-            return $this->failure($validator->errors()->all());
-        }
+        $credentials = $request->all();
+        $remember = true;
 
         if (Auth::attempt($credentials, $remember)) {
             return $this->success(Auth::user());
