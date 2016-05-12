@@ -17,6 +17,7 @@ class CreateUserRelationshipsTable extends Migration
             $table->integer('user_id');             // 用户Id
             $table->string('type');                 // 类型
             $table->integer('target_user_id');      // 目标用户Id
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/account/password_reset', 'UserController@passwordReset');
     Route::post('/account/password_modify', 'UserController@passwordModify');
     Route::resource('/users', 'UserController');
+    Route::post('/users/{user_id}/relationship', 'UserRelationshipController@store');
     Route::resource('/categories', 'CategoryController');
     Route::resource('/tags', 'TagController');
     Route::resource('/groups', 'GroupController');
