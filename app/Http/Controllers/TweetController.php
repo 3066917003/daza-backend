@@ -36,11 +36,11 @@ class TweetController extends Controller
 
     public function show(Request $request, $tweet_id)
     {
-        $tweet = Tweet::find($tweet_id);
-        if ($tweet) {
-            $this->success($tweet);
-        }
-        return $this->failure();
+        $request->merge(['tweet' => $tweet_id]);
+        $this->validate($request, ['tweet' => 'exists:tweets,id']);
+
+        $data = Tweet::with('user')->find($tweet_id);
+        $this->success($data);
     }
 
     public function update(Request $request)

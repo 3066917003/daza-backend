@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Tag;
 
-use Validator;
-
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

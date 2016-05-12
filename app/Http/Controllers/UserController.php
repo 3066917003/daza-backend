@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 
 use Auth;
-use Validator;
 
 use Illuminate\Http\Request;
 

@@ -36,11 +36,9 @@ class ArticleController extends Controller
 
     public function show(Request $request, $article_id)
     {
-        $rules = array('article' => 'exists:articles,id');
-        $validator = Validator::make(['article' => $article_id], $rules);
-        if ($validator->fails()) {
-            return $this->failure($validator->errors()->all());
-        }
+        $request->merge(['article' => $article_id]);
+        $this->validate($request, ['article' => 'exists:articles,id']);
+
         $data = Article::find($article_id);
         return $this->success($data);
     }

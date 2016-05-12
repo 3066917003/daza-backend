@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Post;
 
-use Validator;
+use Auth;
 
 use Illuminate\Http\Request;
 
@@ -27,7 +27,10 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $query = Post::orderBy('created_at', 'asc');
+        $query = Post::orderBy('created_at', 'asc')
+            ->with('user')
+            ->with('category');
+
         return $this->pagination($query->paginate());
     }
 
@@ -50,7 +53,9 @@ class PostController extends Controller
         $request->merge(['post' => $post_id]);
         $this->validate($request, ['post' => 'exists:posts,id']);
 
-        $data = Post::find($post_id);
+        $data = Post::with('user')
+            ->with('category')
+            ->find($post_id);
         return $this->success($data);
     }
 
@@ -59,8 +64,13 @@ class PostController extends Controller
         return $this->failure();
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, $post_id)
     {
+        $request->merge(['post' => $post_id]);
+        $this->validate($request, ['post' => 'exists:posts,id,user_id,' . Auth::id()]);
+
+        $data = Post::where($post_id);
+        $data->delete();
         return $this->failure();
     }
 

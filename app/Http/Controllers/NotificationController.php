@@ -33,11 +33,11 @@ class NotificationController extends Controller
 
     public function show(Request $request, $notification_id)
     {
-        $result = Notification::find($notification_id);
-        if ($result) {
-            return $this->success($result);
-        }
-        return $this->failure();
+        $request->merge(['notification' => $notification_id]);
+        $this->validate($request, ['notification' => 'exists:notifications,id']);
+
+        $data = Notification::find($notification_id);
+        return $this->success($data);
     }
 
     public function update(Request $request)
