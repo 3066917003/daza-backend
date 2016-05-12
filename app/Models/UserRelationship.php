@@ -10,6 +10,20 @@ class UserRelationship extends Model
     use SoftDeletes;
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [];
+
+    /**
      * The attributes that aren't mass assignable.
      *
      * @var array
@@ -21,6 +35,8 @@ class UserRelationship extends Model
      *
      * @var array
      */
-    protected $hidden = [];
+    protected $hidden = [
+        'deleted_at'
+    ];
 
 }
