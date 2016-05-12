@@ -33,11 +33,9 @@ class TagController extends Controller
 
     public function show(Request $request, $tag_name)
     {
-        $rules = array('tag' => 'exists:tags,name');
-        $validator = Validator::make(['tag' => $tag_name], $rules);
-        if ($validator->fails()) {
-            return $this->failure($validator->errors()->all());
-        }
+        $request->merge(['tag' => $tag_name]);
+        $this->validate($request, ['tag' => 'exists:tags,name']);
+
         $data = Tag::where('name', $tag_name)->first();
         return $this->success($data);
     }

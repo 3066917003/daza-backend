@@ -33,11 +33,9 @@ class CategoryController extends Controller
 
     public function show(Request $request, $category_id)
     {
-        $rules = array('category' => 'exists:categories,id');
-        $validator = Validator::make(['category' => $category_id], $rules);
-        if ($validator->fails()) {
-            return $this->failure($validator->errors()->all());
-        }
+        $request->merge(['category' => $category_id]);
+        $this->validate($request, ['category' => 'exists:categories,id']);
+
         $data = Category::find($category_id);
         return $this->success($data);
     }

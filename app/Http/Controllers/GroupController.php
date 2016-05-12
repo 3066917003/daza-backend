@@ -34,9 +34,13 @@ class GroupController extends Controller
         return $this->failure();
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $group_id)
     {
-        return $this->failure();
+        $request->merge(['group' => $group_id]);
+        $this->validate($request, ['group' => 'exists:groups,id']);
+
+        $data = Group::find($group_id);
+        return $this->success($data);
     }
 
     public function update(Request $request)

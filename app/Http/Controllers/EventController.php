@@ -29,9 +29,13 @@ class EventController extends Controller
         return $this->failure();
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $event_id)
     {
-        return $this->failure();
+        $request->merge(['event' => $event_id]);
+        $this->validate($request, ['event' => 'exists:events,id']);
+
+        $data = Group::find($group_id);
+        return $this->success($data);
     }
 
     public function update(Request $request)
