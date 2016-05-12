@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Auth;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -13,7 +16,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = [
+        'followed',
+    ];
 
     /**
      * The attributes that should be casted to native types.
@@ -39,6 +44,18 @@ class User extends Authenticatable
         'remember_token',
         'deleted_at'
     ];
+
+    public function getFollowedAttribute()
+    {
+        if (Auth::check()) {
+
+            return UserRelationship::where([
+                'user_id'        => Auth::id(),
+                'target_user_id' => $this->id
+            ])->exists();
+        }
+        return false;
+    }
 
     public function tweets() {
         return $this->hasMany('App\Models\Tweet');
