@@ -19,15 +19,8 @@ class UserRelationshipController extends Controller
         // 执行 auth 认证
         $this->middleware('auth', [
             'except' => [
-                'index',
-                'show'
             ]
         ]);
-    }
-
-    public function index(Request $request)
-    {
-        return $this->failure();
     }
 
     public function store(Request $request, $user_id)
@@ -58,21 +51,6 @@ class UserRelationshipController extends Controller
                 return $this->failure();
         }
         return $this->success();
-    }
-
-    public function show(Request $request, $tweet_id)
-    {
-        return $this->failure();
-    }
-
-    public function update(Request $request)
-    {
-        return $this->failure();
-    }
-
-    public function destroy(Request $request)
-    {
-        return $this->failure();
     }
 
 }
