@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('company');                          // 公司
             $table->string('website');                          // 主页
             $table->string('bio');                              // 简介
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });
