@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -12,13 +13,37 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
+    protected function formatValidationErrors(Validator $validator)
+    {
+        $result = [
+            'status' => 'failure',
+            'error'  => [
+                'code' => 0,
+                'message' => '',
+                'errors' => []
+            ],
+        ];
+
+        $errors = $validator->errors()->messages();
+        foreach ($errors as $field => $error) {
+            foreach ($error as $key => $value) {
+                array_push($result['error']['errors'], [
+                    'field' => $field,
+                    'message' => $value
+                ]);
+            }
+        }
+        return $result;
+    }
+
     /**
      * @return json
      */
     protected function success($data = '')
     {
         $result = array(
-          'status' => 'success'
+          'status' => 'success',
+          'data'   => null
         );
         if ($data) {
             $result['data'] = $data;
@@ -32,22 +57,15 @@ class Controller extends BaseController
     protected function pagination($data='')
     {
         $result = array(
-          'status' => 'success'
+          'status'     => 'success',
+          'pagination' => null,
+          'data'       => null
         );
         if ($data) {
             $data = $data->toArray();
-            // 分页信息
-            $result['pagination'] = array(
-              'total'         => $data['total'],
-              'per_page'      => $data['per_page'],
-              'current_page'  => $data['current_page'],
-              'last_page'     => $data['last_page'],
-              'next_page_url' => $data['next_page_url'],
-              'prev_page_url' => $data['prev_page_url'],
-              'from'          => $data['from'],
-              'to'            => $data['to'],
-            );
             $result['data'] = $data['data'];
+            unset($data['data']);
+            $result['pagination'] = $data;
         }
         return response()->json($result);
     }

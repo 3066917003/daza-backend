@@ -112,21 +112,19 @@ class UserController extends Controller
 
     public function show(Request $request, $user_id)
     {
-        $rules = array('user' => 'exists:users,id');
-        $validator = Validator::make(['user' => $user_id], $rules);
-        if ($validator->fails()) {
-            return $this->failure($validator->errors()->all());
-        }
-        $user = User::find($user_id);
-        return $this->success($user);
+        $request->merge(['user' => $user_id]);
+        $this->validate($request, ['user' => 'exists:users,id']);
+
+        $data = User::find($user_id);
+        return $this->success($data);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $user_id)
     {
         return $this->failure();
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, $user_id)
     {
         return $this->failure();
     }

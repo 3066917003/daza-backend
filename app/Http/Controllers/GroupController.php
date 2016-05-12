@@ -15,7 +15,12 @@ class GroupController extends Controller
     public function __construct()
     {
         // 执行 auth 认证
-        $this->middleware('auth');
+        $this->middleware('auth', [
+            'except' => [
+                'index',
+                'show'
+            ]
+        ]);
     }
 
     public function index(Request $request)

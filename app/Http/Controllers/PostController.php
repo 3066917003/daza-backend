@@ -33,16 +33,23 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'content' => 'required',
+        ]);
+
+        $data = Post::create($request->all());
+        if ($data) {
+            return $this->success($data);
+        }
         return $this->failure();
     }
 
     public function show(Request $request, $post_id)
     {
-        $rules = array('post' => 'exists:posts,id');
-        $validator = Validator::make(['post' => $post_id], $rules);
-        if ($validator->fails()) {
-            return $this->failure($validator->errors()->all());
-        }
+        $request->merge(['post' => $post_id]);
+        $this->validate($request, ['post' => 'exists:posts,id']);
+
         $data = Post::find($post_id);
         return $this->success($data);
     }
