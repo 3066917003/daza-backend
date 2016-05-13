@@ -37,8 +37,9 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
-            'content' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'title'       => 'required|min:6|max:255',
+            'content'     => 'required',
         ]);
 
         $data = Post::create($request->all());
