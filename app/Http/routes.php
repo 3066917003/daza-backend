@@ -27,9 +27,13 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('/tags', 'TagController');
     Route::resource('/groups', 'GroupController');
     Route::resource('/tweets', 'TweetController');
+    Route::resource('/tweets/{tweet_id}/comments', 'CommentController');
     Route::resource('/posts', 'PostController');
+    Route::resource('/posts/{post_id}/comments', 'CommentController');
     Route::resource('/articles', 'ArticleController');
+    Route::resource('/articles/{article_id}/comments', 'CommentController');
     Route::resource('/events', 'EventController');
-    Route::resource('/ordres', 'OrderController');
+    Route::resource('/events/{event_id}/comments', 'CommentController');
+    Route::resource('/orders', 'OrderController');
     Route::resource('/notifications', 'NotificationController');
 });
