@@ -35,6 +35,10 @@ info:
     ```
 
 basePath: /v1
+produces:
+  - application/json
+consumes:
+  - application/json
 
 tags:
   - name: account
@@ -662,6 +666,11 @@ paths:
       tags:
         - posts
       parameters:
+        - name: category_id
+          in: formData
+          description: 分类Id
+          type: integer
+          required: true
         - name: title
           in: formData
           description: 标题
@@ -1408,6 +1417,9 @@ definitions:
           - post
           - article
           - event
+      target_id: 
+        type: integer
+        description: 目标Id
       content:
         type: string
         description: 内容
