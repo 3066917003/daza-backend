@@ -21,18 +21,19 @@ $ git clone git@github.com:lijy91/phoenix-backend.git
 $ cd phoenix-backend
 ```
 
-### 使用 [Composer](https://getcomposer.org/) 安装依赖库
+### 使用 [Composer](https://getcomposer.org/) 安装项目依赖
 ```
 $ composer install
 ```
 
-### 创建 `.env` 文件
+### 配置环境变量
+#### 创建 `.env` 配置文件
 ```
 $ cp .env.example .env
 $ php artisan key:generate
 ```
 
-### 修改根目录 `.env` 配置
+#### 修改相关配置
 ```
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -66,7 +67,7 @@ $ open http://localhost:8000
 $ npm start
 ```
 
-### 创建一个业务开发分支（GitFlow）
+### 创建一个业务开发分支（Git Flow）
 ```
 $ git checkout develop
 $ git pull
