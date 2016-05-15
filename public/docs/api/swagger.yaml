@@ -13,7 +13,7 @@ info:
             "message": "...",
             "errors": [
                 {
-                    "field": "user_id",
+                    "field": "user",
                     "message": "用户 不存在。"
                 }
             ]
@@ -666,9 +666,9 @@ paths:
       tags:
         - posts
       parameters:
-        - name: category_id
+        - name: group_id
           in: formData
-          description: 分类Id
+          description: 小组Id
           type: integer
           required: true
         - name: title
@@ -1289,6 +1289,9 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
+      group_id:
+        type: integer
+        description: 小组Id
       title:
         type: string
         description: 标题
@@ -1319,6 +1322,9 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
+      category_id:
+        type: integer
+        description: 分类Id
       author:
         type: string
         description: 作者
