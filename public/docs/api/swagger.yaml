@@ -1085,6 +1085,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Notification'
+  /notifications/mark:
+    post:
+      tags:
+        - notifications
+      parameters:
+        - name: notification_id
+          in: formData
+          description: 通知Id
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+      
 definitions:
   User:
     type: object

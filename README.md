@@ -67,13 +67,6 @@ $ open http://localhost:8000
 $ npm start
 ```
 
-### 创建一个业务开发分支（Git Flow）
-```
-$ git checkout develop
-$ git pull
-$ git flow feature start <NAME>
-```
-
 ## 如何部署
 TODO
 
