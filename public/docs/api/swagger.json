@@ -41,6 +41,9 @@
             "name": "events"
         },
         {
+            "name": "comments"
+        },
+        {
             "name": "orders"
         },
         {
@@ -117,6 +120,13 @@
             "type": "integer",
             "required": true
         },
+        "comment-id": {
+            "name": "comment_id",
+            "in": "path",
+            "description": "评论Id",
+            "type": "integer",
+            "required": true
+        },
         "order-id": {
             "name": "order_id",
             "in": "path",
@@ -128,6 +138,13 @@
             "name": "order_no",
             "in": "path",
             "description": "订单号",
+            "type": "integer",
+            "required": true
+        },
+        "notification-id": {
+            "name": "notification_id",
+            "in": "path",
+            "description": "通知Id",
             "type": "integer",
             "required": true
         }
@@ -1013,7 +1030,17 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/tweets/{tweet_id}/comments/{comment_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/tweet-id"
+                },
+                {
+                    "$ref": "#/parameters/comment-id"
+                }
+            ],
             "delete": {
                 "tags": [
                     "tweets"
@@ -1231,7 +1258,17 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/posts/{post_id}/comments/{comment_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/post-id"
+                },
+                {
+                    "$ref": "#/parameters/comment-id"
+                }
+            ],
             "delete": {
                 "tags": [
                     "posts"
@@ -1426,7 +1463,17 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/articles/{article_id}/comments/{comment_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/article-id"
+                },
+                {
+                    "$ref": "#/parameters/comment-id"
+                }
+            ],
             "delete": {
                 "tags": [
                     "articles"
@@ -1535,6 +1582,23 @@
                                 },
                                 "data": {
                                     "$ref": "#/definitions/Event"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "events"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
                                 }
                             }
                         }
@@ -1660,10 +1724,21 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/events/{event_id}/comments/{comment_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/event-id"
+                },
+                {
+                    "$ref": "#/parameters/comment-id"
+                }
+            ],
             "delete": {
                 "tags": [
-                    "events"
+                    "events",
+                    "comments"
                 ],
                 "responses": {
                     "200": {
@@ -1785,6 +1860,50 @@
                                     "items": {
                                         "$ref": "#/definitions/Notification"
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/notifications/{notification_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/notification-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "notifications"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Notification"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "notifications"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
                                 }
                             }
                         }

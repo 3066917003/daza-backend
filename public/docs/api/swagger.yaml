@@ -50,6 +50,7 @@ tags:
   - name: posts
   - name: articles
   - name: events
+  - name: comments
   - name: orders
   - name: notifications
 
@@ -113,6 +114,12 @@ parameters:
     description: 活动Id
     type: integer
     required: true
+  comment-id:
+    name: comment_id
+    in: path
+    description: 评论Id
+    type: integer
+    required: true
   order-id:
     name: order_id
     in: path
@@ -123,6 +130,12 @@ parameters:
     name: order_no
     in: path
     description: 订单号
+    type: integer
+    required: true
+  notification-id:
+    name: notification_id
+    in: path
+    description: 通知Id
     type: integer
     required: true
 paths:
@@ -635,6 +648,10 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Comment'
+  /tweets/{tweet_id}/comments/{comment_id}:
+    parameters:
+      - $ref: '#/parameters/tweet-id'
+      - $ref: '#/parameters/comment-id'
     delete:
       tags:
         - tweets
@@ -764,6 +781,10 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Comment'
+  /posts/{post_id}/comments/{comment_id}:
+    parameters:
+      - $ref: '#/parameters/post-id'
+      - $ref: '#/parameters/comment-id'
     delete:
       tags:
         - posts
@@ -877,6 +898,10 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Comment'
+  /articles/{article_id}/comments/{comment_id}:
+    parameters:
+      - $ref: '#/parameters/article-id'
+      - $ref: '#/parameters/comment-id'
     delete:
       tags:
         - articles
@@ -943,6 +968,16 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Event'
+    delete:
+      tags:
+        - events
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /events/{event_id}/join:
     parameters:
       - $ref: '#/parameters/event-id'
@@ -1010,9 +1045,14 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/Comment'
+  /events/{event_id}/comments/{comment_id}:
+    parameters:
+      - $ref: '#/parameters/event-id'
+      - $ref: '#/parameters/comment-id'
     delete:
       tags:
         - events
+        - comments
       responses:
         200:
           description: OK
@@ -1085,6 +1125,31 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Notification'
+  /notifications/{notification_id}:
+    parameters:
+      - $ref: '#/parameters/notification-id'
+    get:
+      tags:
+        - notifications
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/Notification'
+    delete:
+      tags:
+        - notifications
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /notifications/mark:
     post:
       tags:
