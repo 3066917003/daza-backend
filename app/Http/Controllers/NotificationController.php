@@ -50,4 +50,9 @@ class NotificationController extends Controller
         return $this->failure();
     }
 
+    public function mark(Request $request)
+    {
+        return $this->failure();
+    }
+
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Article extends Model
+class Asset extends Model
 {
     use SoftDeletes;
 
@@ -38,10 +38,5 @@ class Article extends Model
     protected $hidden = [
         'deleted_at'
     ];
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
 
 }

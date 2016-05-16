@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotificationsTable extends Migration
+class CreateAssetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('assets', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');     // 用户Id
-            $table->string('type');         // 类型[,]
-            $table->string('title');        // 标题
-            $table->string('content');      // 内容
+            $table->integer('user_id');         // 用户Id
+            $table->string('mime_type');        // MIME类型
+            $table->integer('size');            // 大小
+            $table->string('url');              // 链接
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('notifications');
+        Schema::drop('assets');
     }
 }

@@ -30,13 +30,13 @@ class UserRelationshipController extends Controller
         $request->merge(['user' => $user_id]);
 
         $rules = [
-            'user' => 'exists:users,id',
+            'user'   => 'exists:users,id',
             'action' =>'required|in:follow,unfollow'
         ];
         $this->validate($request, $rules);
 
         $user_relationship = UserRelationship::withTrashed()->firstOrCreate([
-            'user_id' => Auth::id(),
+            'user_id'        => Auth::id(),
             'target_user_id' => $user_id,
         ]);
 

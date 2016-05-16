@@ -26,6 +26,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('/categories', 'CategoryController');
     Route::resource('/tags', 'TagController');
     Route::resource('/groups', 'GroupController');
+    Route::post('/groups/{group_id}/join', 'GroupController@join');
+    Route::resource('/groups/{group_id}/members', 'GroupMemberController');
     Route::resource('/tweets', 'TweetController');
     Route::resource('/tweets/{tweet_id}/comments', 'CommentController');
     Route::resource('/posts', 'PostController');
@@ -36,4 +38,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('/events/{event_id}/comments', 'CommentController');
     Route::resource('/orders', 'OrderController');
     Route::resource('/notifications', 'NotificationController');
+    Route::post('/notifications/mark', 'NotificationController@mark');
+    Route::resource('/assets', 'AssetController');
 });

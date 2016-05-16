@@ -39,4 +39,14 @@ class GroupMember extends Model
         'deleted_at'
     ];
 
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Group');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
 }

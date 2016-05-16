@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Event;
+use App\Models\Asset;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class EventController extends Controller
+class AssetController extends Controller
 {
 
     public function __construct()
@@ -20,7 +20,7 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        $query = Event::orderBy('created_at', 'asc');
+        $query = Asset::orderBy('created_at', 'asc');
         return $this->pagination($query->paginate());
     }
 
@@ -31,10 +31,6 @@ class EventController extends Controller
 
     public function show(Request $request, $event_id)
     {
-        $request->merge(['event' => $event_id]);
-        $this->validate($request, ['event' => 'exists:events,id']);
-
-        $data = Event::find($event_id);
         return $this->success($data);
     }
 

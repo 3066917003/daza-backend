@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Group;
+use App\Models\GroupMember;
+
+use Auth;
 
 use Illuminate\Http\Request;
 
@@ -50,6 +53,24 @@ class GroupController extends Controller
 
     public function destroy(Request $request)
     {
+        return $this->failure();
+    }
+
+    public function join(Request $request, $group_id)
+    {
+        $request->merge(['group' => $group_id]);
+        $this->validate($request, ['group' => 'exists:groups,id']);
+
+        $group_member = GroupMember::withTrashed()->firstOrCreate([
+            'user_id'  => Auth::id(),
+            'group_id' => $group_id
+        ]);
+
+        if ($group_member) {
+            $group_member->restore();
+            return $this->success();
+        }
+
         return $this->failure();
     }
 

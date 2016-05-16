@@ -1818,6 +1818,79 @@
                     }
                 }
             }
+        },
+        "/assets": {
+            "get": {
+                "tags": [
+                    "assets"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    },
+                    {
+                        "name": "type",
+                        "in": "formData",
+                        "description": "类型",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Asset"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "assets"
+                ],
+                "parameters": [
+                    {
+                        "name": "mime_type",
+                        "in": "formData",
+                        "description": "MIME类型",
+                        "type": "string"
+                    },
+                    {
+                        "name": "size",
+                        "in": "formData",
+                        "description": "大小",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "url",
+                        "in": "formData",
+                        "description": "链接",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -2320,6 +2393,36 @@
                 "type": {
                     "type": "string",
                     "description": "类型"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "标题"
+                },
+                "content": {
+                    "type": "string",
+                    "description": "内容"
+                }
+            }
+        },
+        "Asset": {
+            "type": "object",
+            "description": "资源",
+            "properties": {
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
+                },
+                "mime_type": {
+                    "type": "string",
+                    "description": "MIME类型"
+                },
+                "size": {
+                    "type": "integer",
+                    "description": "大小"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "链接"
                 }
             }
         }

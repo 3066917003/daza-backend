@@ -45,9 +45,9 @@ class Post extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function category()
+    public function group()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo('App\Models\Group');
     }
 
 }
