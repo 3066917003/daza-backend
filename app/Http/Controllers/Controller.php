@@ -36,14 +36,11 @@ class Controller extends BaseController
         return $result;
     }
 
-    /**
-     * @return json
-     */
     protected function success($data = '')
     {
         $result = array(
-          'status' => 'success',
-          'data'   => null
+            'status' => 'success',
+            'data'   => null
         );
         if ($data) {
             $result['data'] = $data;
@@ -51,15 +48,12 @@ class Controller extends BaseController
         return response()->json($result);
     }
 
-    /**
-     * @return json
-     */
     protected function pagination($data='')
     {
         $result = array(
-          'status'     => 'success',
-          'pagination' => null,
-          'data'       => null
+            'status'     => 'success',
+            'pagination' => null,
+            'data'       => null
         );
         if ($data) {
             $data = $data->toArray();
@@ -77,7 +71,7 @@ class Controller extends BaseController
     protected function failure($errors = '')
     {
         $result = array(
-          'status' => 'failure'
+            'status' => 'failure'
         );
         if ($errors) {
             if (is_string($errors)) {

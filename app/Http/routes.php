@@ -19,6 +19,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/account/register', 'UserController@register');
     Route::post('/account/login', 'UserController@login');
     Route::post('/account/logout', 'UserController@logout');
+    Route::get('/account/profile', 'UserController@getProfile');
+    Route::put('/account/profile', 'UserController@updateProfile');
     Route::post('/account/password_reset', 'UserController@passwordReset');
     Route::post('/account/password_modify', 'UserController@passwordModify');
     Route::resource('/users', 'UserController');

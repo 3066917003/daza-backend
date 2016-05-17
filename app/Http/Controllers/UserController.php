@@ -70,6 +70,16 @@ class UserController extends Controller
         return $this->success();
     }
 
+    public function getProfile(Request $request)
+    {
+        return $this->success(Auth::user());
+    }
+
+    public function updateProfile(Request $request)
+    {
+        return $this->failure();
+    }
+
     public function passwordReset(Request $request)
     {
         return $this->failure();
@@ -77,6 +87,10 @@ class UserController extends Controller
 
     public function passwordModify(Request $request)
     {
+        // $rules = [
+        //     'password' => 'required|min:6|max:32|confirmed',
+        // ];
+        // $this->validate($request, $rules);
         return $this->failure();
     }
 

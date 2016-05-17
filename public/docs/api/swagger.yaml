@@ -4,7 +4,15 @@ info:
   version: "0.0.1"
   title: Phoenix RESTful API
   description: |
-
+    ### 状态属性
+    
+    ### 错误属性
+    
+    ### 分页属性
+    
+    ### 数据属性
+    
+    请求响应示例
     ```json
     {
         "status": "success",
@@ -202,6 +210,31 @@ paths:
             properties:
               status:
                 type: string
+  /account/profile:
+    get:
+      tags:
+        - account
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/User'
+    put:
+      tags:
+        - account
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/User'
   /account/password_reset:
     post:
       tags:
@@ -744,6 +777,35 @@ paths:
             properties:
               status:
                 type: string
+  /posts/{post_id}/likes:
+    parameters:
+      - $ref: '#/parameters/post-id'
+    get:
+      tags:
+        - posts
+      parameters:
+        - $ref: '#/parameters/page'
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/User'
+    post:
+      tags:
+        - posts
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /posts/{post_id}/comments:
     parameters:
       - $ref: '#/parameters/post-id'
@@ -1052,7 +1114,6 @@ paths:
     delete:
       tags:
         - events
-        - comments
       responses:
         200:
           description: OK
