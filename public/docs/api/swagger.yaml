@@ -1595,6 +1595,9 @@ definitions:
     type: object
     description: 资源
     properties:
+      id:
+        type: integer
+        description: Id
       user_id:
         type: integer
         description: 用户Id

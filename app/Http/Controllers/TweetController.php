@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Tweet;
 
+use Auth;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -31,6 +33,16 @@ class TweetController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'content'  => 'required|max:144',
+        ]);
+
+        $request->merge(['user_id' => Auth::id()]);
+
+        $data = Tweet::create($request->all());
+        if ($data) {
+            return $this->success($data);
+        }
         return $this->failure();
     }
 
@@ -43,13 +55,15 @@ class TweetController extends Controller
         $this->success($data);
     }
 
-    public function update(Request $request)
+    public function destroy(Request $request, $tweet_id)
     {
-        return $this->failure();
-    }
+        $request->merge(['tweet' => $tweet_id]);
+        $this->validate($request, ['tweet' => 'exists:tweets,id,deleted_at,NULL,user_id,' . Auth::id()]);
 
-    public function destroy(Request $request)
-    {
+        $tweet = Tweet::find($tweet_id);
+        if ($tweet->delete()) {
+            return $this->success();
+        }
         return $this->failure();
     }
 
