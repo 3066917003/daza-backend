@@ -160,6 +160,7 @@ return [
          * Third-party Libraries Service Providers...
          */
         Zizaco\Entrust\EntrustServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*

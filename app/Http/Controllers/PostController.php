@@ -28,10 +28,10 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $query = Post::orderBy('created_at', 'asc')
-            ->with('user')
-            ->with('category');
+            ->with('user');
 
-        return $this->pagination($query->paginate());
+        $results = $query->paginate();
+        return $this->pagination($results);
     }
 
     public function store(Request $request)
