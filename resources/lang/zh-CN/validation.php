@@ -163,6 +163,8 @@ return [
         'order'                 => '订单',
         'order_id'              => '订单Id',
         'order_no'              => '订单号',
+        'notification'          => '通知',
+        'notification_id'       => '通知Id',
     ],
 
 ];

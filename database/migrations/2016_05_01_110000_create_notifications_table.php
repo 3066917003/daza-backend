@@ -18,6 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->string('type');         // 类型[,]
             $table->string('title');        // 标题
             $table->string('content');      // 内容
+            $table->boolean('unread');      // 通知未读
             $table->softDeletes();
             $table->timestamps();
         });

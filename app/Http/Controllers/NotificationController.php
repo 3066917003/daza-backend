@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Notification;
 
+use Auth;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -22,7 +24,8 @@ class NotificationController extends Controller
     {
         $type = $request->query('type');
 
-        $query = Notification::orderBy('created_at', 'asc');
+        $query = Notification::orderBy('created_at', 'asc')
+            ->where('user_id', Auth::id());
 
         if ($type) {
             $query->where('type', $type);
@@ -34,7 +37,9 @@ class NotificationController extends Controller
     public function show(Request $request, $notification_id)
     {
         $request->merge(['notification' => $notification_id]);
-        $this->validate($request, ['notification' => 'exists:notifications,id']);
+        $this->validate($request, [
+            'notification' => 'exists:notifications,id,deleted_at,NULL,user_id,' . Auth::id()
+        ]);
 
         $data = Notification::find($notification_id);
         return $this->success($data);
@@ -45,13 +50,31 @@ class NotificationController extends Controller
         return $this->failure();
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, $notification_id)
     {
+        $request->merge(['notification' => $notification_id]);
+        $this->validate($request, [
+            'notification' => 'exists:notifications,id,user_id,' . Auth::id()
+        ]);
+
+        $data = Notification::find($notification_id);
+        if ($data->delete()) {
+            return $this->success();
+        }
         return $this->failure();
     }
 
     public function mark(Request $request)
     {
+        $notification_id = $request->input('notification_id');
+        $this->validate($request, [
+            'notification_id' => 'exists:notifications,id,deleted_at,NULL,user_id,' . Auth::id()
+        ]);
+
+        $data = Notification::find($notification_id);
+        if ($data->update(['unread' => true])) {
+            return $this->success();
+        }
         return $this->failure();
     }
 

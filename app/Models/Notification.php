@@ -21,7 +21,9 @@ class Notification extends Model
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'unread' => 'boolean'
+    ];
 
     /**
      * The attributes that aren't mass assignable.
