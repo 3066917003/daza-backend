@@ -226,6 +226,68 @@ paths:
     put:
       tags:
         - account
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          description: 名称
+        - name: first_name
+          in: formData
+          type: string
+          description: 名
+        - name: last_name
+          in: formData
+          type: string
+          description: 姓
+        - name: avatar_url
+          in: formData
+          type: string
+          description: 头像
+        - name: age
+          in: formData
+          type: integer
+          description: 年龄
+        - name: gender
+          in: formData
+          type: string
+          description: 性别
+          enum:
+            - unspecified
+            - secrecy
+            - male
+            - female
+        - name: birthday
+          in: formData
+          type: string
+          description: 生日
+        - name: country
+          in: formData
+          type: string
+          description: 国家
+        - name: city
+          in: formData
+          type: string
+          description: 城市
+        - name: address
+          in: formData
+          type: string
+          description: 地址
+        - name: phone
+          in: formData
+          type: string
+          description: 电话
+        - name: company
+          in: formData
+          type: string
+          description: 公司
+        - name: website
+          in: formData
+          type: string
+          description: 主页
+        - name: bio
+          in: formData
+          type: string
+          description: 简介
       responses:
         200:
           description: OK
@@ -244,6 +306,17 @@ paths:
           in: formData
           description: 邮箱
           type: string
+          required: true
+        - name: verify_code
+          in: formData
+          description: 验证码
+          type: string
+          required: true
+        - name: new_password
+          in: formData
+          description: 新密码
+          type: string
+          format: password
           required: true
       responses:
         200:
@@ -701,6 +774,10 @@ paths:
         - posts
       parameters:
         - $ref: '#/parameters/page'
+        - name: group_id
+          in: query
+          description: 小组Id
+          type: integer
       responses:
         200:
           description: OK
@@ -863,6 +940,10 @@ paths:
         - articles
       parameters:
         - $ref: '#/parameters/page'
+        - name: category_id
+          in: query
+          description: 分类Id
+          type: integer
       responses:
         200:
           description: OK

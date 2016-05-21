@@ -27,8 +27,11 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $query = Post::orderBy('created_at', 'asc')
-            ->with('user');
+        $query = Post::with('user')->orderBy('created_at', 'asc');
+
+        if (array_key_exists('group_id', $params) {
+            $query->where('group_id', $params['group_id']);
+        }
 
         $results = $query->paginate();
         return $this->pagination($results);

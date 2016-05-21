@@ -44,6 +44,8 @@ class Controller extends BaseController
         );
         if ($data) {
             $result['data'] = $data;
+        } else {
+            unset($result['data']);
         }
         return response()->json($result);
     }

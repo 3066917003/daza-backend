@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         $rules = [
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|max:32',
+            'password' => 'required|between:6,32',
             'username' => 'min:5|max:32|alpha_dash|unique:users',
         ];
         $this->validate($request, $rules);
@@ -49,7 +49,7 @@ class UserController extends Controller
     {
         $rules = [
             'email' => 'required|email|exists:users',
-            'password' => 'required|min:6|max:32',
+            'password' => 'required|between:6,32',
             'username' => 'min:5|max:32|alpha_dash|unique:users',
         ];
         $this->validate($request, $rules);
@@ -77,20 +77,71 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $rules = [
+            'name' => 'min:2|max:32',
+            'age' => 'numeric|between:1,100',
+            'gender' => 'in:unspecified,secrecy,male,female',
+            'birthday' => 'date_format:Y-m-d'
+        ];
+        $this->validate($request, $rules);
+
+        $params = $request->except('username', 'email', 'mobile', 'password');
+
+        $user = User::find(Auth::id());
+        if ($user->update($params)) {
+            return $this->success($user);
+        }
         return $this->failure();
     }
 
     public function passwordReset(Request $request)
     {
+        $email = $request->input('email');
+        $verify_code = $request->input('verify_code');
+        $new_password = $request->input('new_password');
+
+        $rules = [
+            'email' => 'required|email|exists:users',
+            'verify_code' => 'required|between:4,6',
+            'new_password' => 'required|between:6,32',
+        ];
+        $this->validate($request, $rules);
+
+        $user->where('email', $email)->first();
+
+        $new_password = bcrypt($new_password);
+        if ($user->update(['password' => $new_password])) {
+            return $this->success($user);
+        }
+
         return $this->failure();
     }
 
     public function passwordModify(Request $request)
     {
-        // $rules = [
-        //     'password' => 'required|min:6|max:32|confirmed',
-        // ];
-        // $this->validate($request, $rules);
+        $old_password = $request->input('old_password');
+        $new_password = $request->input('new_password');
+
+        $rules = [
+            'old_password' => 'required|between:6,32',
+            'new_password' => 'required|between:6,32',
+        ];
+        $this->validate($request, $rules);
+
+        $credentials = array(
+            'id'       => Auth::id(),
+            'password' => $old_password,
+        );
+        if (!Auth::attempt($credentials, true)) {
+            return $this->failure('原密码错误。');
+        }
+
+        $new_password = bcrypt($new_password);
+
+        $user = User::find(Auth::id());
+        if ($user->update(['password' => $new_password])) {
+            return $this->success($user);
+        }
         return $this->failure();
     }
 

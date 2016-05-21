@@ -25,7 +25,15 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
+
+        $params = $request->all();
+
         $query = Article::orderBy('created_at', 'asc');
+
+        if (array_key_exists('category_id', $params) {
+            $query->where('category_id', $params['category_id']);
+        }
+
         return $this->pagination($query->paginate());
     }
 

@@ -141,6 +141,9 @@ return [
         // 自定义属性
         'user'                  => '用户',
         'user_id'               => '用户Id',
+        'verify_code'           => '验证码',
+        'old_password'          => '原密码',
+        'new_password'          => '新密码',
         'category'              => '分类',
         'category_id'           => '分类Id',
         'tag'                   => '标签',
