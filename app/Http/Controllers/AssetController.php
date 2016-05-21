@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Asset;
 
+use Auth;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -26,6 +28,19 @@ class AssetController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge(['user_id' => Auth::id()]);
+        $params = $request->all();
+
+        $this->validate($request, [
+            'mime_type' => 'required',
+            'size'      => 'required',
+            'url'       => 'required',
+        ]);
+
+        $data = Asset::create($params);
+        if ($data) {
+            return $this->success($data);
+        }
         return $this->failure();
     }
 

@@ -9,12 +9,12 @@ class Comment extends Model
 {
     use SoftDeletes;
 
-    public const TYPE_TWEET   = 'tweet';
-    public const TYPE_POST    = 'post';
-    public const TYPE_ARTICLE = 'article';
-    public const TYPE_EVENT   = 'event';
+    const TYPE_TWEET   = 'tweet';
+    const TYPE_POST    = 'post';
+    const TYPE_ARTICLE = 'article';
+    const TYPE_EVENT   = 'event';
 
-    public const TYPES = [TYPE_TWEET, TYPE_POST, TYPE_ARTICLE, TYPE_EVENT];
+    const TYPES = [TYPE_TWEET, TYPE_POST, TYPE_ARTICLE, TYPE_EVENT];
 
     /**
      * The accessors to append to the model's array form.

@@ -30,7 +30,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $rules = [
-            'email' => 'required|email|unique:users',
+            'email'    => 'required|email|unique:users',
             'password' => 'required|between:6,32',
             'username' => 'between:4,16|alpha_dash|unique:users',
         ];
@@ -49,7 +49,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $rules = [
-            'email' => 'required|email|exists:users',
+            'email'    => 'required|email|exists:users',
             'password' => 'required|between:6,32',
             'username' => 'min:5|max:32|alpha_dash|unique:users',
         ];
@@ -79,9 +79,9 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         $rules = [
-            'name' => 'min:2|max:32',
-            'age' => 'numeric|between:1,100',
-            'gender' => 'in:unspecified,secrecy,male,female',
+            'name'     => 'min:2|max:32',
+            'age'      => 'numeric|between:1,100',
+            'gender'   => 'in:unspecified,secrecy,male,female',
             'birthday' => 'date_format:Y-m-d'
         ];
         $this->validate($request, $rules);
@@ -97,8 +97,8 @@ class UserController extends Controller
 
     public function passwordReset(Request $request)
     {
-        $email = $request->input('email');
-        $verify_code = $request->input('verify_code');
+        $email        = $request->input('email');
+        $verify_code  = $request->input('verify_code');
         $new_password = $request->input('new_password');
 
         $rules = [
@@ -146,16 +146,6 @@ class UserController extends Controller
         return $this->failure();
     }
 
-    public function index(Request $request)
-    {
-        return $this->failure();
-    }
-
-    public function store(Request $request)
-    {
-        return $this->failure();
-    }
-
     public function show(Request $request, $user_id)
     {
         $request->merge(['user' => $user_id]);
@@ -163,16 +153,6 @@ class UserController extends Controller
 
         $data = User::find($user_id);
         return $this->success($data);
-    }
-
-    public function update(Request $request, $user_id)
-    {
-        return $this->failure();
-    }
-
-    public function destroy(Request $request, $user_id)
-    {
-        return $this->failure();
     }
 
 }
