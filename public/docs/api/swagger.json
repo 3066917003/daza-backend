@@ -1533,6 +1533,41 @@
                 "tags": [
                     "articles"
                 ],
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "formData",
+                        "description": "分类Id",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "author",
+                        "in": "formData",
+                        "description": "作者",
+                        "type": "string"
+                    },
+                    {
+                        "name": "author_link",
+                        "in": "formData",
+                        "description": "作者链接",
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "formData",
+                        "description": "标题",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "内容",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

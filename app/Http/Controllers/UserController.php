@@ -32,13 +32,14 @@ class UserController extends Controller
         $rules = [
             'email' => 'required|email|unique:users',
             'password' => 'required|between:6,32',
-            'username' => 'min:5|max:32|alpha_dash|unique:users',
+            'username' => 'between:4,16|alpha_dash|unique:users',
         ];
         $this->validate($request, $rules);
 
         $request->merge(['password' => bcrypt($request->input('password'))]);
 
-        $user = User::create($request->all());
+        $params = $request->except('mobile');
+        $user = User::create($params);
         if ($user) {
             return $this->success($user);
         }

@@ -11,6 +11,11 @@ class User extends Authenticatable
 {
     use SoftDeletes;
 
+    public const GENDER_UNSPECIFIED = 'unspecified';
+    public const GENDER_SECRECY     = 'secrecy';
+    public const GENDER_MALE        = 'male';
+    public const GENDER_FEMALE      = 'female';
+
     /**
      * The accessors to append to the model's array form.
      *
