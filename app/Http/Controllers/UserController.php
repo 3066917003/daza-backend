@@ -81,7 +81,12 @@ class UserController extends Controller
         $rules = [
             'name'     => 'min:2|max:32',
             'age'      => 'numeric|between:1,100',
-            'gender'   => 'in:unspecified,secrecy,male,female',
+            'gender'   => 'in:' . implode(',', [
+                User::GENDER_UNSPECIFIED,
+                User::GENDER_SECRECY,
+                User::GENDER_MALE,
+                User::GENDER_FEMALE
+            ]),
             'birthday' => 'date_format:Y-m-d'
         ];
         $this->validate($request, $rules);
