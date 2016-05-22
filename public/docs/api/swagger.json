@@ -1117,6 +1117,53 @@
                 }
             }
         },
+        "/tweets/{tweet_id}/likes": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/tweet-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "tweets"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tweets"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/tweets/{tweet_id}/comments": {
             "parameters": [
                 {
@@ -1351,7 +1398,7 @@
                 }
             }
         },
-        "/posts/{post_id}/likes": {
+        "/posts/{post_id}/votes": {
             "parameters": [
                 {
                     "$ref": "#/parameters/post-id"
@@ -1388,6 +1435,15 @@
             "post": {
                 "tags": [
                     "posts"
+                ],
+                "parameters": [
+                    {
+                        "name": "action",
+                        "in": "formData",
+                        "description": "动作 [up, down]",
+                        "type": "string",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -2518,6 +2574,24 @@
                 }
             }
         },
+        "TweetLike": {
+            "type": "object",
+            "description": "推文点赞",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
+                },
+                "tweet_id": {
+                    "type": "integer",
+                    "description": "推文Id"
+                }
+            }
+        },
         "Post": {
             "type": "object",
             "description": "帖子",
@@ -2767,6 +2841,10 @@
                 "content": {
                     "type": "string",
                     "description": "内容"
+                },
+                "unread": {
+                    "type": "string",
+                    "description": "通知未读"
                 }
             }
         },
@@ -2793,6 +2871,20 @@
                 "url": {
                     "type": "string",
                     "description": "链接"
+                }
+            }
+        },
+        "Vote": {
+            "type": "object",
+            "description": "投票",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
                 }
             }
         }

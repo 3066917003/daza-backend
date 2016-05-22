@@ -717,6 +717,34 @@ paths:
             properties:
               status:
                 type: string
+  /tweets/{tweet_id}/likes:
+    parameters:
+      - $ref: '#/parameters/tweet-id'
+    get:
+      tags:
+        - tweets
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/User'
+    post:
+      tags:
+        - tweets
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+
   /tweets/{tweet_id}/comments:
     parameters:
       - $ref: '#/parameters/tweet-id'
@@ -854,7 +882,7 @@ paths:
             properties:
               status:
                 type: string
-  /posts/{post_id}/likes:
+  /posts/{post_id}/votes:
     parameters:
       - $ref: '#/parameters/post-id'
     get:
@@ -876,6 +904,12 @@ paths:
     post:
       tags:
         - posts
+      parameters:
+        - name: action
+          in: formData
+          description: 动作 [up, down]
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -1570,6 +1604,19 @@ definitions:
       comment_count:
         type: integer
         description: 评论数
+  TweetLike:
+    type: object
+    description: 推文点赞
+    properties:
+      id:
+        type: integer
+        description: Id
+      user_id:
+        type: integer
+        description: 用户Id
+      tweet_id:
+        type: integer
+        description: 推文Id
   Post:
     type: object
     description: 帖子
@@ -1757,6 +1804,9 @@ definitions:
       content:
         type: string
         description: 内容
+      unread:
+        type: string
+        description: 通知未读
   Asset:
     type: object
     description: 资源
@@ -1776,3 +1826,13 @@ definitions:
       url:
         type: string
         description: 链接
+  Vote:
+    type: object
+    description: 投票
+    properties:
+      id:
+        type: integer
+        description: Id
+      user_id:
+        type: integer
+        description: 用户Id

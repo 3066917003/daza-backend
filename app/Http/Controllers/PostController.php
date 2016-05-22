@@ -27,9 +27,19 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $query = Post::with('user')->orderBy('created_at', 'asc');
+        $params = $request->all();
 
-        if (array_key_exists('group_id', $params) {
+        $query = Post::orderBy('updated_at', 'desc')
+            ->with([
+                'user'  => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'group' => function ($query) {
+                    $query->select('id', 'name');
+                },
+            ]);
+
+        if (array_key_exists('group_id', $params)) {
             $query->where('group_id', $params['group_id']);
         }
 
@@ -39,6 +49,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge(['user_id' => Auth::id()]);
         $this->validate($request, [
             'group_id' => 'required|exists:groups,id',
             'title'    => 'required|min:6|max:255',
@@ -57,8 +68,14 @@ class PostController extends Controller
         $request->merge(['post' => $post_id]);
         $this->validate($request, ['post' => 'exists:posts,id']);
 
-        $data = Post::with('user')
-            ->with('category')
+        $data = Post::with([
+                'user'  => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'group' => function ($query) {
+                    $query->select('id', 'name');
+                },
+            ])
             ->find($post_id);
         return $this->success($data);
     }

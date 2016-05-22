@@ -31,8 +31,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/groups/{group_id}/join', 'GroupController@join');
     Route::resource('/groups/{group_id}/members', 'GroupMemberController');
     Route::resource('/tweets', 'TweetController');
+    Route::resource('/tweets/{tweet_id}/likes', 'TweetLikeController');
     Route::resource('/tweets/{tweet_id}/comments', 'CommentController');
     Route::resource('/posts', 'PostController');
+    Route::resource('/posts/{post_id}/votes', 'VoteController');
     Route::resource('/posts/{post_id}/comments', 'CommentController');
     Route::resource('/articles', 'ArticleController');
     Route::resource('/articles/{article_id}/comments', 'CommentController');
