@@ -895,6 +895,11 @@ paths:
         - posts
       parameters:
         - $ref: '#/parameters/page'
+        - name: type
+          in: query
+          description: 类型 [up, down]
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -910,9 +915,9 @@ paths:
       tags:
         - posts
       parameters:
-        - name: action
+        - name: type
           in: formData
-          description: 动作 [up, down]
+          description: 类型 [up, down]
           type: string
           required: true
       responses:
@@ -1655,6 +1660,25 @@ definitions:
       comment_count:
         type: integer
         description: 评论数
+  PostVote:
+    type: object
+    description: 帖子投票
+    properties:
+      id:
+        type: integer
+        description: Id
+      user_id:
+        type: integer
+        description: 用户Id
+      post_id:
+        type: integer
+        description: 帖子Id
+      type:
+        type: integer
+        description: 类型
+        enum:
+          - up
+          - down
   Article:
     type: object
     description: 文章
@@ -1831,13 +1855,4 @@ definitions:
       url:
         type: string
         description: 链接
-  Vote:
-    type: object
-    description: 投票
-    properties:
-      id:
-        type: integer
-        description: Id
-      user_id:
-        type: integer
-        description: 用户Id
+      

@@ -34,7 +34,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('/tweets/{tweet_id}/likes', 'TweetLikeController');
     Route::resource('/tweets/{tweet_id}/comments', 'CommentController');
     Route::resource('/posts', 'PostController');
-    Route::resource('/posts/{post_id}/votes', 'VoteController');
+    Route::resource('/posts/{post_id}/votes', 'PostVoteController');
     Route::resource('/posts/{post_id}/comments', 'CommentController');
     Route::resource('/articles', 'ArticleController');
     Route::resource('/articles/{article_id}/comments', 'CommentController');

@@ -1419,6 +1419,13 @@
                 "parameters": [
                     {
                         "$ref": "#/parameters/page"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "类型 [up, down]",
+                        "type": "string",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -1446,9 +1453,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "action",
+                        "name": "type",
                         "in": "formData",
-                        "description": "动作 [up, down]",
+                        "description": "类型 [up, down]",
                         "type": "string",
                         "required": true
                     }
@@ -2644,6 +2651,32 @@
                 }
             }
         },
+        "PostVote": {
+            "type": "object",
+            "description": "帖子投票",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
+                },
+                "post_id": {
+                    "type": "integer",
+                    "description": "帖子Id"
+                },
+                "type": {
+                    "type": "integer",
+                    "description": "类型",
+                    "enum": [
+                        "up",
+                        "down"
+                    ]
+                }
+            }
+        },
         "Article": {
             "type": "object",
             "description": "文章",
@@ -2879,20 +2912,6 @@
                 "url": {
                     "type": "string",
                     "description": "链接"
-                }
-            }
-        },
-        "Vote": {
-            "type": "object",
-            "description": "投票",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "description": "Id"
-                },
-                "user_id": {
-                    "type": "integer",
-                    "description": "用户Id"
                 }
             }
         }
