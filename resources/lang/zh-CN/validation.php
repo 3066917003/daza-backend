@@ -165,6 +165,7 @@ return [
         'order_no'              => '订单号',
         'notification'          => '通知',
         'notification_id'       => '通知Id',
+        'action'                => '动作',
     ],
 
 ];

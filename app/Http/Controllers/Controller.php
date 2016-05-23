@@ -18,8 +18,8 @@ class Controller extends BaseController
         $result = [
             'status' => 'failure',
             'error'  => [
-                'code' => 0,
-                'message' => '',
+                'code' => 422,
+                'message' => 'Unprocessable entity',
                 'errors' => []
             ],
         ];

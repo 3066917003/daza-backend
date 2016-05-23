@@ -737,6 +737,11 @@ paths:
     post:
       tags:
         - tweets
+      parameters:
+        - name: action
+          in: formData
+          description: 动作 [like, unlike]
+          type: string
       responses:
         200:
           description: OK
