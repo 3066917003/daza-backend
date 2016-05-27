@@ -7,6 +7,7 @@ RUN apt-get update \
         libz-dev \
         git \
         wget \
+        cron \
 
     # 官方 PHP 镜像内置命令，安装 PHP 依赖
     && docker-php-ext-install \
@@ -47,3 +48,8 @@ COPY . /app
 RUN composer install \
     && chown -R www-data:www-data /app \
     && chmod -R 0777 /app/storage
+
+# Set up cron
+ADD crontab /var/spool/cron/crontabs/www-data
+RUN chown www-data.crontab /var/spool/cron/crontabs/www-data
+RUN chmod 0600 /var/spool/cron/crontabs/www-data

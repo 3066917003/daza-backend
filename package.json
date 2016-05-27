@@ -1,13 +1,13 @@
 {
   "private": true,
-  "devDependencies": {
-    "gulp": "^3.9.1"
-  },
-  "dependencies": {
-    "laravel-elixir": "^5.0.0",
-    "bootstrap-sass": "^3.0.0"
-  },
   "scripts": {
+    "prod": "gulp --production",
+    "dev": "gulp watch",
     "start": "open http://localhost:8000 && php artisan serve"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "laravel-elixir": "^5.0.0",
+    "bootstrap-sass": "^3.3.0"
   }
 }
