@@ -51,5 +51,8 @@ RUN composer install \
 
 # Set up cron
 COPY _linux/etc/cron.d/laravel /etc/cron.d/laravel
+RUN chown www-data:crontab /etc/cron.d/laravel
 RUN chmod 644 /etc/cron.d/laravel
 RUN touch /var/log/cron.log
+
+CMD cron && tail -f /var/log/cron.log
