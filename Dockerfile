@@ -16,7 +16,6 @@ RUN apt-get update \
         pdo_mysql \
         zip \
 
-
     # 用完包管理器后安排打扫卫生可以显著的减少镜像大小
     && apt-get clean \
     && apt-get autoclean \
@@ -53,3 +52,5 @@ RUN composer install \
 ADD crontab /var/spool/cron/crontabs/www-data
 RUN chown www-data.crontab /var/spool/cron/crontabs/www-data
 RUN chmod 0600 /var/spool/cron/crontabs/www-data
+RUN touch /var/log/cron.log
+CMD cron && tail -f /var/log/cron.log
