@@ -8,6 +8,7 @@ RUN apt-get update \
         git \
         wget \
         cron \
+        vim \
 
     # 官方 PHP 镜像内置命令，安装 PHP 依赖
     && docker-php-ext-install \
@@ -49,8 +50,7 @@ RUN composer install \
     && chmod -R 0777 /app/storage
 
 # Set up cron
-ADD crontab /var/spool/cron/crontabs/www-data
-RUN chown www-data.crontab /var/spool/cron/crontabs/www-data
-RUN chmod 0600 /var/spool/cron/crontabs/www-data
-RUN touch /var/log/cron.log
+ADD crontab /etc/cron.d/crontab
+RUN chmod 644 /etc/cron.d/crontab && touch /var/log/cron.log
+
 CMD cron && tail -f /var/log/cron.log
