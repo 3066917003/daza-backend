@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Tweet;
+use DB;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
@@ -29,9 +30,8 @@ class Inspire extends Command
      */
     public function handle()
     {
-        Tweet::create(
+        DB::table('tweets')->insert(
             ['content' => 'Hi']
         );
-        $this->comment(PHP_EOL.Inspiring::quote().PHP_EOL);
     }
 }
