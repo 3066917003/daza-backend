@@ -50,9 +50,10 @@ RUN composer install \
     && chmod -R 0777 /app/storage
 
 # Set up cron
-COPY _linux/etc/cron.d/laravel /etc/cron.d/laravel
-RUN chown www-data:crontab /etc/cron.d/laravel
-RUN chmod 644 /etc/cron.d/laravel
+
+ADD _linux/etc/cron.d/laravel /var/spool/cron/crontabs/www-data
+RUN chown www-data:crontab /var/spool/cron/crontabs/www-data
+RUN chmod 0600 /var/spool/cron/crontabs/www-data
 RUN touch /var/log/cron.log
 
 CMD cron && tail -f /var/log/cron.log
