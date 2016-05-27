@@ -51,7 +51,7 @@ RUN composer install \
 
 # Set up cron
 ADD crontab /var/spool/cron/crontabs/www-data
-RUN chown www-data.crontab /var/spool/cron/crontabs/www-data
+RUN chown www-data:www-data /var/spool/cron/crontabs/www-data
 RUN chmod 0600 /var/spool/cron/crontabs/www-data
 RUN touch /var/log/cron.log
 
