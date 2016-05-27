@@ -50,9 +50,9 @@ RUN composer install \
     && chmod -R 0777 /app/storage
 
 # Set up cron
-ADD crontab /var/spool/cron/crontabs/www-data
-RUN chown www-data:www-data /var/spool/cron/crontabs/www-data
-RUN chmod 0600 /var/spool/cron/crontabs/www-data
+ADD crontab /var/spool/cron/crontabs/root
+RUN chown root:crontab /var/spool/cron/crontabs/root
+RUN chmod 0600 /var/spool/cron/crontabs/root
 RUN touch /var/log/cron.log
 
 CMD cron && tail -f /var/log/cron.log
