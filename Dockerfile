@@ -50,7 +50,5 @@ RUN composer install \
     && chmod -R 0777 /app/storage
 
 # Set up cron
-ADD crontab /etc/cron.d/crontab
-RUN chmod 644 /etc/cron.d/crontab && touch /var/log/cron.log
-
-CMD cron && tail -f /var/log/cron.log
+RUN echo '* * * * * php /app/artisan schedule:run >> /dev/null 2>&1' >> /etc/crontab
+CMD ["cron", "-f"]
