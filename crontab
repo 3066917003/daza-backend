@@ -1,2 +1,2 @@
-*/1 * * * * echo "Hello world >> /var/log/cron.log 2>&1
+* * * * * echo "Hello world" >> /var/log/cron.log 2>&1
 * * * * * /usr/local/bin/php /app/artisan schedule:run >> /var/log/cron.log 2>&1
