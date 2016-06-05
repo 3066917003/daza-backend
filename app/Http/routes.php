@@ -40,7 +40,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('/articles/{article_id}/comments', 'CommentController');
     Route::resource('/events', 'EventController');
     Route::resource('/events/{event_id}/comments', 'CommentController');
-    Route::resource('/orders', 'OrderController');
     Route::resource('/notifications', 'NotificationController');
     Route::post('/notifications/mark', 'NotificationController@mark');
     Route::resource('/assets', 'AssetController');
