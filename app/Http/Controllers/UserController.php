@@ -30,9 +30,9 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $rules = [
+            'username' => 'required|between:4,32|alpha_dash|unique:users',
             'email'    => 'required|email|unique:users',
             'password' => 'required|between:6,32',
-            'username' => 'between:4,16|alpha_dash|unique:users',
         ];
         $this->validate($request, $rules);
 
