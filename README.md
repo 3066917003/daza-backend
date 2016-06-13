@@ -1,11 +1,9 @@
-# Phoenix Back-End
+# Daza.io Back-End
 
-[![Join the chat at https://gitter.im/lijy91/phoenix-backend](https://badges.gitter.im/lijy91/phoenix-backend.svg)](https://gitter.im/lijy91/phoenix-backend?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![Build Status](https://api.travis-ci.org/lijy91/phoenix-backend.svg?branch=master)](https://travis-ci.org/lijy91/phoenix-backend)
+[![Build Status](https://api.travis-ci.org/lijy91/daza-backend.svg?branch=master)](https://travis-ci.org/lijy91/daza-backend)
 
 ## 演示
-[Live Demo](http://phoenix-backend.daoapp.io)
+[Live Demo](http://daza-backend.daoapp.io)
 
 ## 项目依赖
 - [PHP >= 5.5.9](http://php.net/)
@@ -17,8 +15,8 @@
 ### 克隆项目源码到本地
 ```
 $ cd ~/Documents/Projects
-$ git clone git@github.com:lijy91/phoenix-backend.git
-$ cd phoenix-backend
+$ git clone git@github.com:lijy91/daza-backend.git
+$ cd daza-backend
 ```
 
 ### 使用 [Composer](https://getcomposer.org/) 安装项目依赖
@@ -37,7 +35,7 @@ $ php artisan key:generate
 ```
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=phoenix_db
+DB_DATABASE=daza_db
 DB_USERNAME=root
 DB_PASSWORD=
 ```

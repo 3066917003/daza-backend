@@ -14,9 +14,9 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();   // 名称
-            $table->string('image_url');        // 图片网址
-            $table->string('description');      // 描述
+            $table->string('name', 191)->unique();  // 名称
+            $table->string('image_url');            // 图片网址
+            $table->string('description');          // 描述
             $table->softDeletes();
             $table->timestamps();
         });

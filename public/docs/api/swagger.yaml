@@ -2,16 +2,16 @@ swagger: '2.0'
 
 info:
   version: "0.0.1"
-  title: Phoenix RESTful API
+  title: Daza.io RESTful API
   description: |
     ### 状态属性
-    
+
     ### 错误属性
-    
+
     ### 分页属性
-    
+
     ### 数据属性
-    
+
     请求响应示例
     ```json
     {
@@ -1725,7 +1725,7 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
-      type: 
+      type:
         type: string
         description: 类型
         enum:
@@ -1733,7 +1733,7 @@ definitions:
           - post
           - article
           - event
-      target_id: 
+      target_id:
         type: integer
         description: 目标Id
       content:
@@ -1780,4 +1780,3 @@ definitions:
       url:
         type: string
         description: 链接
-      
