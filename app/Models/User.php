@@ -50,6 +50,14 @@ class User extends Authenticatable
         'deleted_at'
     ];
 
+    public function getNameAttribute()
+    {
+        if (!$this->attributes['name']) {
+            return $this->attributes['username'];
+        }
+        return $this->attributes['name'];
+    }
+
     public function getFollowedAttribute()
     {
         if (Auth::check()) {
