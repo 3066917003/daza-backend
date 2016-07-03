@@ -87,7 +87,7 @@ class UserController extends Controller
                 User::GENDER_MALE,
                 User::GENDER_FEMALE
             ]),
-            'birthday' => 'date_format:Y-m-d'
+            'birthday' => 'date_format:Y-m-d|before:today'
         ];
         $this->validate($request, $rules);
 

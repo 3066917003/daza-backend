@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Auth;
+use Carbon\Carbon;
+use Validator;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -56,6 +58,22 @@ class User extends Authenticatable
             return $this->attributes['username'];
         }
         return $this->attributes['name'];
+    }
+
+    public function getAgeAttribute() {
+        $age = $this->attributes['age'];
+        $birthday = $this->attributes['birthday'];
+
+        $rules = ['birthday' => 'required|date_format:Y-m-d|before:today'];
+
+        $validator = Validator::make(['birthday' => $birthday], $rules);
+
+        if (!$validator->fails()) {
+            $today = Carbon::today();
+            $birthday_dt = Carbon::createFromFormat('Y-m-d', $birthday);
+            $age = $today->diffInYears($birthday_dt);
+        }
+        return $age;
     }
 
     public function getFollowedAttribute()
