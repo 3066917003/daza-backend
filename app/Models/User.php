@@ -79,6 +79,9 @@ class User extends Authenticatable
     public function getFollowedAttribute()
     {
         if (Auth::check()) {
+            if (Auth::id() == $this->id) {
+                return true;
+            }
             return UserRelationship::where([
                 'user_id'        => Auth::id(),
                 'target_user_id' => $this->id

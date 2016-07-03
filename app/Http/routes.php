@@ -16,13 +16,13 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::post('/account/register', 'UserController@register');
-    Route::post('/account/login', 'UserController@login');
-    Route::post('/account/logout', 'UserController@logout');
-    Route::get('/account/profile', 'UserController@getProfile');
-    Route::put('/account/profile', 'UserController@updateProfile');
-    Route::post('/account/password_reset', 'UserController@passwordReset');
-    Route::post('/account/password_modify', 'UserController@passwordModify');
+    Route::post('/account/register', 'AccountController@register');
+    Route::post('/account/login', 'AccountController@login');
+    Route::post('/account/logout', 'AccountController@logout');
+    Route::get('/account/profile', 'AccountController@getProfile');
+    Route::put('/account/profile', 'AccountController@updateProfile');
+    Route::post('/account/password_reset', 'AccountController@passwordReset');
+    Route::post('/account/password_modify', 'AccountController@passwordModify');
     Route::resource('/users', 'UserController');
     Route::post('/users/{user_id}/relationship', 'UserRelationshipController@store');
     Route::resource('/categories', 'CategoryController');
