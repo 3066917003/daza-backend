@@ -15,7 +15,6 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');         // 用户Id
-            $table->integer('group_id');        // 小组Id
             $table->string('title');            // 标题
             $table->string('content');          // 内容
             $table->string('location');         // 位置
