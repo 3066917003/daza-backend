@@ -23,12 +23,12 @@ class UserController extends Controller
         ]);
     }
 
-    public function show(Request $request, $user_id)
+    public function show(Request $request, $id)
     {
-        $request->merge(['user' => $user_id]);
+        $request->merge(['user' => $id]);
         $this->validate($request, ['user' => 'exists:users,id']);
 
-        $data = User::find($user_id);
+        $data = User::find($id);
         return $this->success($data);
     }
 

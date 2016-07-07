@@ -15,7 +15,13 @@ class EventController extends Controller
     public function __construct()
     {
         // 执行 auth 认证
-        $this->middleware('auth');
+        $this->middleware('auth', [
+            'except' => [
+                'index',
+                'show',
+                'members',
+            ]
+        ]);
     }
 
     public function index(Request $request)
@@ -29,12 +35,12 @@ class EventController extends Controller
         return $this->failure();
     }
 
-    public function show(Request $request, $event_id)
+    public function show(Request $request, $id)
     {
-        $request->merge(['event' => $event_id]);
+        $request->merge(['event' => $id]);
         $this->validate($request, ['event' => 'exists:events,id']);
 
-        $data = Event::find($event_id);
+        $data = Event::find($id);
         return $this->success($data);
     }
 
@@ -44,6 +50,16 @@ class EventController extends Controller
     }
 
     public function destroy(Request $request)
+    {
+        return $this->failure();
+    }
+
+    public function join(Request $request, $id)
+    {
+        return $this->failure();
+    }
+
+    public function members(Request $request, $id)
     {
         return $this->failure();
     }

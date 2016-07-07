@@ -73,7 +73,8 @@ class AccountController extends Controller
 
     public function getProfile(Request $request)
     {
-        return $this->success(Auth::user());
+        $data = User::find(Auth::id());
+        return $this->success($data);
     }
 
     public function updateProfile(Request $request)
@@ -149,15 +150,6 @@ class AccountController extends Controller
             return $this->success($user);
         }
         return $this->failure();
-    }
-
-    public function show(Request $request, $user_id)
-    {
-        $request->merge(['user' => $user_id]);
-        $this->validate($request, ['user' => 'exists:users,id']);
-
-        $data = User::find($user_id);
-        return $this->success($data);
     }
 
 }

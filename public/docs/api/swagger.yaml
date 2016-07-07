@@ -640,10 +640,6 @@ paths:
         - posts
       parameters:
         - $ref: '#/parameters/page'
-        - name: group_id
-          in: query
-          description: 小组Id
-          type: integer
       responses:
         200:
           description: OK
@@ -659,11 +655,6 @@ paths:
       tags:
         - posts
       parameters:
-        - name: group_id
-          in: formData
-          description: 小组Id
-          type: integer
-          required: true
         - name: title
           in: formData
           description: 标题
@@ -817,10 +808,6 @@ paths:
         - articles
       parameters:
         - $ref: '#/parameters/page'
-        - name: category_id
-          in: query
-          description: 分类Id
-          type: integer
       responses:
         200:
           description: OK
@@ -1368,9 +1355,6 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
-      group_id:
-        type: integer
-        description: 小组Id
       title:
         type: string
         description: 标题
@@ -1420,9 +1404,6 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
-      category_id:
-        type: integer
-        description: 分类Id
       author:
         type: string
         description: 作者
