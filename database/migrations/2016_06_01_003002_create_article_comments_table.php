@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostVotesTable extends Migration
+class CreateArticleCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class CreatePostVotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_votes', function (Blueprint $table) {
+        Schema::create('article_comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');     // 用户Id
-            $table->integer('post_id');     // 目标Id
-            $table->string('type');         // 类型[up, down]
+            $table->integer('article_id');  // 文章Id
+            $table->string('content');      // 内容
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreatePostVotesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('post_votes');
+        Schema::drop('article_comments');
     }
 }

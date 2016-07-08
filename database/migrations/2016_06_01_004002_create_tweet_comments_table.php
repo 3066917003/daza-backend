@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentsTable extends Migration
+class CreateTweetCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('tweet_comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');     // 用户Id
-            $table->string('type');         // 类型[tweet, post, article, event]
-            $table->integer('target_id');   // 目标Id
+            $table->integer('tweet_id');    // 推文Id
             $table->string('content');      // 内容
             $table->softDeletes();
             $table->timestamps();
@@ -30,6 +29,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('comments');
+        Schema::drop('tweet_comments');
     }
 }

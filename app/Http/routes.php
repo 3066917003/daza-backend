@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'v1'], function () {
+    // account
     Route::post('/account/register', 'AccountController@register');
     Route::post('/account/login', 'AccountController@login');
     Route::post('/account/logout', 'AccountController@logout');
@@ -23,23 +24,24 @@ Route::group(['prefix' => 'v1'], function () {
     Route::put('/account/profile', 'AccountController@updateProfile');
     Route::post('/account/password_reset', 'AccountController@passwordReset');
     Route::post('/account/password_modify', 'AccountController@passwordModify');
+    // users
     Route::resource('/users', 'UserController');
     Route::post('/users/{user_id}/relationship', 'UserRelationshipController@store');
-    Route::resource('/categories', 'CategoryController');
-    Route::resource('/tags', 'TagController');
-    Route::resource('/groups', 'GroupController');
-    Route::post('/groups/{group_id}/join', 'GroupController@join');
-    Route::resource('/groups/{group_id}/members', 'GroupMemberController');
+    // topics
+    Route::resource('/topics', 'TopicController');
+    // articles
+    Route::resource('/articles', 'ArticleController');
+    Route::resource('/articles/{article_id}/likes', 'ArticleLikeController');
+    Route::resource('/articles/{article_id}/comments', 'ArticleCommentController');
+    // tweets
     Route::resource('/tweets', 'TweetController');
     Route::resource('/tweets/{tweet_id}/likes', 'TweetLikeController');
-    Route::resource('/tweets/{tweet_id}/comments', 'CommentController');
-    Route::resource('/posts', 'PostController');
-    Route::resource('/posts/{post_id}/votes', 'PostVoteController');
-    Route::resource('/posts/{post_id}/comments', 'CommentController');
-    Route::resource('/articles', 'ArticleController');
-    Route::resource('/articles/{article_id}/comments', 'CommentController');
+    Route::resource('/tweets/{tweet_id}/comments', 'TweetCommentController');
+    // events
     Route::resource('/events', 'EventController');
-    Route::resource('/events/{event_id}/comments', 'CommentController');
+    // tags
+    Route::resource('/tags', 'TagController');
+    // notifications
     Route::resource('/notifications', 'NotificationController');
     Route::post('/notifications/mark', 'NotificationController@mark');
     Route::resource('/assets', 'AssetController');

@@ -5,16 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Comment extends Model
+class TweetComment extends Model
 {
     use SoftDeletes;
-
-    const TYPE_TWEET   = 'tweet';
-    const TYPE_POST    = 'post';
-    const TYPE_ARTICLE = 'article';
-    const TYPE_EVENT   = 'event';
-
-    const TYPES = [TYPE_TWEET, TYPE_POST, TYPE_ARTICLE, TYPE_EVENT];
 
     /**
      * The accessors to append to the model's array form.
@@ -43,7 +36,6 @@ class Comment extends Model
      * @var array
      */
     protected $hidden = [
-        'type',
         'deleted_at'
     ];
 

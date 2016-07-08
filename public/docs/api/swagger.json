@@ -20,22 +20,19 @@
             "name": "users"
         },
         {
-            "name": "tags"
-        },
-        {
-            "name": "tweets"
-        },
-        {
-            "name": "posts"
+            "name": "topics"
         },
         {
             "name": "articles"
         },
         {
+            "name": "tweets"
+        },
+        {
             "name": "events"
         },
         {
-            "name": "comments"
+            "name": "tags"
         },
         {
             "name": "notifications"
@@ -55,31 +52,10 @@
             "type": "integer",
             "required": true
         },
-        "tag-id": {
-            "name": "tag_id",
+        "topic-id": {
+            "name": "topic_id",
             "in": "path",
-            "description": "标签Id",
-            "type": "integer",
-            "required": true
-        },
-        "tag-name": {
-            "name": "tag_name",
-            "in": "path",
-            "description": "标签名称",
-            "type": "string",
-            "required": true
-        },
-        "tweet-id": {
-            "name": "tweet_id",
-            "in": "path",
-            "description": "推文Id",
-            "type": "integer",
-            "required": true
-        },
-        "post-id": {
-            "name": "post_id",
-            "in": "path",
-            "description": "帖子Id",
+            "description": "主题Id",
             "type": "integer",
             "required": true
         },
@@ -90,6 +66,27 @@
             "type": "integer",
             "required": true
         },
+        "article-comment-id": {
+            "name": "article_comment_id",
+            "in": "path",
+            "description": "文章评论Id",
+            "type": "integer",
+            "required": true
+        },
+        "tweet-id": {
+            "name": "tweet_id",
+            "in": "path",
+            "description": "推文Id",
+            "type": "integer",
+            "required": true
+        },
+        "tweet-comment-id": {
+            "name": "tweet_comment_id",
+            "in": "path",
+            "description": "推文评论Id",
+            "type": "integer",
+            "required": true
+        },
         "event-id": {
             "name": "event_id",
             "in": "path",
@@ -97,11 +94,11 @@
             "type": "integer",
             "required": true
         },
-        "comment-id": {
-            "name": "comment_id",
+        "tag-name": {
+            "name": "tag_name",
             "in": "path",
-            "description": "评论Id",
-            "type": "integer",
+            "description": "标签名称",
+            "type": "string",
             "required": true
         },
         "notification-id": {
@@ -488,6 +485,41 @@
                 }
             }
         },
+        "/users/{user_id}/topic": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/user-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Topic"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users/{user_id}/tweets": {
             "parameters": [
                 {
@@ -515,41 +547,6 @@
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/definitions/Tweet"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/users/{user_id}/posts": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/user-id"
-                }
-            ],
-            "get": {
-                "tags": [
-                    "users"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/page"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Post"
                                     }
                                 }
                             }
@@ -593,10 +590,10 @@
                 }
             }
         },
-        "/tags": {
+        "/topics": {
             "get": {
                 "tags": [
-                    "tags"
+                    "topics"
                 ],
                 "parameters": [
                     {
@@ -614,7 +611,7 @@
                                 "data": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/Tag"
+                                        "$ref": "#/definitions/Topic"
                                     }
                                 }
                             }
@@ -624,260 +621,25 @@
             },
             "post": {
                 "tags": [
-                    "tags"
+                    "topics"
                 ],
                 "parameters": [
                     {
                         "name": "name",
                         "in": "formData",
                         "description": "名称",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Tag"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tags/{tag_name}": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/tag-name"
-                }
-            ],
-            "get": {
-                "tags": [
-                    "tags"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Tag"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tags/{tag_name}/posts": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/tag-name"
-                }
-            ],
-            "get": {
-                "tags": [
-                    "tags"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/page"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Post"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tweets": {
-            "get": {
-                "tags": [
-                    "tweets"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/page"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Tweet"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "tweets"
-                ],
-                "parameters": [
-                    {
-                        "name": "content",
-                        "in": "formData",
-                        "description": "内容",
-                        "type": "string",
-                        "required": true
+                        "type": "string"
                     },
                     {
-                        "name": "location",
+                        "name": "image_url",
                         "in": "formData",
-                        "type": "string",
-                        "description": "位置"
+                        "description": "图片网址",
+                        "type": "string"
                     },
                     {
-                        "name": "longitude",
-                        "type": "number",
+                        "name": "description",
                         "in": "formData",
-                        "format": "double",
-                        "description": "经度"
-                    },
-                    {
-                        "name": "latitude",
-                        "in": "formData",
-                        "type": "number",
-                        "format": "double",
-                        "description": "纬度"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Tweet"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tweets/{tweet_id}": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/tweet-id"
-                }
-            ],
-            "get": {
-                "tags": [
-                    "tweets"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Tweet"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "tweets"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tweets/{tweet_id}/likes": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/tweet-id"
-                }
-            ],
-            "get": {
-                "tags": [
-                    "tweets"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/User"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "tweets"
-                ],
-                "parameters": [
-                    {
-                        "name": "action",
-                        "in": "formData",
-                        "description": "动作 [like, unlike]",
+                        "description": "描述",
                         "type": "string"
                     }
                 ],
@@ -888,6 +650,9 @@
                             "properties": {
                                 "status": {
                                     "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Topic"
                                 }
                             }
                         }
@@ -895,21 +660,16 @@
                 }
             }
         },
-        "/tweets/{tweet_id}/comments": {
+        "/topics/{topic_id}": {
             "parameters": [
                 {
-                    "$ref": "#/parameters/tweet-id"
+                    "$ref": "#/parameters/topic-id"
                 }
             ],
             "get": {
                 "tags": [
                     "tweets"
                 ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/page"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -919,179 +679,7 @@
                                     "type": "string"
                                 },
                                 "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Comment"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "tweets"
-                ],
-                "parameters": [
-                    {
-                        "name": "content",
-                        "in": "formData",
-                        "description": "内容",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Comment"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tweets/{tweet_id}/comments/{comment_id}": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/tweet-id"
-                },
-                {
-                    "$ref": "#/parameters/comment-id"
-                }
-            ],
-            "delete": {
-                "tags": [
-                    "tweets"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/posts": {
-            "get": {
-                "tags": [
-                    "posts"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/page"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Post"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "posts"
-                ],
-                "parameters": [
-                    {
-                        "name": "title",
-                        "in": "formData",
-                        "description": "标题",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "content",
-                        "in": "formData",
-                        "description": "内容",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Post"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/posts/{post_id}": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/post-id"
-                }
-            ],
-            "get": {
-                "tags": [
-                    "posts"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Post"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "posts"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Topic"
                                 }
                             }
                         }
@@ -1100,166 +688,7 @@
             },
             "delete": {
                 "tags": [
-                    "posts"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/posts/{post_id}/votes": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/post-id"
-                }
-            ],
-            "get": {
-                "tags": [
-                    "posts"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/page"
-                    },
-                    {
-                        "name": "type",
-                        "in": "query",
-                        "description": "类型 [up, down]",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/User"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "posts"
-                ],
-                "parameters": [
-                    {
-                        "name": "type",
-                        "in": "formData",
-                        "description": "类型 [up, down]",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/posts/{post_id}/comments": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/post-id"
-                }
-            ],
-            "get": {
-                "tags": [
-                    "posts"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/page"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Comment"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "posts"
-                ],
-                "parameters": [
-                    {
-                        "name": "content",
-                        "in": "formData",
-                        "description": "内容",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Comment"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/posts/{post_id}/comments/{comment_id}": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/post-id"
-                },
-                {
-                    "$ref": "#/parameters/comment-id"
-                }
-            ],
-            "delete": {
-                "tags": [
-                    "posts"
+                    "tweets"
                 ],
                 "responses": {
                     "200": {
@@ -1417,6 +846,61 @@
                 }
             }
         },
+        "/articles/{article_id}/likes": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/article-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "articles"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/ArticleLike"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "articles"
+                ],
+                "parameters": [
+                    {
+                        "name": "action",
+                        "in": "formData",
+                        "description": "动作 [like, unlike]",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/articles/{article_id}/comments": {
             "parameters": [
                 {
@@ -1443,7 +927,7 @@
                                 "data": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/Comment"
+                                        "$ref": "#/definitions/ArticleComment"
                                     }
                                 }
                             }
@@ -1473,7 +957,7 @@
                                     "type": "string"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Comment"
+                                    "$ref": "#/definitions/ArticleComment"
                                 }
                             }
                         }
@@ -1481,18 +965,290 @@
                 }
             }
         },
-        "/articles/{article_id}/comments/{comment_id}": {
+        "/articles/{article_id}/comments/{article_comment_id}": {
             "parameters": [
                 {
                     "$ref": "#/parameters/article-id"
                 },
                 {
-                    "$ref": "#/parameters/comment-id"
+                    "$ref": "#/parameters/article-comment-id"
                 }
             ],
             "delete": {
                 "tags": [
                     "articles"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tweets": {
+            "get": {
+                "tags": [
+                    "tweets"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Tweet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tweets"
+                ],
+                "parameters": [
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "内容",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "location",
+                        "in": "formData",
+                        "type": "string",
+                        "description": "位置"
+                    },
+                    {
+                        "name": "longitude",
+                        "type": "number",
+                        "in": "formData",
+                        "format": "double",
+                        "description": "经度"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "type": "number",
+                        "format": "double",
+                        "description": "纬度"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Tweet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tweets/{tweet_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/tweet-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "tweets"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Tweet"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tweets"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tweets/{tweet_id}/likes": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/tweet-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "tweets"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/TweetLike"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tweets"
+                ],
+                "parameters": [
+                    {
+                        "name": "action",
+                        "in": "formData",
+                        "description": "动作 [like, unlike]",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tweets/{tweet_id}/comments": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/tweet-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "tweets"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/ArticleComment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tweets"
+                ],
+                "parameters": [
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "内容",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/TweetComment"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tweets/{tweet_id}/comments/{tweet_comment_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/tweet-id"
+                },
+                {
+                    "$ref": "#/parameters/tweet-comment-id"
+                }
+            ],
+            "delete": {
+                "tags": [
+                    "tweets"
                 ],
                 "responses": {
                     "200": {
@@ -1670,7 +1426,7 @@
                                     "type": "string"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/User"
+                                    "$ref": "#/definitions/EventMember"
                                 }
                             }
                         }
@@ -1678,15 +1434,10 @@
                 }
             }
         },
-        "/events/{event_id}/comments": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/event-id"
-                }
-            ],
+        "/tags": {
             "get": {
                 "tags": [
-                    "events"
+                    "tags"
                 ],
                 "parameters": [
                     {
@@ -1704,7 +1455,7 @@
                                 "data": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/Comment"
+                                        "$ref": "#/definitions/Tag"
                                     }
                                 }
                             }
@@ -1714,13 +1465,13 @@
             },
             "post": {
                 "tags": [
-                    "events"
+                    "tags"
                 ],
                 "parameters": [
                     {
-                        "name": "content",
+                        "name": "name",
                         "in": "formData",
-                        "description": "内容",
+                        "description": "名称",
                         "type": "string",
                         "required": true
                     }
@@ -1734,7 +1485,7 @@
                                     "type": "string"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Comment"
+                                    "$ref": "#/definitions/Tag"
                                 }
                             }
                         }
@@ -1742,18 +1493,15 @@
                 }
             }
         },
-        "/events/{event_id}/comments/{comment_id}": {
+        "/tags/{tag_name}": {
             "parameters": [
                 {
-                    "$ref": "#/parameters/event-id"
-                },
-                {
-                    "$ref": "#/parameters/comment-id"
+                    "$ref": "#/parameters/tag-name"
                 }
             ],
-            "delete": {
+            "get": {
                 "tags": [
-                    "events"
+                    "tags"
                 ],
                 "responses": {
                     "200": {
@@ -1762,6 +1510,9 @@
                             "properties": {
                                 "status": {
                                     "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Tag"
                                 }
                             }
                         }
@@ -2062,9 +1813,9 @@
                 }
             }
         },
-        "Tag": {
+        "Topic": {
             "type": "object",
-            "description": "标签",
+            "description": "主题",
             "properties": {
                 "id": {
                     "type": "integer",
@@ -2081,6 +1832,100 @@
                 "description": {
                     "type": "string",
                     "description": "描述"
+                }
+            }
+        },
+        "Article": {
+            "type": "object",
+            "description": "文章",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
+                },
+                "topic_id": {
+                    "type": "integer",
+                    "description": "主题Id"
+                },
+                "author": {
+                    "type": "string",
+                    "description": "作者"
+                },
+                "author_link": {
+                    "type": "string",
+                    "description": "作者链接"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "来源"
+                },
+                "source_link": {
+                    "type": "string",
+                    "description": "来源链接"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "标题"
+                },
+                "summary": {
+                    "type": "string",
+                    "description": "摘要"
+                },
+                "content": {
+                    "type": "string",
+                    "description": "内容"
+                },
+                "like_count": {
+                    "type": "integer",
+                    "description": "喜欢数"
+                },
+                "comment_count": {
+                    "type": "integer",
+                    "description": "评论数"
+                }
+            }
+        },
+        "ArticleLike": {
+            "type": "object",
+            "description": "推文点赞",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
+                },
+                "article_id": {
+                    "type": "integer",
+                    "description": "文章Id"
+                }
+            }
+        },
+        "ArticleComment": {
+            "type": "object",
+            "description": "文章评论",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
+                },
+                "article_id": {
+                    "type": "integer",
+                    "description": "文章Id"
+                },
+                "content": {
+                    "type": "string",
+                    "description": "内容"
                 }
             }
         },
@@ -2123,13 +1968,17 @@
                         "iPhone",
                         "iPad",
                         "WindowsPhone",
-                        "MacOS",
+                        "macOS",
                         "Windows"
                     ]
                 },
                 "source_link": {
                     "type": "string",
                     "description": "来源链接"
+                },
+                "like_count": {
+                    "type": "integer",
+                    "description": "喜欢数"
                 },
                 "comment_count": {
                     "type": "integer",
@@ -2155,9 +2004,9 @@
                 }
             }
         },
-        "Post": {
+        "TweetComment": {
             "type": "object",
-            "description": "帖子",
+            "description": "推文评论",
             "properties": {
                 "id": {
                     "type": "integer",
@@ -2167,95 +2016,13 @@
                     "type": "integer",
                     "description": "用户Id"
                 },
-                "title": {
-                    "type": "string",
-                    "description": "标题"
+                "tweet_id": {
+                    "type": "integer",
+                    "description": "推文Id"
                 },
                 "content": {
                     "type": "string",
                     "description": "内容"
-                },
-                "location": {
-                    "type": "string",
-                    "description": "位置"
-                },
-                "longitude": {
-                    "type": "number",
-                    "format": "double",
-                    "description": "经度"
-                },
-                "latitude": {
-                    "type": "number",
-                    "format": "double",
-                    "description": "纬度"
-                },
-                "comment_count": {
-                    "type": "integer",
-                    "description": "评论数"
-                }
-            }
-        },
-        "PostVote": {
-            "type": "object",
-            "description": "帖子投票",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "description": "Id"
-                },
-                "user_id": {
-                    "type": "integer",
-                    "description": "用户Id"
-                },
-                "post_id": {
-                    "type": "integer",
-                    "description": "帖子Id"
-                },
-                "type": {
-                    "type": "integer",
-                    "description": "类型",
-                    "enum": [
-                        "up",
-                        "down"
-                    ]
-                }
-            }
-        },
-        "Article": {
-            "type": "object",
-            "description": "文章",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "description": "Id"
-                },
-                "user_id": {
-                    "type": "integer",
-                    "description": "用户Id"
-                },
-                "author": {
-                    "type": "string",
-                    "description": "作者"
-                },
-                "author_link": {
-                    "type": "string",
-                    "description": "作者链接"
-                },
-                "title": {
-                    "type": "string",
-                    "description": "标题"
-                },
-                "excerpt": {
-                    "type": "string",
-                    "description": "摘要"
-                },
-                "content": {
-                    "type": "string",
-                    "description": "内容"
-                },
-                "comment_count": {
-                    "type": "integer",
-                    "description": "评论数"
                 }
             }
         },
@@ -2342,35 +2109,25 @@
                 }
             }
         },
-        "Comment": {
+        "Tag": {
             "type": "object",
-            "description": "评论",
+            "description": "标签",
             "properties": {
                 "id": {
                     "type": "integer",
                     "description": "Id"
                 },
-                "user_id": {
-                    "type": "integer",
-                    "description": "用户Id"
-                },
-                "type": {
+                "name": {
                     "type": "string",
-                    "description": "类型",
-                    "enum": [
-                        "tweet",
-                        "post",
-                        "article",
-                        "event"
-                    ]
+                    "description": "名称"
                 },
-                "target_id": {
-                    "type": "integer",
-                    "description": "目标Id"
-                },
-                "content": {
+                "image_url": {
                     "type": "string",
-                    "description": "内容"
+                    "description": "图片网址"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "描述"
                 }
             }
         },

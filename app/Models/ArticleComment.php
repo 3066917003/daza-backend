@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PostVote extends Model
+class ArticleComment extends Model
 {
     use SoftDeletes;
 
@@ -38,5 +38,10 @@ class PostVote extends Model
     protected $hidden = [
         'deleted_at'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 
 }
