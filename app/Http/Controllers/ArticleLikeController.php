@@ -27,6 +27,7 @@ class ArticleLikeController extends Controller
 
     public function index(Request $request, $id)
     {
+        $request->merge(['article' => $id]);
         $rules = [
             'article' => 'exists:articles,id',
         ];
@@ -38,13 +39,14 @@ class ArticleLikeController extends Controller
         return $this->pagination($results);
     }
 
-    public function store(Request $request, $tweet_id)
+    public function store(Request $request, $id)
     {
         $action = $request->input('action');
         if (!$action) {
             $action = 'like';
         }
 
+        $request->merge(['article' => $id]);
         $rules = [
             'article' => 'exists:articles,id',
             'action'  => 'in:like,unlike',
@@ -53,7 +55,7 @@ class ArticleLikeController extends Controller
 
         $data = ArticleLike::firstOrCreate([
             'user_id'    => Auth::id(),
-            'article_id' => $tweet_id
+            'article_id' => $id
         ]);
 
         switch ($action) {

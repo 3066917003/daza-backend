@@ -39,4 +39,9 @@ class ArticleLike extends Model
         'deleted_at'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User')->select('id', 'username', 'name', 'avatar_url');
+    }
+
 }

@@ -41,7 +41,7 @@ class ArticleComment extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User')->select('id', 'username', 'name', 'avatar_url');
     }
 
 }
