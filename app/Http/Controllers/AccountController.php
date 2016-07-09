@@ -35,12 +35,13 @@ class AccountController extends Controller
         ];
         $this->validate($request, $rules);
 
-        $request->merge(['password' => bcrypt($request->input('password'))]);
 
-        $params = $request->except('mobile');
+        $params = $request->only('username', 'email', 'password');
+        $params['password'] = bcrypt($params['password']);
+
         $user = User::create($params);
         if ($user) {
-            return $this->success($user);
+            return $this->login($request);
         }
         return $this->failure();
     }
@@ -50,7 +51,7 @@ class AccountController extends Controller
         $rules = [
             'email'    => 'required|email|exists:users',
             'password' => 'required|between:6,32',
-            'username' => 'min:5|max:32|alpha_dash|unique:users',
+            'username' => 'min:5|max:32|alpha_dash|exists:users',
         ];
         $this->validate($request, $rules);
 

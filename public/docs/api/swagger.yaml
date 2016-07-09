@@ -116,6 +116,11 @@ paths:
       tags:
         - account
       parameters:
+        - name: username
+          in: formData
+          description: 用户名
+          type: string
+          required: true
         - name: email
           in: formData
           description: 邮箱
@@ -125,11 +130,8 @@ paths:
           in: formData
           description: 密码
           type: string
+          format: password
           required: true
-        - name: username
-          in: formData
-          description: 用户名
-          type: string
       responses:
         200:
           description: OK
@@ -492,6 +494,25 @@ paths:
       tags:
         - articles
       parameters:
+        - name: topic_id
+          in: formData
+          description: 主题Id
+          type: integer
+          required: true
+        - name: title
+          in: formData
+          description: 标题
+          type: string
+          required: true
+        - name: summary
+          in: formData
+          description: 摘要
+          type: string
+        - name: content
+          in: formData
+          description: 内容
+          type: string
+          required: true
         - name: author
           in: formData
           description: 作者
@@ -500,16 +521,14 @@ paths:
           in: formData
           description: 作者链接
           type: string
-        - name: title
+        - name: source
           in: formData
-          description: 标题
+          description: 来源
           type: string
-          required: true
-        - name: content
+        - name: source_link
           in: formData
-          description: 内容
+          description: 来源链接
           type: string
-          required: true
       responses:
         200:
           description: OK
@@ -1182,6 +1201,15 @@ definitions:
       type:
         type: string
         description: 类型
+      title:
+        type: string
+        description: 标题
+      summary:
+        type: string
+        description: 摘要
+      content:
+        type: string
+        description: 内容
       author:
         type: string
         description: 作者
@@ -1194,15 +1222,6 @@ definitions:
       source_link:
         type: string
         description: 来源链接
-      title:
-        type: string
-        description: 标题
-      summary:
-        type: string
-        description: 摘要
-      content:
-        type: string
-        description: 内容
       like_count:
         type: integer
         description: 喜欢数

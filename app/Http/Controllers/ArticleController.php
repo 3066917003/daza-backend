@@ -31,10 +31,6 @@ class ArticleController extends Controller
 
         $query = Article::orderBy('created_at', 'asc');
 
-        if (array_key_exists('category_id', $params)) {
-            $query->where('category_id', $params['category_id']);
-        }
-
         return $this->pagination($query->paginate());
     }
 
@@ -43,9 +39,13 @@ class ArticleController extends Controller
         $params = $request->all();
 
         $this->validate($request, [
-            'category_id' => 'required|exists:categories,id',
+            'topic_id'    => 'required|exists:topics,id',
             'title'       => 'required|min:6|max:255',
             'content'     => 'required',
+            'author'      => 'min:2',
+            'author_link' => 'url',
+            'source'      => 'min:2',
+            'source_link' => 'url',
         ]);
 
         $params = array_merge($params, ['user_id' => Auth::id()]);
