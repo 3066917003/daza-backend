@@ -49,6 +49,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'mobile',
         'deleted_at'
     ];
 
@@ -90,26 +91,26 @@ class User extends Authenticatable
         return false;
     }
 
-    public function tweets() {
-        return $this->hasMany('App\Models\Tweet');
-    }
-
-    public function posts() {
-        return $this->hasMany('App\Models\Post');
+    public function topics() {
+        return $this->hasMany('App\Models\Topic');
     }
 
     public function articles() {
         return $this->hasMany('App\Models\Article');
     }
 
-    public function groups() {
-        // TODO: 关联用户加入的小组
-        return $this->hasMany('App\Models\Group');
+    public function tweets() {
+        return $this->hasMany('App\Models\Tweet');
     }
 
     public function events() {
         // TODO: 关联用户参加的活动
         return $this->hasMany('App\Models\Event');
+    }
+
+    public function assets()
+    {
+        return $this->hasMany('App\Models\Asset', 'target_id')->where('target_type', 'article');
     }
 
 }

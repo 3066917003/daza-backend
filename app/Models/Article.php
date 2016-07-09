@@ -44,4 +44,9 @@ class Article extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function assets()
+    {
+        return $this->hasMany('App\Models\Asset', 'target_id')->where('target_type', 'article');
+    }
+
 }

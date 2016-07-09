@@ -347,7 +347,7 @@ paths:
             properties:
               status:
                 type: string
-  /users/{user_id}/topic:
+  /users/{user_id}/topics:
     parameters:
       - $ref: '#/parameters/user-id'
     get:
@@ -1141,6 +1141,22 @@ definitions:
       id:
         type: integer
         description: Id
+      type:
+        type: string
+        description: 类型
+      source_program:
+        type: string
+        description: 来源程序
+        enum:
+          - wordpress
+          - jekyll
+          - ghost
+          - hexo
+          - typecho
+          - farbox
+      source_link:
+        type: string
+        description: 来源链接
       name:
         type: string
         description: 名称
@@ -1163,6 +1179,9 @@ definitions:
       topic_id:
         type: integer
         description: 主题Id
+      type:
+        type: string
+        description: 类型
       author:
         type: string
         description: 作者
@@ -1402,6 +1421,18 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
+      target_type:
+        type: string
+        description: 目标类型
+        enum:
+          - topic
+          - article
+          - tweet
+          - event
+          - tag
+      target_id:
+        type: integer
+        description: 目标Id
       mime_type:
         type: string
         description: MIME类型

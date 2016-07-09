@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Tweet extends Model
+class ArticleLike extends Model
 {
     use SoftDeletes;
 
@@ -38,15 +38,5 @@ class Tweet extends Model
     protected $hidden = [
         'deleted_at'
     ];
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
-
-    public function assets()
-    {
-        return $this->hasMany('App\Models\Asset', 'target_id')->where('target_type', 'article');
-    }
 
 }

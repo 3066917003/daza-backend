@@ -21,6 +21,7 @@ class CreateTweetsTable extends Migration
             $table->double('latitude', 7, 7);   // 纬度
             $table->string('source');           // 来源
             $table->string('source_link');      // 来源链接
+            $table->integer('like_count');      // 喜欢数
             $table->integer('comment_count');   // 评论数
             $table->softDeletes();
             $table->timestamps();

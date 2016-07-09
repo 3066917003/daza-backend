@@ -22,7 +22,6 @@ class AccountController extends Controller
                 'login',
                 'logout',
                 'passwordReset',
-                'show'
             ]
         ]);
     }

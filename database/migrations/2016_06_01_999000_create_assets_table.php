@@ -15,6 +15,8 @@ class CreateAssetsTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');         // 用户Id
+            $table->string('target_type');      // 目标类型
+            $table->integer('target_id');       // 目标Id
             $table->string('mime_type');        // MIME类型
             $table->integer('size');            // 大小
             $table->string('url');              // 链接
