@@ -627,9 +627,28 @@
                 ],
                 "parameters": [
                     {
+                        "name": "type",
+                        "in": "formData",
+                        "description": "类型",
+                        "type": "string",
+                        "enum": [
+                            "feed",
+                            "official",
+                            "original"
+                        ],
+                        "required": true
+                    },
+                    {
                         "name": "name",
                         "in": "formData",
                         "description": "名称",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "website",
+                        "in": "formData",
+                        "description": "主页",
                         "type": "string"
                     },
                     {
@@ -642,6 +661,25 @@
                         "name": "description",
                         "in": "formData",
                         "description": "描述",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "source_format",
+                        "in": "formData",
+                        "description": "文章来源格式",
+                        "type": "string"
+                    },
+                    {
+                        "name": "source_program",
+                        "in": "formData",
+                        "description": "文章来源程序",
+                        "type": "string"
+                    },
+                    {
+                        "name": "source_link",
+                        "in": "formData",
+                        "description": "文章来源链接",
                         "type": "string"
                     }
                 ],
@@ -670,7 +708,7 @@
             ],
             "get": {
                 "tags": [
-                    "tweets"
+                    "topics"
                 ],
                 "responses": {
                     "200": {
@@ -690,7 +728,7 @@
             },
             "delete": {
                 "tags": [
-                    "tweets"
+                    "topics"
                 ],
                 "responses": {
                     "200": {
@@ -1226,7 +1264,7 @@
                                 "data": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/ArticleComment"
+                                        "$ref": "#/definitions/TweetComment"
                                     }
                                 }
                             }
@@ -1850,11 +1888,40 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "类型"
+                    "description": "类型",
+                    "enum": [
+                        "feed",
+                        "official",
+                        "original"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "名称"
+                },
+                "website": {
+                    "type": "string",
+                    "description": "主页"
+                },
+                "image_url": {
+                    "type": "string",
+                    "description": "图片网址"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "描述"
+                },
+                "source_format": {
+                    "type": "string",
+                    "description": "文章来源格式",
+                    "enum": [
+                        "atom",
+                        "rss"
+                    ]
                 },
                 "source_program": {
                     "type": "string",
-                    "description": "来源程序",
+                    "description": "文章来源程序",
                     "enum": [
                         "wordpress",
                         "jekyll",
@@ -1866,19 +1933,7 @@
                 },
                 "source_link": {
                     "type": "string",
-                    "description": "来源链接"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "名称"
-                },
-                "image_url": {
-                    "type": "string",
-                    "description": "图片网址"
-                },
-                "description": {
-                    "type": "string",
-                    "description": "描述"
+                    "description": "文章来源链接"
                 }
             }
         },
@@ -2131,6 +2186,10 @@
                     "format": "double",
                     "description": "纬度"
                 },
+                "like_count": {
+                    "type": "integer",
+                    "description": "喜欢数"
+                },
                 "comment_count": {
                     "type": "integer",
                     "description": "评论数"
@@ -2145,13 +2204,13 @@
                     "type": "integer",
                     "description": "Id"
                 },
-                "event_id": {
-                    "type": "integer",
-                    "description": "活动Id"
-                },
                 "user_id": {
                     "type": "integer",
                     "description": "用户Id"
+                },
+                "event_id": {
+                    "type": "integer",
+                    "description": "活动Id"
                 },
                 "joined_at": {
                     "type": "string",
