@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Article extends Model
+class TopicSubscriber extends Model
 {
     use SoftDeletes;
 
@@ -42,16 +42,6 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
-    }
-
-    public function topic()
-    {
-        return $this->belongsTo('App\Models\Topic');
-    }
-
-    public function assets()
-    {
-        return $this->hasMany('App\Models\Asset', 'target_id')->where('target_type', 'article');
     }
 
 }

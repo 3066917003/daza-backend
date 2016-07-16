@@ -474,7 +474,7 @@ paths:
               status:
                 type: string
               data:
-                $ref: '#/definitions/Topic'                
+                $ref: '#/definitions/Topic'
   /topics/{topic_id}:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -491,6 +491,48 @@ paths:
               data:
                 $ref: '#/definitions/Topic'
     delete:
+      tags:
+        - topics
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+                
+  /topics/{topic_id}/subscribers:
+    parameters:
+      - $ref: '#/parameters/topic-id'
+    get:
+      tags:
+        - topics
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                $ref: '#/definitions/TopicSubscriber'
+  /topics/{topic_id}/subscribe:
+    parameters:
+      - $ref: '#/parameters/topic-id'
+    post:
+      tags:
+        - topics
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+  /topics/{topic_id}/unsubscribe:
+    parameters:
+      - $ref: '#/parameters/topic-id'
+    post:
       tags:
         - topics
       responses:
@@ -1225,6 +1267,19 @@ definitions:
       source_link:
         type: string
         description: 文章来源链接
+  TopicSubscriber:
+    type: object
+    description: 主题订阅者
+    properties:
+      id:
+        type: integer
+        description: Id
+      user_id:
+        type: integer
+        description: 用户Id
+      topic_id:
+        type: integer
+        description: 主题Id
   Article:
     type: object
     description: 文章

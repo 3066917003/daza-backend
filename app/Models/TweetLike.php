@@ -39,4 +39,9 @@ class TweetLike extends Model
         'deleted_at'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
 }

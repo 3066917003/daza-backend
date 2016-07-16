@@ -15,7 +15,7 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');         // 用户Id
-            $table->integer('topic_id');        // 话题Id
+            $table->integer('topic_id');        // 主题Id
             $table->string('type');             // 类型
             $table->string('author');           // 作者
             $table->string('author_link');      // 作者链接
@@ -25,6 +25,7 @@ class CreateArticlesTable extends Migration
             $table->string('summary');          // 摘要
             $table->string('content');          // 内容
             $table->integer('like_count');      // 喜欢数
+            $table->integer('view_count');      // 阅读数
             $table->integer('comment_count');   // 评论数
             $table->softDeletes();
             $table->timestamps();
