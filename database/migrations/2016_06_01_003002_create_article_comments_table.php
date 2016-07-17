@@ -16,7 +16,7 @@ class CreateArticleCommentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');     // 用户Id
             $table->integer('article_id');  // 文章Id
-            $table->string('content');      // 内容
+            $table->text('content');        // 内容
             $table->softDeletes();
             $table->timestamps();
         });

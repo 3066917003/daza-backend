@@ -16,7 +16,7 @@ class CreateEventCommentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');     // 用户Id
             $table->integer('event_id');    // 活动Id
-            $table->string('content');      // 内容
+            $table->text('content');        // 内容
             $table->softDeletes();
             $table->timestamps();
         });

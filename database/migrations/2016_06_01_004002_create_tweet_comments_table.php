@@ -16,7 +16,7 @@ class CreateTweetCommentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');     // 用户Id
             $table->integer('tweet_id');    // 推文Id
-            $table->string('content');      // 内容
+            $table->text('content');        // 内容
             $table->softDeletes();
             $table->timestamps();
         });

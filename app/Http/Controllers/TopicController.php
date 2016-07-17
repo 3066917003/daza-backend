@@ -40,11 +40,11 @@ class TopicController extends Controller
         $this->validate($request, [
             'type'           => 'required',
             'name'           => 'required|unique:topics',
-            'image_url'      => 'required|url',
-            'description'    => 'required',
+            // 'image_url'      => 'url',
+            // 'description'    => 'required',
             // 'source_format'  => '',
             // 'source_program' => '',
-            'source_link'    => 'url',
+            // 'source_link'    => 'url',
         ]);
 
         $data = Topic::create($params);

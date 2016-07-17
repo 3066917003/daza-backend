@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\FeedArticleGrabber::class,
+        Commands\RSSArticleGrabber::class,
     ];
 
     /**
@@ -24,6 +24,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('feed_article_grabber')->everyThirtyMinutes();
+        $schedule->command('rss_article_grabber')->everyThirtyMinutes();
     }
 }

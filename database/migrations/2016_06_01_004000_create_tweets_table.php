@@ -15,7 +15,7 @@ class CreateTweetsTable extends Migration
         Schema::create('tweets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');         // 用户Id
-            $table->string('content');          // 内容
+            $table->text('content');            // 内容
             $table->string('location');         // 位置
             $table->double('longitude', 7, 7);  // 经度
             $table->double('latitude', 7, 7);   // 纬度

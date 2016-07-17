@@ -2078,6 +2078,10 @@
                 "source_link": {
                     "type": "string",
                     "description": "文章来源链接"
+                },
+                "subscriber_count": {
+                    "type": "integer",
+                    "description": "订阅数"
                 }
             }
         },
@@ -2115,9 +2119,17 @@
                     "type": "integer",
                     "description": "主题Id"
                 },
+                "guid": {
+                    "type": "string",
+                    "description": "文章唯一标识符"
+                },
                 "type": {
                     "type": "string",
                     "description": "类型"
+                },
+                "link": {
+                    "type": "string",
+                    "description": "文章链接"
                 },
                 "title": {
                     "type": "string",
@@ -2134,6 +2146,10 @@
                 "author": {
                     "type": "string",
                     "description": "作者"
+                },
+                "author_email": {
+                    "type": "string",
+                    "description": "作者邮箱"
                 },
                 "author_link": {
                     "type": "string",
@@ -2154,6 +2170,11 @@
                 "comment_count": {
                     "type": "integer",
                     "description": "评论数"
+                },
+                "published_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "发布时间"
                 }
             }
         },

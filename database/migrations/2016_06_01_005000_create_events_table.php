@@ -16,7 +16,7 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');         // 用户Id
             $table->string('title');            // 标题
-            $table->string('content');          // 内容
+            $table->text('content');            // 内容
             $table->dateTime('start_at');       // 开始时间
             $table->dateTime('end_at');         // 结束时间
             $table->string('organizer');        // 主办方
