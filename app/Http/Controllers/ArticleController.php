@@ -29,7 +29,7 @@ class ArticleController extends Controller
     {
         $params = $request->all();
 
-        $query = Article::orderBy('created_at', 'asc');
+        $query = Article::with(['user', 'topic'])->orderBy('published_at', 'desc');
 
         return $this->pagination($query->paginate());
     }
