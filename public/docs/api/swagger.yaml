@@ -176,6 +176,58 @@ paths:
             properties:
               status:
                 type: string
+  /account/password_reset:
+    post:
+      tags:
+        - account
+      parameters:
+        - name: email
+          in: formData
+          description: 邮箱
+          type: string
+          required: true
+        - name: verify_code
+          in: formData
+          description: 验证码
+          type: string
+          required: true
+        - name: new_password
+          in: formData
+          description: 新密码
+          type: string
+          format: password
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+  /account/password_modify:
+    post:
+      tags:
+        - account
+      parameters:
+        - name: old_password
+          in: formData
+          description: 原密码
+          type: string
+          format: password
+          required: true
+        - name: new_password
+          in: formData
+          description: 新密码
+          type: string
+          format: password
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
   /account/profile:
     get:
       tags:
@@ -263,58 +315,6 @@ paths:
                 type: string
               data:
                 $ref: '#/definitions/User'
-  /account/password_reset:
-    post:
-      tags:
-        - account
-      parameters:
-        - name: email
-          in: formData
-          description: 邮箱
-          type: string
-          required: true
-        - name: verify_code
-          in: formData
-          description: 验证码
-          type: string
-          required: true
-        - name: new_password
-          in: formData
-          description: 新密码
-          type: string
-          format: password
-          required: true
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              status:
-                type: string
-  /account/password_modify:
-    post:
-      tags:
-        - account
-      parameters:
-        - name: old_password
-          in: formData
-          description: 原密码
-          type: string
-          format: password
-          required: true
-        - name: new_password
-          in: formData
-          description: 新密码
-          type: string
-          format: password
-          required: true
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              status:
-                type: string
   /users/{user_id}:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -500,7 +500,6 @@ paths:
             properties:
               status:
                 type: string
-                
   /topics/{topic_id}/subscribers:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -1241,6 +1240,31 @@ definitions:
       target_user_id:
         type: string
         description: 目标用户Id
+  UserPointRecord:
+    type: object
+    description: 用户积分记录
+    properties:
+      id:
+        type: integer
+        description: Id
+      user_id:
+        type: integer
+        description: 用户Id
+      point:
+        type: integer
+        description: 当前积分值
+      used_type:
+        type: string
+        description: 变化类型
+      used_point:
+        type: integer
+        description: 变化积分值
+      used_target_type:
+        type: string
+        description: 变化目标类型
+      used_target_id:
+        type: integer
+        description: 变化目标Id
   Topic:
     type: object
     description: 主题
