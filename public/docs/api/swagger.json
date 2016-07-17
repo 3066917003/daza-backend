@@ -1132,6 +1132,41 @@
                 }
             }
         },
+        "/articles/{article_id}/viewers": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/article-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "articles"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/ArticleViewer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/tweets": {
             "get": {
                 "tags": [
@@ -2090,7 +2125,7 @@
         },
         "ArticleLike": {
             "type": "object",
-            "description": "推文点赞",
+            "description": "文章点赞",
             "properties": {
                 "id": {
                     "type": "integer",
@@ -2125,6 +2160,32 @@
                 "content": {
                     "type": "string",
                     "description": "内容"
+                }
+            }
+        },
+        "ArticleViewer": {
+            "type": "object",
+            "description": "文章阅读者",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
+                },
+                "article_id": {
+                    "type": "integer",
+                    "description": "文章Id"
+                },
+                "ip_address": {
+                    "type": "string",
+                    "description": "IP地址"
+                },
+                "user_agent": {
+                    "type": "string",
+                    "description": "UserAgent"
                 }
             }
         },

@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->string('source_link');      // 来源链接
             $table->string('title');            // 标题
             $table->string('summary');          // 摘要
-            $table->string('content');          // 内容
+            $table->text('content');            // 内容
             $table->integer('like_count');      // 喜欢数
             $table->integer('view_count');      // 阅读数
             $table->integer('comment_count');   // 评论数

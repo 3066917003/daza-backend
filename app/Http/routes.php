@@ -36,6 +36,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('/articles', 'ArticleController');
     Route::resource('/articles/{article_id}/likes', 'ArticleLikeController');
     Route::resource('/articles/{article_id}/comments', 'ArticleCommentController');
+    Route::get('/articles/{article_id}/viewers', 'ArticleViewerController@index');
     // tweets
     Route::resource('/tweets', 'TweetController');
     Route::resource('/tweets/{tweet_id}/likes', 'TweetLikeController');

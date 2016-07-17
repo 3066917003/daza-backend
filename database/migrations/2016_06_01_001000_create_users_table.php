@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 191)->unique()->nullable();     // 邮箱
             $table->string('mobile', 191)->unique()->nullable();    // 手机
             $table->string('password');                             // 密码
-            $table->string('name');                                 // 名称
+            $table->string('name'), 191)->unique()->nullable();     // 名称
             $table->string('first_name');                           // 名
             $table->string('last_name');                            // 姓
             $table->string('avatar_url');                           // 头像
