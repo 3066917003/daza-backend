@@ -76,7 +76,9 @@ class RssArticleGrabber extends Command
                     $imgs = $dom->find('img');
                     // var_dump($imgs);
                     $image_url = "";
-                    $image_url = $imgs[0]->getAttribute('src');
+                    if (count($imgs) > 0) {
+                        $image_url = $imgs[0]->getAttribute('src');
+                    }
 
                     $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->guid]));
 
