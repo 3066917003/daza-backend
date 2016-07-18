@@ -1310,6 +1310,9 @@ definitions:
       source_link:
         type: string
         description: 文章来源链接
+      article_count:
+        type: integer
+        description: 文章数
       subscriber_count:
         type: integer
         description: 订阅数

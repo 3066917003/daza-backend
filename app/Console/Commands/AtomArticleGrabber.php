@@ -11,19 +11,18 @@ use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\ClientException;
 use Carbon\Carbon;
-use PHPHtmlParser\Dom;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
-class RssArticleGrabber extends Command
+class AtomArticleGrabber extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'grabber:rss';
+    protected $signature = 'grabber:atom';
 
     /**
      * The console command description.
@@ -39,7 +38,7 @@ class RssArticleGrabber extends Command
      */
     public function handle()
     {
-        $lists = Topic::orderBy('id', 'desc')->where('source_format', 'rss')->get();
+        $lists = Topic::orderBy('id', 'desc')->where('source_format', 'atom')->get();
 
         $client = new Client();
 
@@ -67,24 +66,19 @@ class RssArticleGrabber extends Command
                 ];
 
                 // print_r($lists[$index]->toArray());
-                // print_r($xml->channel);
-                foreach ($xml->channel->item as $key => $value) {
+                // print_r($xml);
+                foreach ($xml->entry as $key => $value) {
                     // var_dump($value);
-                    $dom = new Dom();
-                    $dom->load($value->description);
+                    var_dump(new DateTime($value->published));
+                    // var_dump(Carbon::createFromFormat(DateTime::ATOM . 'Z', $value->published));
 
-                    $imgs = $dom->find('img');
-                    // var_dump($imgs);
-                    $image_url = "";
-                    $image_url = $imgs[0]->getAttribute('src');
-
-                    $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->guid]));
+                    $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->id]));
 
                     $article->update([
-                        'link'          => $value->link,
+                        'link'          => $value->link->attributes()->href,
                         'title'         => $value->title,
-                        'image_url'     => $image_url,
-                        'published_at'  => new DateTime($value->pubDate),
+                        'summary'       => $value->summary,
+                        'published_at'  => new DateTime($value->published),
                     ]);
                 }
             },

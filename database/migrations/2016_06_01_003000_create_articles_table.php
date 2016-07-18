@@ -22,6 +22,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');            // 标题
             $table->string('summary');          // 摘要
             $table->text('content');            // 内容
+            $table->string('image_url');        // 图片网址
             $table->string('author');           // 作者
             $table->string('author_email');     // 作者邮箱
             $table->string('author_link');      // 作者链接
