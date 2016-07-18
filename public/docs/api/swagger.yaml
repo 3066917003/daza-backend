@@ -576,6 +576,10 @@ paths:
           in: formData
           description: 摘要
           type: string
+        - name: image_url
+          in: formData
+          description: 图片网址
+          type: string
         - name: content
           in: formData
           description: 内容
@@ -1357,6 +1361,9 @@ definitions:
       summary:
         type: string
         description: 摘要
+      image_url:
+        type: string
+        description: 图片网址
       content:
         type: string
         description: 内容
