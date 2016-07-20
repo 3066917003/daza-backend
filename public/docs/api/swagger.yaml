@@ -347,6 +347,44 @@ paths:
             properties:
               status:
                 type: string
+  /users/{user_id}/followers:
+    parameters:
+      - $ref: '#/parameters/user-id'
+    get:
+      tags:
+        - users
+      parameters:
+        - $ref: '#/parameters/page'
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/UserRelationship'
+  /users/{user_id}/following:
+    parameters:
+      - $ref: '#/parameters/user-id'
+    get:
+      tags:
+        - users
+      parameters:
+        - $ref: '#/parameters/page'
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/UserRelationship'
   /users/{user_id}/topics:
     parameters:
       - $ref: '#/parameters/user-id'

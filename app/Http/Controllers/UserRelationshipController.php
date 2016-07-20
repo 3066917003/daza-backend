@@ -19,15 +19,17 @@ class UserRelationshipController extends Controller
         // 执行 auth 认证
         $this->middleware('auth', [
             'except' => [
+                'followers',
+                'following',
             ]
         ]);
     }
 
-    public function store(Request $request, $user_id)
+    public function store(Request $request, $id)
     {
         $action = $request->input('action');
 
-        $request->merge(['user' => $user_id]);
+        $request->merge(['user' => $id]);
 
         $rules = [
             'user'   => 'exists:users,id',
@@ -37,7 +39,7 @@ class UserRelationshipController extends Controller
 
         $user_relationship = UserRelationship::withTrashed()->firstOrCreate([
             'user_id'        => Auth::id(),
-            'target_user_id' => $user_id,
+            'target_user_id' => $id,
         ]);
 
         switch ($action) {
@@ -51,6 +53,26 @@ class UserRelationshipController extends Controller
                 return $this->failure();
         }
         return $this->success();
+    }
+
+    public function followers(Request $request, $id)
+    {
+        $query = UserRelationship::with('user')
+            ->where('target_user_id', $id)
+            ->orderBy('updated_at', 'desc');
+
+        $results = $query->paginate();
+        return $this->pagination($results);
+    }
+
+    public function following(Request $request, $id)
+    {
+        $query = UserRelationship::with('target_user')
+            ->where('user_id', $id)
+            ->orderBy('updated_at', 'desc');
+
+        $results = $query->paginate();
+        return $this->pagination($results);
     }
 
 }

@@ -39,4 +39,14 @@ class UserRelationship extends Model
         'deleted_at'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function target_user()
+    {
+        return $this->belongsTo('App\Models\User', 'target_user_id');
+    }
+
 }
