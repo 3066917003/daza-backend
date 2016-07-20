@@ -2,8 +2,18 @@
 
 [![Build Status](https://api.travis-ci.org/lijy91/daza-backend.svg?branch=master)](https://travis-ci.org/lijy91/daza-backend)
 
+## 相关项目
+- [daza-backend](https://github.com/lijy91/daza-backend)
+- [daza-frontend](https://github.com/lijy91/daza-frontend)
+- [daza-ios](https://github.com/lijy91/daza-ios)
+- [daza-android](https://github.com/lijy91/daza-android)
+
 ## 演示
 [Live Demo](http://daza-backend.daoapp.io)
+
+## 设计资源
+- [Material design](http://www.google.com/design/spec/style/color.html)
+- [Material icons](https://design.google.com/icons/)
 
 ## 项目依赖
 - [PHP >= 5.5.9](http://php.net/)
