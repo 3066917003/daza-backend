@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Topic;
+use App\Models\Article;
 
 use Auth;
 
@@ -20,7 +21,8 @@ class TopicController extends Controller
         $this->middleware('auth', [
             'except' => [
                 'index',
-                'show'
+                'show',
+                'articles',
             ]
         ]);
     }
@@ -68,6 +70,17 @@ class TopicController extends Controller
     public function destroy(Request $request)
     {
         return $this->failure();
+    }
+
+    public function articles(Request $request, $id)
+    {
+        $params = $request->all();
+
+        $query = Article::with(['user', 'topic'])
+            ->where('topic_id', $id)
+            ->orderBy('published_at', 'desc');
+
+        return $this->pagination($query->paginate());
     }
 
 }

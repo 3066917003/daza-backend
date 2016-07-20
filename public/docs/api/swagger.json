@@ -744,6 +744,41 @@
                 }
             }
         },
+        "/topics/{topic_id}/articles": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/topic-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "topics"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Article"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/topics/{topic_id}/subscribers": {
             "parameters": [
                 {

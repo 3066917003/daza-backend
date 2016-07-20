@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/users/{user_id}/relationship', 'UserRelationshipController@store');
     // topics
     Route::resource('/topics', 'TopicController');
+    Route::get('/topics/{topic_id}/articles', 'TopicController@articles');
     Route::get('/topics/{topic_id}/subscribers', 'TopicSubscriberController@subscribers');
     Route::post('/topics/{topic_id}/subscribe', 'TopicSubscriberController@subscribe');
     Route::post('/topics/{topic_id}/unsubscribe', 'TopicSubscriberController@unsubscribe');
