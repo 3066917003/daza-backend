@@ -20,6 +20,9 @@
             "name": "users"
         },
         {
+            "name": "categories"
+        },
+        {
             "name": "topics"
         },
         {
@@ -49,6 +52,13 @@
             "name": "user_id",
             "in": "path",
             "description": "用户Id",
+            "type": "integer",
+            "required": true
+        },
+        "category-id": {
+            "name": "category_id",
+            "in": "path",
+            "description": "分类Id",
             "type": "integer",
             "required": true
         },
@@ -662,6 +672,63 @@
                 }
             }
         },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Category"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{category_id}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/category-id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Category"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/topics": {
             "get": {
                 "tags": [
@@ -696,6 +763,13 @@
                     "topics"
                 ],
                 "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "分类Id",
+                        "type": "integer",
+                        "required": true
+                    },
                     {
                         "name": "type",
                         "in": "formData",
@@ -2133,6 +2207,28 @@
                 }
             }
         },
+        "Category": {
+            "type": "object",
+            "description": "分类",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "名称"
+                },
+                "image_url": {
+                    "type": "string",
+                    "description": "图片网址"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "描述"
+                }
+            }
+        },
         "Topic": {
             "type": "object",
             "description": "主题",
@@ -2140,6 +2236,14 @@
                 "id": {
                     "type": "integer",
                     "description": "Id"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "description": "用户Id"
+                },
+                "category_id": {
+                    "type": "integer",
+                    "description": "分类Id"
                 },
                 "type": {
                     "type": "string",

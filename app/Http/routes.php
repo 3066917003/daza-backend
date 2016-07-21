@@ -29,6 +29,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/users/{user_id}/relationship', 'UserRelationshipController@store');
     Route::get('/users/{user_id}/followers', 'UserRelationshipController@followers');
     Route::get('/users/{user_id}/following', 'UserRelationshipController@following');
+    // categories
+    Route::resource('/categories', 'CategoryController');
     // topics
     Route::resource('/topics', 'TopicController');
     Route::get('/topics/{topic_id}/articles', 'TopicController@articles');
