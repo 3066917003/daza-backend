@@ -78,6 +78,10 @@ class RssArticleGrabber extends Command
                     $image_url = "";
                     if (count($imgs) > 0) {
                         $image_url = $imgs[0]->getAttribute('src');
+                        // 省略嵌入式资源处理
+                        if (0 === strpos($image_url, '//')) {
+                            $image_url = 'http:' . $image_url;
+                        }
                     }
 
                     $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->guid]));
