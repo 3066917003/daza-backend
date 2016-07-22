@@ -22,7 +22,6 @@ class CreateTopicsTable extends Migration
             $table->string('image_url');            // 图片网址
             $table->string('description');          // 描述
             $table->string('source_format');        // 文章来源格式
-            $table->string('source_program');       // 文章来源程序
             $table->string('source_link');          // 文章来源链接
             $table->integer('article_count');       // 文章数
             $table->integer('subscriber_count');    // 订阅数

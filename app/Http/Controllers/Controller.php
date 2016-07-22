@@ -60,7 +60,10 @@ class Controller extends BaseController
         if ($data) {
             $data = $data->toArray();
             $result['data'] = $data['data'];
+
             unset($data['data']);
+            unset($data['next_page_url']);
+            unset($data['prev_page_url']);
             $result['pagination'] = $data;
         }
         return response()->json($result);

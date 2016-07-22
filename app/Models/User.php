@@ -47,10 +47,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
         'mobile',
-        'deleted_at'
+        'password',
+        'first_name',
+        'last_name',
+        'country',
+        'address',
+        'phone',
+        'status',
+        'remember_token',
+        'deleted_at',
     ];
 
     public function getNameAttribute()

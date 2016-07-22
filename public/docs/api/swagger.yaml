@@ -538,10 +538,6 @@ paths:
           in: formData
           description: 文章来源格式
           type: string
-        - name: source_program
-          in: formData
-          description: 文章来源程序
-          type: string
         - name: source_link
           in: formData
           description: 文章来源链接
@@ -1337,11 +1333,8 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
-      type:
-        type: string
-        description: 类型
       target_user_id:
-        type: string
+        type: integer
         description: 目标用户Id
   UserPointRecord:
     type: object
@@ -1422,16 +1415,6 @@ definitions:
         enum:
           - atom
           - rss
-      source_program:
-        type: string
-        description: 文章来源程序
-        enum:
-          - wordpress
-          - jekyll
-          - ghost
-          - hexo
-          - typecho
-          - farbox
       source_link:
         type: string
         description: 文章来源链接
