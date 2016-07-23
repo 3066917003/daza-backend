@@ -19,12 +19,12 @@ class MockdataSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 1)->create()->each(function($user) {
+        factory(User::class, 20)->create()->each(function($user) {
             $user->topics()->saveMany(factory(Topic::class, 10)->make());
             $user->articles()->saveMany(factory(Article::class, 10)->make());
             $user->tweets()->saveMany(factory(Tweet::class, 10)->make());
             $user->events()->saveMany(factory(Event::class, 10)->make());
         });
-        factory(Category::class, 30)->create();
+        factory(Category::class, 10)->create();
     }
 }

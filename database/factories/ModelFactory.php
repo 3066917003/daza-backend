@@ -38,15 +38,18 @@ $factory->define(App\Models\Topic::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
     return [
-        'title'   => $faker->name,
-        'content' => $faker->text,
+        'title'         => $faker->name,
+        'content'       => $faker->text,
+        'image_url' => $faker->imageUrl($width = 640, $height = 480),
+        'published_at'  => $faker->dateTime(),
     ];
 });
 
 $factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
     return [
-        'title' => $faker->name,
-        'content' => $faker->text,
+        'title'     => $faker->name,
+        'content'   => $faker->text,
+        'image_url' => $faker->imageUrl($width = 640, $height = 480),
     ];
 });
 
