@@ -2364,9 +2364,13 @@
                     "type": "string",
                     "description": "来源链接"
                 },
-                "like_count": {
+                "view_count": {
                     "type": "integer",
                     "description": "喜欢数"
+                },
+                "like_count": {
+                    "type": "integer",
+                    "description": "阅读数"
                 },
                 "comment_count": {
                     "type": "integer",
@@ -2475,22 +2479,9 @@
                     "format": "double",
                     "description": "纬度"
                 },
-                "source": {
-                    "type": "string",
-                    "description": "来源",
-                    "enum": [
-                        "Web",
-                        "Android",
-                        "iPhone",
-                        "iPad",
-                        "WindowsPhone",
-                        "macOS",
-                        "Windows"
-                    ]
-                },
-                "source_link": {
-                    "type": "string",
-                    "description": "来源链接"
+                "view_count": {
+                    "type": "integer",
+                    "description": "阅读数"
                 },
                 "like_count": {
                     "type": "integer",
@@ -2595,6 +2586,10 @@
                     "type": "number",
                     "format": "double",
                     "description": "纬度"
+                },
+                "view_count": {
+                    "type": "integer",
+                    "description": "阅读数"
                 },
                 "like_count": {
                     "type": "integer",

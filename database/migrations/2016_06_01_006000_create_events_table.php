@@ -25,8 +25,8 @@ class CreateEventsTable extends Migration
             $table->string('location');         // 位置
             $table->double('longitude', 7, 7);  // 经度
             $table->double('latitude', 7, 7);   // 纬度
-            $table->integer('like_count');      // 喜欢数
             $table->integer('view_count');      // 阅读数
+            $table->integer('like_count');      // 喜欢数
             $table->integer('comment_count');   // 评论数
             $table->softDeletes();
             $table->timestamps();
