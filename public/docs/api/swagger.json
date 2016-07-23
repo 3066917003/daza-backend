@@ -2553,6 +2553,10 @@
                     "type": "string",
                     "description": "内容"
                 },
+                "image_url": {
+                    "type": "string",
+                    "description": "图片网址"
+                },
                 "start_at": {
                     "type": "string",
                     "description": "开始时间"
