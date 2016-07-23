@@ -16,7 +16,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'name'           => $faker->name,
         'email'          => $faker->safeEmail,
         'username'       => $faker->userName,
-        'image_url'      => $faker->imageUrl($width = 100, $height = 100),
+        'avatar_url'     => $faker->imageUrl($width = 100, $height = 100),
         'password'       => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
     ];
