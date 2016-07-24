@@ -39,7 +39,7 @@ class RssArticleGrabber extends Command
      */
     public function handle()
     {
-        $lists = Topic::orderBy('id', 'desc')->where('source_format', 'rss')->get();
+        $lists = Topic::orderBy('id', 'desc')->where('source_format', 'rss+xml')->get();
 
         $client = new Client();
 

@@ -38,7 +38,7 @@ class AtomArticleGrabber extends Command
      */
     public function handle()
     {
-        $lists = Topic::orderBy('id', 'desc')->where('source_format', 'atom')->get();
+        $lists = Topic::orderBy('id', 'desc')->where('source_format', 'atom+xml')->get();
 
         $client = new Client();
 

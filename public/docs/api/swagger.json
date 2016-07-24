@@ -2240,8 +2240,8 @@
                     "description": "类型",
                     "enum": [
                         "feed",
-                        "official",
-                        "original"
+                        "original",
+                        "official"
                     ]
                 },
                 "name": {
@@ -2264,8 +2264,9 @@
                     "type": "string",
                     "description": "文章来源格式",
                     "enum": [
-                        "atom",
-                        "rss"
+                        "daza+json",
+                        "atom+xml",
+                        "rss+xml"
                     ]
                 },
                 "source_link": {
@@ -2322,7 +2323,10 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "类型"
+                    "description": "类型",
+                    "enum": [
+                        "ad"
+                    ]
                 },
                 "link": {
                     "type": "string",
@@ -2336,13 +2340,21 @@
                     "type": "string",
                     "description": "摘要"
                 },
+                "content": {
+                    "type": "string",
+                    "description": "内容"
+                },
                 "image_url": {
                     "type": "string",
                     "description": "图片网址"
                 },
-                "content": {
+                "audio_url": {
                     "type": "string",
-                    "description": "内容"
+                    "description": "音频网址"
+                },
+                "video_url": {
+                    "type": "string",
+                    "description": "视频网址"
                 },
                 "author": {
                     "type": "string",
