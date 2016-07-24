@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Article;
 
 use Illuminate\Http\Request;
 
@@ -46,6 +47,17 @@ class CategoryController extends Controller
     public function destroy(Request $request)
     {
         return $this->failure();
+    }
+
+    public function articles(Request $request, $id)
+    {
+        $params = $request->all();
+
+        $query = Article::with(['user', 'topic'])
+            // ->where('category_id', $id)
+            ->orderBy('published_at', 'desc');
+
+        return $this->pagination($query->paginate());
     }
 
 }
