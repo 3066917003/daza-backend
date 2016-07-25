@@ -89,6 +89,7 @@ class RssArticleGrabber extends Command
                     $article->update([
                         'link'          => $value->link,
                         'title'         => $value->title,
+                        'content'       => $value->description,
                         'image_url'     => $image_url,
                         'published_at'  => new DateTime($value->pubDate),
                     ]);
