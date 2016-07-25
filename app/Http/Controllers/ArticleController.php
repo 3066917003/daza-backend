@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Article;
+use App\Models\ArticleViewer;
 
 use Auth;
 
@@ -29,7 +30,19 @@ class ArticleController extends Controller
     {
         $params = $request->all();
 
-        $query = Article::with(['user', 'topic'])->orderBy('published_at', 'desc');
+        $columns = [
+            'id',
+            'user_id',
+            'topic_id',
+            'title',
+            'summary',
+            'image_url',
+            'published_at',
+        ];
+
+        $query = Article::select($columns)
+            ->with(['user', 'topic'])
+            ->orderBy('published_at', 'desc');
 
         return $this->pagination($query->paginate());
     }
@@ -63,6 +76,14 @@ class ArticleController extends Controller
         $this->validate($request, ['article' => 'exists:articles,id']);
 
         $data = Article::find($article_id);
+        if (Auth::check()) {
+            ArticleViewer::create([
+                'user_id'    => Auth::id(),
+                'article_id' => $data->id,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->header('User-Agent'),
+            ]);
+        }
         return $this->success($data);
     }
 
