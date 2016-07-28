@@ -53,8 +53,20 @@ class CategoryController extends Controller
     {
         $params = $request->all();
 
-        $query = Article::with(['user', 'topic'])
-            // ->where('category_id', $id)
+        $columns = [
+            'articles.id',
+            'articles.user_id',
+            'articles.topic_id',
+            'articles.title',
+            'articles.summary',
+            'articles.image_url',
+            'articles.published_at',
+        ];
+
+        $query = Article::select($columns)
+            ->with(['user', 'topic'])
+            ->leftJoin('topics', 'articles.topic_id', '=', 'topics.id')
+            ->where('topics.category_id', $id)
             ->orderBy('published_at', 'desc');
 
         return $this->pagination($query->paginate());
