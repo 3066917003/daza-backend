@@ -76,7 +76,21 @@ class TopicController extends Controller
     {
         $params = $request->all();
 
-        $query = Article::with(['user', 'topic'])
+        $columns = [
+            'articles.id',
+            'articles.user_id',
+            'articles.topic_id',
+            'articles.title',
+            'articles.summary',
+            'articles.image_url',
+            'articles.view_count',
+            'articles.like_count',
+            'articles.comment_count',
+            'articles.published_at',
+        ];
+
+        $query = Article::select($columns)
+            ->with(['user', 'topic'])
             ->where('topic_id', $id)
             ->orderBy('published_at', 'desc');
 
