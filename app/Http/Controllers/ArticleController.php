@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\ArticleViewer;
 
 use Auth;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -82,14 +83,21 @@ class ArticleController extends Controller
         $request->merge(['article' => $article_id]);
         $this->validate($request, ['article' => 'exists:articles,id']);
 
-        if (Auth::check()) {
-            ArticleViewer::create([
-                'user_id'    => Auth::id(),
-                'article_id' => $article_id,
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->header('User-Agent'),
-            ]);
+        $user_id = Auth::check() ? Auth::id() : 0;
+
+        $viewer = ArticleViewer::create([
+            'user_id'    => $user_id,
+            'article_id' => $article_id,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+        ]);
+
+        if ($viewer) {
+            $view_count = ArticleViewer::where('article_id', $article_id)->count();
+            DB::table('articles')->where('id', $article_id)->update(['view_count' => $view_count]);
         }
+
+        $data = Article::find($article_id);
         return $this->success($data);
     }
 
