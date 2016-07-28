@@ -31,18 +31,25 @@ class ArticleController extends Controller
         $params = $request->all();
 
         $columns = [
-            'id',
-            'user_id',
-            'topic_id',
-            'title',
-            'summary',
-            'image_url',
-            'published_at',
+            'articles.id',
+            'articles.user_id',
+            'articles.topic_id',
+            'articles.title',
+            'articles.summary',
+            'articles.image_url',
+            'articles.published_at',
         ];
 
         $query = Article::select($columns)
             ->with(['user', 'topic'])
             ->orderBy('published_at', 'desc');
+
+        // 通过分类获取文章
+        $category_id = $request->query('category_id');
+        if ($category_id) {
+            $query->leftJoin('topics', 'articles.topic_id', '=', 'topics.id');
+            $query->where('topics.category_id', $category_id);
+        }
 
         return $this->pagination($query->paginate());
     }
@@ -75,11 +82,10 @@ class ArticleController extends Controller
         $request->merge(['article' => $article_id]);
         $this->validate($request, ['article' => 'exists:articles,id']);
 
-        $data = Article::find($article_id);
         if (Auth::check()) {
             ArticleViewer::create([
                 'user_id'    => Auth::id(),
-                'article_id' => $data->id,
+                'article_id' => $article_id,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->header('User-Agent'),
             ]);
