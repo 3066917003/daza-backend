@@ -60,6 +60,9 @@ class CategoryController extends Controller
             'articles.title',
             'articles.summary',
             'articles.image_url',
+            'articles.view_count',
+            'articles.like_count',
+            'articles.comment_count',
             'articles.published_at',
         ];
 
