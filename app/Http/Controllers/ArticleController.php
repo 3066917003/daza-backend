@@ -22,6 +22,8 @@ class ArticleController extends Controller
         $this->middleware('auth', [
             'except' => [
                 'index',
+                'latest',
+                'popular',
                 'show'
             ]
         ]);
@@ -54,6 +56,56 @@ class ArticleController extends Controller
             $query->leftJoin('topics', 'articles.topic_id', '=', 'topics.id');
             $query->where('topics.category_id', $category_id);
         }
+
+        return $this->pagination($query->paginate());
+    }
+
+    // 最新的文章
+    public function latest(Request $request)
+    {
+        $params = $request->all();
+
+        $columns = [
+            'articles.id',
+            'articles.user_id',
+            'articles.topic_id',
+            'articles.title',
+            'articles.summary',
+            'articles.image_url',
+            'articles.view_count',
+            'articles.like_count',
+            'articles.comment_count',
+            'articles.published_at',
+        ];
+
+        $query = Article::select($columns)
+            ->with(['user', 'topic'])
+            ->orderBy('published_at', 'desc');
+
+        return $this->pagination($query->paginate());
+    }
+
+    // 最受欢迎的文章（推荐）
+    public function popular(Request $request)
+    {
+        $params = $request->all();
+
+        $columns = [
+            'articles.id',
+            'articles.user_id',
+            'articles.topic_id',
+            'articles.title',
+            'articles.summary',
+            'articles.image_url',
+            'articles.view_count',
+            'articles.like_count',
+            'articles.comment_count',
+            'articles.published_at',
+        ];
+
+        $query = Article::select($columns)
+            ->with(['user', 'topic'])
+            ->orderBy('published_at', 'desc');
 
         return $this->pagination($query->paginate());
     }

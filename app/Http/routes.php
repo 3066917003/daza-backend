@@ -39,6 +39,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/topics/{topic_id}/subscribe', 'TopicSubscriberController@subscribe');
     Route::post('/topics/{topic_id}/unsubscribe', 'TopicSubscriberController@unsubscribe');
     // articles
+    Route::get('/articles/latest', 'ArticleController@latest');
+    Route::get('/articles/popular', 'ArticleController@popular');
     Route::resource('/articles', 'ArticleController');
     Route::resource('/articles/{article_id}/likes', 'ArticleLikeController');
     Route::resource('/articles/{article_id}/comments', 'ArticleCommentController');
