@@ -1794,6 +1794,7 @@ definitions:
         type: string
         description: 目标类型
         enum:
+          - category
           - topic
           - article
           - tweet
