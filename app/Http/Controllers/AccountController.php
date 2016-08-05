@@ -62,7 +62,7 @@ class AccountController extends Controller
             return $this->success(Auth::user());
         }
 
-        return $this->failure(trans('auth.failed'));
+        return $this->failure(trans('auth.failed'), 401);
     }
 
     public function logout(Request $request)

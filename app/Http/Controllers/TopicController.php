@@ -21,6 +21,8 @@ class TopicController extends Controller
         $this->middleware('auth', [
             'except' => [
                 'index',
+                'latest',
+                'popular',
                 'show',
                 'articles',
             ]
@@ -28,6 +30,22 @@ class TopicController extends Controller
     }
 
     public function index(Request $request)
+    {
+        $query = Topic::orderBy('created_at', 'desc');
+
+        return $this->pagination($query->paginate());
+    }
+
+    // 最新的分类
+    public function latest(Request $request)
+    {
+        $query = Topic::orderBy('created_at', 'desc');
+
+        return $this->pagination($query->paginate());
+    }
+
+    // 最受欢迎的分类（推荐）
+    public function popular(Request $request)
     {
         $query = Topic::orderBy('created_at', 'desc');
 

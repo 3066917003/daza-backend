@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name', 191)->unique();  // 名称
             $table->string('image_url');            // 图片网址
             $table->string('description');          // 描述
+            $table->integer('topic_count');         // 主题数
             $table->softDeletes();
             $table->timestamps();
         });

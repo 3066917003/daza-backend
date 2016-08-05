@@ -20,11 +20,8 @@ class Authenticate
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
                 $result = [
-                    'status' => 'failure',
-                    'error'  => [
-                        'code' => 401,
-                        'message' => 'Unauthorized',
-                    ],
+                    'code'    => -1,
+                    'message' => 'Unauthorized',
                 ];
                 return response($result, 401);
             } else {

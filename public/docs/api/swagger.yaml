@@ -4,20 +4,25 @@ info:
   version: "0.0.1"
   title: Daza.io RESTful API
   description: |
+    - Authentication
+    - Pagination
+    - Rate Limiting
+    - User Agent Required
+    - In-app Pages
+    - App Links
+    
     请求响应示例
     ```json
     {
-        "status": "success",
-        "error": {
-            "code": 404,
-            "message": "...",
-            "errors": [
-                {
-                    "field": "user",
-                    "message": "用户 不存在。"
-                }
-            ]
-        },
+        "code": 0,
+        "message": "..."
+        "errors": [
+            {
+                "code": 10000,
+                "field": "user",
+                "message": "用户 不存在。"
+            }
+        ],
         "pagination": {
             "total": 10,
             "per_page": 10,
@@ -142,8 +147,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/User'
   /account/login:
@@ -166,8 +171,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/User'
   /account/logout:
@@ -179,8 +184,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /account/password_reset:
     post:
       tags:
@@ -207,8 +212,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /account/password_modify:
     post:
       tags:
@@ -231,8 +236,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /account/profile:
     get:
       tags:
@@ -242,8 +247,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/User'
     put:
@@ -291,14 +296,6 @@ paths:
           in: formData
           type: string
           description: 城市
-        - name: address
-          in: formData
-          type: string
-          description: 地址
-        - name: phone
-          in: formData
-          type: string
-          description: 电话
         - name: company
           in: formData
           type: string
@@ -316,8 +313,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/User'
   /users/{user_id}:
@@ -331,8 +328,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/User'
   /users/{user_id}/relationship:
@@ -352,8 +349,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /users/{user_id}/followers:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -367,8 +364,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -386,8 +383,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -405,8 +402,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -424,8 +421,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -443,8 +440,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -460,8 +457,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -477,8 +474,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Category'
   /categories/{category_id}/articles:
@@ -494,8 +491,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -511,8 +508,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -566,10 +563,45 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Topic'
+  
+  /topics/latest:
+    get:
+      tags:
+        - topics
+      parameters:
+        - $ref: '#/parameters/page'
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Topic'
+  /topics/popular:
+    get:
+      tags:
+        - topics
+      parameters:
+        - $ref: '#/parameters/page'
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Topic'
   /topics/{topic_id}:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -581,8 +613,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Topic'
     delete:
@@ -593,8 +625,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /topics/{topic_id}/articles:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -608,8 +640,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -625,8 +657,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/TopicSubscriber'
   /topics/{topic_id}/subscribe:
@@ -640,8 +672,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /topics/{topic_id}/unsubscribe:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -653,8 +685,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /articles:
     get:
       tags:
@@ -666,8 +698,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -720,8 +752,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Article'
   /articles/latest:
@@ -735,8 +767,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -752,8 +784,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -769,8 +801,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Article'
     put:
@@ -781,8 +813,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Article'
     delete:
@@ -793,8 +825,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /articles/{article_id}/likes:
     parameters:
       - $ref: '#/parameters/article-id'
@@ -806,8 +838,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -825,8 +857,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /articles/{article_id}/comments:
     parameters:
       - $ref: '#/parameters/article-id'
@@ -840,8 +872,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -860,8 +892,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/ArticleComment'
   /articles/{article_id}/comments/{article_comment_id}:
@@ -876,8 +908,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /articles/{article_id}/viewers:
     parameters:
       - $ref: '#/parameters/article-id'
@@ -891,8 +923,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -908,8 +940,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -942,8 +974,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -959,8 +991,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Tweet'
     delete:
@@ -971,8 +1003,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /tweets/{tweet_id}/likes:
     parameters:
       - $ref: '#/parameters/tweet-id'
@@ -984,8 +1016,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -1003,8 +1035,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /tweets/{tweet_id}/comments:
     parameters:
       - $ref: '#/parameters/tweet-id'
@@ -1018,8 +1050,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -1038,8 +1070,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/TweetComment'
   /tweets/{tweet_id}/comments/{tweet_comment_id}:
@@ -1054,8 +1086,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /events:
     get:
       tags:
@@ -1067,8 +1099,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -1081,8 +1113,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Event'
   /events/{event_id}:
@@ -1096,8 +1128,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Event'
     put:
@@ -1108,8 +1140,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Event'
     delete:
@@ -1120,8 +1152,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /events/{event_id}/join:
     parameters:
       - $ref: '#/parameters/event-id'
@@ -1133,8 +1165,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /events/{event_id}/members:
     parameters:
       - $ref: '#/parameters/event-id'
@@ -1148,8 +1180,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/EventMember'
   /tags:
@@ -1163,8 +1195,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -1183,8 +1215,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Tag'
   /tags/{tag_name}:
@@ -1198,8 +1230,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Tag'
   /notifications:
@@ -1217,8 +1249,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -1234,8 +1266,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 $ref: '#/definitions/Notification'
     delete:
@@ -1246,8 +1278,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /notifications/mark:
     post:
       tags:
@@ -1262,8 +1294,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
   /assets:
     get:
       tags:
@@ -1279,8 +1311,8 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
               data:
                 type: array
                 items:
@@ -1306,12 +1338,16 @@ paths:
           description: OK
           schema:
             properties:
-              status:
-                type: string
+              code:
+                type: integer
 definitions:
   User:
     type: object
     description: 用户
+    required:
+      - id
+      - username
+      - email
     properties:
       id:
         type: integer
@@ -1379,6 +1415,10 @@ definitions:
   UserRelationship:
     type: object
     description: 用户关系
+    required:
+      - id
+      - user_id
+      - target_user_id
     properties:
       id:
         type: integer
@@ -1392,6 +1432,9 @@ definitions:
   UserPointRecord:
     type: object
     description: 用户积分记录
+    required:
+      - id
+      - user_id
     properties:
       id:
         type: integer
@@ -1417,6 +1460,9 @@ definitions:
   Category:
     type: object
     description: 分类
+    required:
+      - id
+      - name
     properties:
       id:
         type: integer
@@ -1430,9 +1476,15 @@ definitions:
       description:
         type: string
         description: 描述
+      topic_count:
+        type: integer
+        description: 主题数
   Topic:
     type: object
     description: 主题
+    required:
+      - id
+      - user_id
     properties:
       id:
         type: integer
@@ -1481,6 +1533,10 @@ definitions:
   TopicSubscriber:
     type: object
     description: 主题订阅者
+    required:
+      - id
+      - user_id
+      - topic_id
     properties:
       id:
         type: integer
@@ -1494,6 +1550,9 @@ definitions:
   Article:
     type: object
     description: 文章
+    required:
+      - id
+      - user_id
     properties:
       id:
         type: integer
@@ -1564,6 +1623,8 @@ definitions:
   ArticleLike:
     type: object
     description: 文章点赞
+    required:
+      - id
     properties:
       id:
         type: integer
@@ -1577,6 +1638,10 @@ definitions:
   ArticleComment:
     type: object
     description: 文章评论
+    required:
+      - id
+      - user_id
+      - article_id
     properties:
       id:
         type: integer
@@ -1593,6 +1658,9 @@ definitions:
   ArticleViewer:
     type: object
     description: 文章阅读者
+    required:
+      - id
+      - article_id
     properties:
       id:
         type: integer
@@ -1612,6 +1680,9 @@ definitions:
   Tweet:
     type: object
     description: 推文
+    required:
+      - id
+      - user_id
     properties:
       id:
         type: integer
@@ -1645,6 +1716,10 @@ definitions:
   TweetLike:
     type: object
     description: 推文点赞
+    required:
+      - id
+      - user_id
+      - tweet_id
     properties:
       id:
         type: integer
@@ -1658,6 +1733,10 @@ definitions:
   TweetComment:
     type: object
     description: 推文评论
+    required:
+      - id
+      - user_id
+      - tweet_id
     properties:
       id:
         type: integer
@@ -1674,6 +1753,8 @@ definitions:
   Event:
     type: object
     description: 活动
+    required:
+      - id
     properties:
       id:
         type: integer
@@ -1745,6 +1826,9 @@ definitions:
   Tag:
     type: object
     description: 标签
+    required:
+      - id
+      - name
     properties:
       id:
         type: integer
@@ -1761,6 +1845,8 @@ definitions:
   Notification:
     type: object
     description: 通知
+    required:
+      - id
     properties:
       id:
         type: integer
@@ -1783,6 +1869,8 @@ definitions:
   Asset:
     type: object
     description: 资源
+    required:
+      - id
     properties:
       id:
         type: integer

@@ -33,6 +33,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('/categories', 'CategoryController');
     Route::get('/categories/{category_id}/articles', 'CategoryController@articles');
     // topics
+    Route::get('/topics/latest', 'TopicController@latest');
+    Route::get('/topics/popular', 'TopicController@popular');
     Route::resource('/topics', 'TopicController');
     Route::get('/topics/{topic_id}/articles', 'TopicController@articles');
     Route::get('/topics/{topic_id}/subscribers', 'TopicSubscriberController@subscribers');

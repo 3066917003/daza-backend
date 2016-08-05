@@ -16,19 +16,16 @@ class Controller extends BaseController
     protected function formatValidationErrors(Validator $validator)
     {
         $result = [
-            'status' => 'failure',
-            'error'  => [
-                'code' => 422,
-                'message' => 'Unprocessable entity',
-                'errors' => []
-            ],
+            'code'    => -1,
+            'message' => 'Validation Failed',
+            'errors'  => [],
         ];
 
         $errors = $validator->errors()->messages();
         foreach ($errors as $field => $error) {
             foreach ($error as $key => $value) {
-                array_push($result['error']['errors'], [
-                    'field' => $field,
+                array_push($result['errors'], [
+                    'field'   => $field,
                     'message' => $value
                 ]);
             }
@@ -39,21 +36,21 @@ class Controller extends BaseController
     protected function success($data = '')
     {
         $result = array(
-            'status' => 'success',
-            'data'   => null
+            'code' => 0,
+            'data' => null
         );
         if ($data) {
             $result['data'] = $data;
         } else {
             unset($result['data']);
         }
-        return response()->json($result);
+        return response($result);
     }
 
     protected function pagination($data='')
     {
         $result = array(
-            'status'     => 'success',
+            'code'       => 0,
             'pagination' => null,
             'data'       => null
         );
@@ -66,34 +63,25 @@ class Controller extends BaseController
             unset($data['prev_page_url']);
             $result['pagination'] = $data;
         }
-        return response()->json($result);
+        return response($result);
     }
 
     /**
      * @param $errors 数据可以为字符串，字符数组
      * @return json
      */
-    protected function failure($errors = '')
+    protected function failure($errors = [], $status = 520)
     {
         $result = array(
-            'status' => 'failure'
+            'code' => -1,
         );
         if ($errors) {
             if (is_string($errors)) {
-                // 转换字符串的错误消息
-                $result['errors'] = array(['message' => $errors]);
+                $result['message'] = $errors;
             } elseif (is_array($errors)) {
-                // 转换Validator返回的错误信息
-                if (count($errors) > 0 && is_string($errors[0])) {
-                    $result['errors'] = [];
-                    foreach ($errors as $error) {
-                        array_push($result['errors'], array('message' => $error));
-                    }
-                } else {
-                    $result['errors'] = $errors;
-                }
+                $result['errors'] = $errors;
             }
         }
-        return response()->json($result);
+        return response($result, $status);
     }
 }
