@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Topic;
 use App\Models\Article;
 
 use Illuminate\Http\Request;
@@ -30,12 +31,12 @@ class CategoryController extends Controller
         return $this->failure();
     }
 
-    public function show(Request $request, $category_id)
+    public function show(Request $request, $id)
     {
-        $request->merge(['category' => $category_id]);
+        $request->merge(['category' => $id]);
         $this->validate($request, ['category' => 'exists:categories,id']);
 
-        $data = Category::find($category_id);
+        $data = Category::find($id);
         return $this->success($data);
     }
 
@@ -49,10 +50,15 @@ class CategoryController extends Controller
         return $this->failure();
     }
 
+    public function topics(Request $request, $id)
+    {
+        $query = Topic::where('category_id', $id);
+
+        return $this->pagination($query->paginate());
+    }
+
     public function articles(Request $request, $id)
     {
-        $params = $request->all();
-
         $columns = [
             'articles.id',
             'articles.user_id',

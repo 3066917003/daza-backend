@@ -270,7 +270,7 @@ paths:
         - name: avatar_url
           in: formData
           type: string
-          description: 头像
+          description: 头像链接（原始尺寸）
         - name: age
           in: formData
           type: integer
@@ -478,6 +478,25 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Category'
+  /categories/{category_id}/topics:
+    parameters:
+      - $ref: '#/parameters/category-id'
+    get:
+      tags:
+        - categories
+      parameters:
+        - $ref: '#/parameters/page'
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Topic'
   /categories/{category_id}/articles:
     parameters:
       - $ref: '#/parameters/category-id'
@@ -543,7 +562,7 @@ paths:
           type: string
         - name: image_url
           in: formData
-          description: 图片网址
+          description: 图片链接（原始尺寸）
           type: string
         - name: description
           in: formData
@@ -724,7 +743,7 @@ paths:
           type: string
         - name: image_url
           in: formData
-          description: 图片网址
+          description: 图片链接（原始尺寸）
           type: string
         - name: content
           in: formData
@@ -1376,7 +1395,7 @@ definitions:
         description: 姓
       avatar_url:
         type: string
-        description: 头像
+        description: 头像链接（原始尺寸）
       age:
         type: integer
         description: 年龄
@@ -1412,6 +1431,12 @@ definitions:
       bio:
         type: string
         description: 简介
+      status:
+        type: integer
+        description: 状态[ 0 => 'Unactive', 1 => 'Active']
+      site_admin:
+        type: boolean
+        description: 站点管理员
   UserRelationship:
     type: object
     description: 用户关系
@@ -1472,7 +1497,7 @@ definitions:
         description: 名称
       image_url:
         type: string
-        description: 图片网址
+        description: 图片链接（原始尺寸）
       description:
         type: string
         description: 描述
@@ -1510,7 +1535,7 @@ definitions:
         description: 主页
       image_url:
         type: string
-        description: 图片网址
+        description: 图片链接（原始尺寸）
       description:
         type: string
         description: 描述
@@ -1585,13 +1610,13 @@ definitions:
         description: 内容
       image_url:
         type: string
-        description: 图片网址
+        description: 图片链接（原始尺寸）
       audio_url:
         type: string
-        description: 音频网址
+        description: 音频链接
       video_url:
         type: string
-        description: 视频网址
+        description: 视频链接
       author:
         type: string
         description: 作者
@@ -1770,7 +1795,7 @@ definitions:
         description: 内容
       image_url:
         type: string
-        description: 图片网址
+        description: 图片链接（原始尺寸）
       start_at:
         type: string
         description: 开始时间
@@ -1838,7 +1863,7 @@ definitions:
         description: 名称
       image_url:
         type: string
-        description: 图片网址
+        description: 图片链接（原始尺寸）
       description:
         type: string
         description: 描述

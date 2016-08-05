@@ -19,7 +19,7 @@ class CreateTopicsTable extends Migration
             $table->string('type');                 // 类型[feed,official,original]
             $table->string('name', 191)->unique();  // 名称
             $table->string('website');              // 主页
-            $table->string('image_url');            // 图片网址
+            $table->string('image_url');            // 图片链接（原始尺寸）
             $table->string('description');          // 描述
             $table->string('source_format');        // 文章来源格式
             $table->string('source_link');          // 文章来源链接

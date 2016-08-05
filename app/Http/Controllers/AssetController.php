@@ -44,9 +44,9 @@ class AssetController extends Controller
         return $this->failure();
     }
 
-    public function show(Request $request, $event_id)
+    public function show(Request $request, $id)
     {
-        return $this->success($data);
+        return $this->success();
     }
 
     public function update(Request $request)

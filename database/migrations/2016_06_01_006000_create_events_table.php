@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->integer('user_id');         // 用户Id
             $table->string('title');            // 标题
             $table->text('content');            // 内容
-            $table->string('image_url');        // 图片网址
+            $table->string('image_url');        // 图片链接（原始尺寸）
             $table->dateTime('start_at');       // 开始时间
             $table->dateTime('end_at');         // 结束时间
             $table->string('organizer');        // 主办方

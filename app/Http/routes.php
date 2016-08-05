@@ -31,6 +31,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/users/{user_id}/following', 'UserRelationshipController@following');
     // categories
     Route::resource('/categories', 'CategoryController');
+    Route::get('/categories/{category_id}/topics', 'CategoryController@topics');
     Route::get('/categories/{category_id}/articles', 'CategoryController@articles');
     // topics
     Route::get('/topics/latest', 'TopicController@latest');

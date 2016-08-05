@@ -22,7 +22,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');            // 标题
             $table->string('summary');          // 摘要
             $table->text('content');            // 内容
-            $table->string('image_url');        // 图片网址
+            $table->string('image_url');        // 图片链接（原始尺寸）
             $table->string('audio_url');        // 音频网址
             $table->string('video_url');        // 视频网址
             $table->string('author');           // 作者

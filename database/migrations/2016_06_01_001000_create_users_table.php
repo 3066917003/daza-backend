@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('name', 191)->unique()->nullable();      // 名称
             $table->string('first_name');                           // 名
             $table->string('last_name');                            // 姓
-            $table->string('avatar_url');                           // 头像
+            $table->string('avatar_url');                           // 头像链接（原始尺寸）
             $table->integer('age');                                 // 年龄
             $table->string('gender')->default('unspecified');       // 性别 [unspecified, secrecy, male, female]
             $table->string('birthday');                             // 生日
@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('website');                              // 主页
             $table->string('bio');                                  // 简介
             $table->integer('status')->default(1);                  // 状态[ 0 => 'Unactive', 1 => 'Active']
+            $table->boolean('site_admin')->default(false);          // 站点管理员
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

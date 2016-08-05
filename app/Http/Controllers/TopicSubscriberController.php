@@ -35,14 +35,14 @@ class TopicSubscriberController extends Controller
 
     public function subscribe(Request $request, $id)
     {
-        $request->merge(['topic_id' => $id]);
+        $request->merge(['topic' => $id]);
         $rules = [
-            'topic_id' => 'exists:topics,id',
+            'topic' => 'exists:topics,id',
         ];
         $this->validate($request, $rules);
 
         $data = TopicSubscriber::firstOrCreate([
-            'user_id' => Auth::id(),
+            'user_id'  => Auth::id(),
             'topic_id' => $id
         ]);
 
@@ -51,9 +51,9 @@ class TopicSubscriberController extends Controller
 
     public function unsubscribe(Request $request, $id)
     {
-        $request->merge(['topic_id' => $id]);
+        $request->merge(['topic' => $id]);
         $rules = [
-            'topic_id' => 'exists:topics,id',
+            'topic' => 'exists:topics,id',
         ];
         $this->validate($request, $rules);
 
