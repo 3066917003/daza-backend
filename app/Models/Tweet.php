@@ -46,7 +46,7 @@ class Tweet extends Model
 
     public function assets()
     {
-        return $this->hasMany('App\Models\Asset', 'target_id')->where('target_type', 'article');
+        return $this->hasMany('App\Models\Asset', 'target_id')->where('target_type', 'tweet');
     }
 
 }

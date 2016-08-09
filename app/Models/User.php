@@ -67,7 +67,8 @@ class User extends Authenticatable
         return $this->attributes['name'];
     }
 
-    public function getAgeAttribute() {
+    public function getAgeAttribute()
+    {
         $age = $this->attributes['age'];
         $birthday = $this->attributes['birthday'];
 
@@ -97,19 +98,23 @@ class User extends Authenticatable
         return false;
     }
 
-    public function topics() {
+    public function topics()
+    {
         return $this->hasMany('App\Models\Topic');
     }
 
-    public function articles() {
+    public function articles()
+    {
         return $this->hasMany('App\Models\Article');
     }
 
-    public function tweets() {
+    public function tweets()
+    {
         return $this->hasMany('App\Models\Tweet');
     }
 
-    public function events() {
+    public function events()
+    {
         // TODO: 关联用户参加的活动
         return $this->hasMany('App\Models\Event');
     }
