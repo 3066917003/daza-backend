@@ -10,7 +10,6 @@
         "nesbot/carbon": "^1.21",
         "barryvdh/laravel-cors": "^0.8.0",
         "guzzlehttp/guzzle": "^6.2",
-        "filp/whoops": "^2.1",
         "paquettg/php-html-parser": "^1.7"
     },
     "require-dev": {
