@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('image_url');            // 图片链接（原始尺寸）
             $table->string('description');          // 描述
             $table->integer('topic_count');         // 主题数
+            $table->integer('article_count');       // 文章数
             $table->softDeletes();
             $table->timestamps();
         });
