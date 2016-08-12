@@ -271,6 +271,10 @@ paths:
           in: formData
           type: string
           description: 头像链接（原始尺寸）
+        - name: use_gravatar
+          in: formData
+          type: boolean
+          description: 使用Gravatar
         - name: age
           in: formData
           type: integer

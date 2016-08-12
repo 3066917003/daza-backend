@@ -98,6 +98,12 @@ class User extends Authenticatable
         return false;
     }
 
+    // 使用Gravatar
+    public function useGravatar()
+    {
+        $this->avatar_url = "https://cn.gravatar.com/avatar/" . md5( strtolower( trim( $this->email ) ) );
+    }
+
     public function topics()
     {
         return $this->hasMany('App\Models\Topic');

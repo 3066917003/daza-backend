@@ -16,9 +16,10 @@ class DatabaseSeeder extends Seeder
             ['id' => 2, 'name' => '后端'],
             ['id' => 3, 'name' => '前端'],
             ['id' => 4, 'name' => '移动端'],
-            ['id' => 5, 'name' => '设计'],
-            ['id' => 6, 'name' => '产品'],
-            ['id' => 7, 'name' => '博客'],
+            ['id' => 5, 'name' => '数据库'],
+            ['id' => 6, 'name' => '设计'],
+            ['id' => 7, 'name' => '产品'],
+            ['id' => 8, 'name' => '博客'],
         ];
         DB::table('categories')->insert($categories);
     }

@@ -35,12 +35,13 @@ class AccountController extends Controller
         ];
         $this->validate($request, $rules);
 
-
         $params = $request->only('username', 'email', 'password');
         $params['password'] = bcrypt($params['password']);
 
-        $user = User::create($params);
-        if ($user) {
+        $user = new User($params);
+        // 注册时默认使用Gravatar头像
+        $user->useGravatar();
+        if ($user->save()) {
             return $this->login($request);
         }
         return $this->failure();
@@ -92,9 +93,14 @@ class AccountController extends Controller
         ];
         $this->validate($request, $rules);
 
-        $params = $request->except('username', 'email', 'mobile', 'password');
+        $params = $request->except('username', 'email', 'mobile', 'password', 'use_gravatar');
+        $use_gravatar = in_array($request->input('use_gravatar'), ['true', 'yes', 'on', '1']);
 
         $user = User::find(Auth::id());
+        if ($use_gravatar) {
+            unset($params['avatar_url']);
+            $user->useGravatar();
+        }
         if ($user->update($params)) {
             return $this->success($user);
         }
