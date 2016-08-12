@@ -1233,6 +1233,10 @@ paths:
           description: 名称
           type: string
           required: true
+        - name: standard_name
+          in: formData
+          description: 标准名称
+          type: string
       responses:
         200:
           description: OK
@@ -1868,6 +1872,9 @@ definitions:
       name:
         type: string
         description: 名称
+      standard_name:
+        type: string
+        description: 标准名称
       image_url:
         type: string
         description: 图片链接（原始尺寸）

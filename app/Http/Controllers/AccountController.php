@@ -84,17 +84,17 @@ class AccountController extends Controller
             'name'     => 'min:2|max:32',
             'age'      => 'numeric|between:1,100',
             'gender'   => 'in:' . implode(',', [
-                User::GENDER_UNSPECIFIED,
-                User::GENDER_SECRECY,
-                User::GENDER_MALE,
-                User::GENDER_FEMALE
+                GENDER_UNSPECIFIED,
+                GENDER_SECRECY,
+                GENDER_MALE,
+                GENDER_FEMALE
             ]),
             'birthday' => 'date_format:Y-m-d|before:today'
         ];
         $this->validate($request, $rules);
 
         $params = $request->except('username', 'email', 'mobile', 'password', 'use_gravatar');
-        $use_gravatar = in_array($request->input('use_gravatar'), ['true', 'yes', 'on', '1']);
+        $use_gravatar = in_array($request->input('use_gravatar'), ['true', 'on', '1']);
 
         $user = User::find(Auth::id());
         if ($use_gravatar) {

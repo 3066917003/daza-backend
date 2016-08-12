@@ -9,14 +9,14 @@ use Validator;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+define('GENDER_UNSPECIFIED' , 'unspecified');
+define('GENDER_SECRECY'     , 'secrecy');
+define('GENDER_MALE'        , 'male');
+define('GENDER_FEMALE'      , 'female');
+
 class User extends Authenticatable
 {
     use SoftDeletes;
-
-    const GENDER_UNSPECIFIED = 'unspecified';
-    const GENDER_SECRECY     = 'secrecy';
-    const GENDER_MALE        = 'male';
-    const GENDER_FEMALE      = 'female';
 
     /**
      * The accessors to append to the model's array form.
