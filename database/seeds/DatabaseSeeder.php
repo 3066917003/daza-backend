@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +13,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $users = [
+            [
+                'username'   => 'lijy91' ,
+                'email'      => 'lijy91@foxmail.com',
+                'password'   => bcrypt('123456'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'username'   => 'daza_io',
+                'email'      => 'app@daza.io',
+                'password'   => bcrypt('123456'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'username'   => 'robot_daza_io',
+                'email'      => 'robot@daza.io',
+                'password'   => bcrypt('123456'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+        ];
+        DB::table('users')->insert($users);
         $categories = [
             ['id' => 1, 'name' => '新闻'],
             ['id' => 2, 'name' => '后端'],

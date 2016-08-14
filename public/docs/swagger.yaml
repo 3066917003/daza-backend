@@ -4,12 +4,6 @@ info:
   version: "0.0.1"
   title: daza.io RESTful API
   description: |
-    - Authentication
-    - Pagination
-    - Rate Limiting
-    - User Agent Required
-    - In-app Pages
-    - App Links
     
     请求响应示例
     ```json
@@ -36,6 +30,27 @@ info:
         }
     }
     ```
+    
+    - Authentication
+    - Pagination
+    - Rate Limiting
+      ```
+      Retry-After: 30
+      X-RateLimit-Limit: 60
+      X-RateLimit-Remaining: 0
+      ```
+    - User Agent Required
+    
+    - In-app Pages
+      - `/in-app/articles/{article_id}`
+    - App Links
+      - `daza://users/{user_id}`
+      - `daza://categories/{category_id}`
+      - `daza://topics/{topic_id}`
+      - `daza://articles/{article_id}`
+      - `daza://tweets/{tweet_id}`
+      - `daza://events/{event_id}`
+      - `daza://tags/{tag_name}`
 
 basePath: /v1
 produces:

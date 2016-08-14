@@ -3,7 +3,7 @@
     "info": {
         "version": "0.0.1",
         "title": "daza.io RESTful API",
-        "description": "- Authentication\n- Pagination\n- Rate Limiting\n- User Agent Required\n- In-app Pages\n- App Links\n\n请求响应示例\n```json\n{\n    \"code\": 0,\n    \"message\": \"...\"\n    \"errors\": [\n        {\n            \"code\": 10000,\n            \"field\": \"user\",\n            \"message\": \"用户 不存在。\"\n        }\n    ],\n    \"pagination\": {\n        \"total\": 10,\n        \"per_page\": 10,\n        \"current_page\": 1,\n        \"last_page\": 1,\n        \"from\": 1,\n        \"to\": 10\n    },\n    \"data\": {\n        ...\n    }\n}\n```\n"
+        "description": "\n请求响应示例\n```json\n{\n    \"code\": 0,\n    \"message\": \"...\"\n    \"errors\": [\n        {\n            \"code\": 10000,\n            \"field\": \"user\",\n            \"message\": \"用户 不存在。\"\n        }\n    ],\n    \"pagination\": {\n        \"total\": 10,\n        \"per_page\": 10,\n        \"current_page\": 1,\n        \"last_page\": 1,\n        \"from\": 1,\n        \"to\": 10\n    },\n    \"data\": {\n        ...\n    }\n}\n```\n\n- Authentication\n- Pagination\n- Rate Limiting\n  ```\n  Retry-After: 30\n  X-RateLimit-Limit: 60\n  X-RateLimit-Remaining: 0\n  ```\n- User Agent Required\n\n- In-app Pages\n  - `/in-app/articles/{article_id}`\n- App Links\n  - `daza://users/{user_id}`\n  - `daza://categories/{category_id}`\n  - `daza://topics/{topic_id}`\n  - `daza://articles/{article_id}`\n  - `daza://tweets/{tweet_id}`\n  - `daza://events/{event_id}`\n  - `daza://tags/{tag_name}`\n"
     },
     "basePath": "/v1",
     "produces": [

@@ -152,7 +152,7 @@ class ArticleController extends Controller
             DB::table('articles')->where('id', $article_id)->update(['view_count' => $view_count]);
         }
 
-        $data = Article::find($article_id);
+        $data = Article::with('topic')->find($article_id);
         return $this->success($data);
     }
 
