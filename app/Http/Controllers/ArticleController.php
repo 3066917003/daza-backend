@@ -18,8 +18,8 @@ class ArticleController extends Controller
 
     public function __construct()
     {
-        // 执行 auth 认证
-        $this->middleware('auth', [
+        // 执行 jwt.auth 认证
+        $this->middleware('jwt.auth', [
             'except' => [
                 'index',
                 'latest',

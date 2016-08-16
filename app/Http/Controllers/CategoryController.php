@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Category;
 use App\Models\Topic;
 use App\Models\Article;
@@ -16,8 +15,15 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        // 执行 auth 认证
-        // $this->middleware('auth');
+        // 执行 jwt.auth 认证
+        $this->middleware('jwt.auth', [
+            'except' => [
+                'index',
+                'show',
+                'topics',
+                'articles',
+            ]
+        ]);
     }
 
     public function index(Request $request)

@@ -30,6 +30,9 @@ class CreateArticlesTable extends Migration
             $table->string('author_link');      // 作者链接
             $table->string('source');           // 来源
             $table->string('source_link');      // 来源链接
+            $table->string('location');         // 位置
+            $table->double('longitude', 7, 7);  // 经度
+            $table->double('latitude', 7, 7);   // 纬度
             $table->integer('view_count');      // 阅读数
             $table->integer('like_count');      // 喜欢数
             $table->integer('comment_count');   // 评论数

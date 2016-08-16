@@ -162,6 +162,7 @@ return [
          * Third-party Libraries Service Providers...
          */
         Barryvdh\Cors\ServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     ],
 
     /*
@@ -208,6 +209,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Third-party Libraries Class Aliases...
+         */
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
 
 ];

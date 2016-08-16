@@ -119,6 +119,14 @@
             "required": true
         }
     },
+    "securityDefinitions": {
+        "jwt_auth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT"
+        }
+    },
     "paths": {
         "/account/register": {
             "post": {

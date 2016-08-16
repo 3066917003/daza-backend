@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 
 use Auth;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 use Illuminate\Http\Request;
 
@@ -15,8 +17,8 @@ class AccountController extends Controller
 
     public function __construct()
     {
-        // 执行 auth 认证
-        $this->middleware('auth', [
+        // 执行 jwt.auth 认证
+        $this->middleware('jwt.auth', [
             'except' => [
                 'register',
                 'login',
@@ -56,14 +58,22 @@ class AccountController extends Controller
         ];
         $this->validate($request, $rules);
 
-        $credentials = $request->all();
-        $remember = true;
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials, $remember)) {
-            return $this->success(Auth::user());
+        try {
+            // attempt to verify the credentials and create a token for the user
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return $this->failure(trans('auth.failed'), 401);
+            }
+            $user = Auth::user();
+            $user->token = $token;
+            return $this->success($user);
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['error' => 'could_not_create_token'], 500);
         }
-
-        return $this->failure(trans('auth.failed'), 401);
+        // all good so return the token
+        // return response()->json(compact('token'));
     }
 
     public function logout(Request $request)
