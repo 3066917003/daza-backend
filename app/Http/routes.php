@@ -15,7 +15,7 @@ Route::get('/', function () {
     return redirect('/docs');
 });
 
-Route::group(['prefix' => 'v1'], function () {
+Route::group(['prefix' => 'v1', 'middleware' => ['api']], function () {
     // account
     Route::post('/account/register', 'AccountController@register');
     Route::post('/account/login', 'AccountController@login');

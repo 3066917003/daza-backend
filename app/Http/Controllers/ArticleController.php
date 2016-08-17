@@ -47,7 +47,7 @@ class ArticleController extends Controller
         ];
 
         $query = Article::select($columns)
-            ->with(['user', 'topic'])
+            ->with(['user', 'topic', 'tags'])
             ->orderBy('published_at', 'desc');
 
         // 通过分类获取文章
@@ -152,7 +152,7 @@ class ArticleController extends Controller
             DB::table('articles')->where('id', $article_id)->update(['view_count' => $view_count]);
         }
 
-        $data = Article::with('topic')->find($article_id);
+        $data = Article::with(['topic', 'tags'])->find($article_id);
         return $this->success($data);
     }
 
