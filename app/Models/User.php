@@ -32,7 +32,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'site_admin' => 'boolean',
+    ];
 
     /**
      * The attributes that aren't mass assignable.

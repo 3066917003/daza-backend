@@ -97,6 +97,8 @@ class RssArticleGrabber extends Command
                             strpos($image_url, '.png')  > 0 ||
                             strpos($image_url, '.bmp')  > 0) {
                             break;
+                        } else {
+                            $image_url = '';
                         }
                     }
                     // 获取文章的标签

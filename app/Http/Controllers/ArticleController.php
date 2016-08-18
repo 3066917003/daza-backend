@@ -159,7 +159,7 @@ class ArticleController extends Controller
             }
         }
 
-        $data = Article::with(['topic', 'tags'])->find($article_id);
+        $data = Article::with(['topic', 'topic.user', 'tags'])->find($article_id);
         return $this->success($data);
     }
 
