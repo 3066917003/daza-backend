@@ -8,6 +8,7 @@ use App\Models\ArticleViewer;
 
 use Auth;
 use DB;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -140,16 +141,22 @@ class ArticleController extends Controller
 
         $user_id = Auth::check() ? Auth::id() : 0;
 
-        $viewer = ArticleViewer::create([
+        // 记录文章阅读者记录
+        $params = [
             'user_id'    => $user_id,
             'article_id' => $article_id,
             'ip_address' => $request->ip(),
             'user_agent' => $request->header('User-Agent'),
-        ]);
-
-        if ($viewer) {
-            $view_count = ArticleViewer::where('article_id', $article_id)->count();
-            DB::table('articles')->where('id', $article_id)->update(['view_count' => $view_count]);
+        ];
+        // 5分钟内同一个阅读者只记数一次
+        $dt = Carbon::now();
+        $dt->subMinutes(5);
+        if (!ArticleViewer::where($params)->where('created_at', '>=', $dt)->exists()) {
+            $viewer = ArticleViewer::create($params);
+            if ($viewer) {
+                $view_count = ArticleViewer::where('article_id', $article_id)->count();
+                DB::table('articles')->where('id', $article_id)->update(['view_count' => $view_count]);
+            }
         }
 
         $data = Article::with(['topic', 'tags'])->find($article_id);

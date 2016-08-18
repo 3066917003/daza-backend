@@ -9,7 +9,7 @@ info:
     ```json
     {
         "code": 0,
-        "message": "..."
+        "message": "...",
         "errors": [
             {
                 "code": 10000,
@@ -173,6 +173,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/User'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /account/login:
     post:
       tags:
@@ -197,6 +201,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/User'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /account/logout:
     post:
       tags:
@@ -208,6 +216,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /account/password_reset:
     post:
       tags:
@@ -236,6 +248,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /account/password_modify:
     post:
       tags:
@@ -260,6 +276,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /account/profile:
     get:
       tags:
@@ -273,6 +293,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/User'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     put:
       tags:
         - account
@@ -343,6 +367,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/User'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /users/{user_id}:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -358,6 +386,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/User'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /users/{user_id}/relationship:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -377,6 +409,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /users/{user_id}/followers:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -392,10 +428,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/UserRelationship'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /users/{user_id}/following:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -411,10 +453,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/UserRelationship'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /users/{user_id}/topics:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -430,10 +478,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Topic'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /users/{user_id}/tweets:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -449,10 +503,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Tweet'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /users/{user_id}/events:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -468,10 +528,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Event'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /categories:
     get:
       tags:
@@ -485,10 +551,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Category'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /categories/{category_id}:
     parameters:
       - $ref: '#/parameters/category-id'
@@ -504,6 +576,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Category'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /categories/{category_id}/topics:
     parameters:
       - $ref: '#/parameters/category-id'
@@ -519,10 +595,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Topic'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /categories/{category_id}/articles:
     parameters:
       - $ref: '#/parameters/category-id'
@@ -538,6 +620,8 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
@@ -555,10 +639,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Topic'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - topics
@@ -612,6 +702,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Topic'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   
   /topics/latest:
     get:
@@ -626,10 +720,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Topic'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /topics/popular:
     get:
       tags:
@@ -643,10 +743,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Topic'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /topics/{topic_id}:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -662,6 +768,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Topic'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     delete:
       tags:
         - topics
@@ -672,6 +782,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /topics/{topic_id}/articles:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -687,10 +801,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Article'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /topics/{topic_id}/subscribers:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -706,6 +826,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/TopicSubscriber'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /topics/{topic_id}/subscribe:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -719,6 +843,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /topics/{topic_id}/unsubscribe:
     parameters:
       - $ref: '#/parameters/topic-id'
@@ -732,6 +860,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /articles:
     get:
       tags:
@@ -745,10 +877,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Article'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - articles
@@ -801,6 +939,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Article'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /articles/latest:
     get:
       tags:
@@ -814,10 +956,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Article'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /articles/popular:
     get:
       tags:
@@ -831,10 +979,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Article'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /articles/{article_id}:
     parameters:
       - $ref: '#/parameters/article-id'
@@ -850,6 +1004,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Article'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     put:
       tags:
         - articles
@@ -862,6 +1020,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Article'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     delete:
       tags:
         - articles
@@ -872,6 +1034,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /articles/{article_id}/votes:
     parameters:
       - $ref: '#/parameters/article-id'
@@ -885,10 +1051,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/ArticleVote'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - articles
@@ -904,6 +1076,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /articles/{article_id}/comments:
     parameters:
       - $ref: '#/parameters/article-id'
@@ -919,10 +1095,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/ArticleComment'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - articles
@@ -941,6 +1123,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/ArticleComment'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /articles/{article_id}/comments/{article_comment_id}:
     parameters:
       - $ref: '#/parameters/article-id'
@@ -955,6 +1141,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /articles/{article_id}/viewers:
     parameters:
       - $ref: '#/parameters/article-id'
@@ -970,10 +1160,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/ArticleViewer'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /tweets:
     get:
       tags:
@@ -987,10 +1183,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Tweet'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - tweets
@@ -1021,10 +1223,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Tweet'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /tweets/{tweet_id}:
     parameters:
       - $ref: '#/parameters/tweet-id'
@@ -1040,6 +1248,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Tweet'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     delete:
       tags:
         - tweets
@@ -1050,6 +1262,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /tweets/{tweet_id}/likes:
     parameters:
       - $ref: '#/parameters/tweet-id'
@@ -1063,10 +1279,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/TweetLike'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - tweets
@@ -1082,6 +1304,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /tweets/{tweet_id}/comments:
     parameters:
       - $ref: '#/parameters/tweet-id'
@@ -1097,10 +1323,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/TweetComment'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - tweets
@@ -1119,6 +1351,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/TweetComment'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /tweets/{tweet_id}/comments/{tweet_comment_id}:
     parameters:
       - $ref: '#/parameters/tweet-id'
@@ -1133,6 +1369,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /events:
     get:
       tags:
@@ -1146,10 +1386,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Event'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - events
@@ -1162,6 +1408,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Event'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /events/{event_id}:
     parameters:
       - $ref: '#/parameters/event-id'
@@ -1177,6 +1427,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Event'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     put:
       tags:
         - events
@@ -1189,6 +1443,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Event'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     delete:
       tags:
         - events
@@ -1199,6 +1457,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /events/{event_id}/join:
     parameters:
       - $ref: '#/parameters/event-id'
@@ -1212,6 +1474,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /events/{event_id}/members:
     parameters:
       - $ref: '#/parameters/event-id'
@@ -1229,6 +1495,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/EventMember'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /tags:
     get:
       tags:
@@ -1242,10 +1512,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Tag'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - tags
@@ -1268,6 +1544,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Tag'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /tags/{tag_name}:
     parameters:
       - $ref: '#/parameters/tag-name'
@@ -1283,6 +1563,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Tag'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /notifications:
     get:
       tags:
@@ -1300,10 +1584,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Notification'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /notifications/{notification_id}:
     parameters:
       - $ref: '#/parameters/notification-id'
@@ -1319,6 +1609,10 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Notification'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     delete:
       tags:
         - notifications
@@ -1329,6 +1623,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /notifications/mark:
     post:
       tags:
@@ -1345,6 +1643,10 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /assets:
     get:
       tags:
@@ -1362,10 +1664,16 @@ paths:
             properties:
               code:
                 type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
               data:
                 type: array
                 items:
                   $ref: '#/definitions/Asset'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
     post:
       tags:
         - assets
@@ -1389,7 +1697,53 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
 definitions:
+  Result:
+    type: object
+    required:
+      - code
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      errors:
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+  Pagination:
+    type: object
+    properties:
+      total:
+        type: integer
+      per_page:
+        type: integer
+      current_page:
+        type: integer
+      last_page:
+        type: integer
+      from:
+        type: integer
+      to:
+        type: integer
+  Error:
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      field:
+        type: string
+      message:
+        type: string
   User:
     type: object
     description: 用户
