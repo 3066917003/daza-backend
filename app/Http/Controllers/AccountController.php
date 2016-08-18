@@ -7,6 +7,7 @@ use App\Models\User;
 use Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -66,14 +67,16 @@ class AccountController extends Controller
                 return $this->failure(trans('auth.failed'), 401);
             }
             $user = Auth::user();
-            $user->token = $token;
+            // 设置JWT令牌
+            $user->jwt_token = [
+                'access_token' => $token,
+                'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
+            ];
             return $this->success($user);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return $this->failure(trans('jwt.could_not_create_token'), 500);
         }
-        // all good so return the token
-        // return response()->json(compact('token'));
     }
 
     public function logout(Request $request)

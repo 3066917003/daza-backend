@@ -2785,6 +2785,18 @@
                 }
             }
         },
+        "AccessToken": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "expires_in": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
         "User": {
             "type": "object",
             "description": "用户",
@@ -2884,6 +2896,9 @@
                 "site_admin": {
                     "type": "boolean",
                     "description": "站点管理员"
+                },
+                "jwt_token": {
+                    "$ref": "#/definitions/AccessToken"
                 }
             }
         },

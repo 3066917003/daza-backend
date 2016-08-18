@@ -1744,6 +1744,14 @@ definitions:
         type: string
       message:
         type: string
+  AccessToken:
+    type: object
+    properties:
+      access_token:
+        type: string
+      expires_in:
+        type: integer
+        format: int32
   User:
     type: object
     description: 用户
@@ -1821,6 +1829,8 @@ definitions:
       site_admin:
         type: boolean
         description: 站点管理员
+      jwt_token:
+        $ref: '#/definitions/AccessToken'
   UserRelationship:
     type: object
     description: 用户关系

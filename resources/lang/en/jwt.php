@@ -16,5 +16,6 @@ return [
     'token_not_provided' => 'Token not provided.',
     'token_expired' => 'Token expired.',
     'token_invalid' => 'Token invalid.',
-    'user_not_found' => 'User not found.'
+    'user_not_found' => 'User not found.',
+    'could_not_create_token' => 'Could not create token.',
 ];
