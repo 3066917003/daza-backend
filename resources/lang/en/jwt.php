@@ -18,4 +18,5 @@ return [
     'token_invalid' => 'Token invalid.',
     'user_not_found' => 'User not found.',
     'could_not_create_token' => 'Could not create token.',
+    'the_token_has_been_blacklisted' => 'The token has been blacklisted.',
 ];

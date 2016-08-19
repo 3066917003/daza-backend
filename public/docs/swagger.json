@@ -3179,6 +3179,12 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "发布时间"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ArticleTag"
+                    }
                 }
             }
         },
@@ -3261,6 +3267,28 @@
                 "user_agent": {
                     "type": "string",
                     "description": "UserAgent"
+                }
+            }
+        },
+        "ArticleTag": {
+            "type": "object",
+            "description": "文章标签",
+            "required": [
+                "id",
+                "article_id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Id"
+                },
+                "article_id": {
+                    "type": "integer",
+                    "description": "文章Id"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "名称"
                 }
             }
         },

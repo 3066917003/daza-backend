@@ -7,6 +7,7 @@ use App\Models\User;
 use Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -81,7 +82,11 @@ class AccountController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        try {
+            JWTAuth::parseToken()->invalidate();
+        } catch (TokenBlacklistedException $e) {
+            return $this->failure(trans('jwt.the_token_has_been_blacklisted'), 500);
+        }
         return $this->success();
     }
 
