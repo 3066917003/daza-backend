@@ -86,6 +86,8 @@ class AccountController extends Controller
             JWTAuth::parseToken()->invalidate();
         } catch (TokenBlacklistedException $e) {
             return $this->failure(trans('jwt.the_token_has_been_blacklisted'), 500);
+        } catch (JWTException $e) {
+            // 忽略该异常（Authorization为空时会发生）
         }
         return $this->success();
     }
