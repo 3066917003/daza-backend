@@ -48,5 +48,11 @@ class DatabaseSeeder extends Seeder
             ['id' => 8, 'name' => '博客'],
         ];
         DB::table('categories')->insert($categories);
+        $topics = [
+            ['type' => 'type', 'name' => 'iPc.me', 'source_format' => 'rss+xml', 'source_link' => 'http://feed.ipc.me'],
+            ['type' => 'type', 'name' => 'RubyChina', 'source_format' => 'rss+xml', 'source_link' => 'https://ruby-china.org/topics/feed'],
+            ['type' => 'type', 'name' => 'CNode', 'source_format' => 'rss+xml', 'source_link' => 'https://cnodejs.org/rss'],
+        ];
+        DB::table('topics')->insert($topics);
     }
 }

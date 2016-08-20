@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name');                           // 名
             $table->string('last_name');                            // 姓
             $table->string('avatar_url');                           // 头像链接（原始尺寸）
+            $table->boolean('use_gravatar')->default(false);        // 使用Gravatar头像
             $table->integer('age');                                 // 年龄
             $table->string('gender')->default('unspecified');       // 性别 [unspecified, secrecy, male, female]
             $table->string('birthday');                             // 生日

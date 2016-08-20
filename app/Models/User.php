@@ -33,7 +33,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'site_admin' => 'boolean',
+        'use_gravatar' => 'boolean',
+        'site_admin'   => 'boolean',
     ];
 
     /**
