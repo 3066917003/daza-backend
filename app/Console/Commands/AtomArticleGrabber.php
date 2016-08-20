@@ -22,7 +22,7 @@ class AtomArticleGrabber extends Command
      *
      * @var string
      */
-    protected $signature = 'grabber:atom';
+    protected $signature = 'ag:atom';
 
     /**
      * The console command description.

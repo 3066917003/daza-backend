@@ -24,7 +24,7 @@ class RssArticleGrabber extends Command
      *
      * @var string
      */
-    protected $signature = 'grabber:rss';
+    protected $signature = 'ag:rss';
 
     /**
      * The console command description.

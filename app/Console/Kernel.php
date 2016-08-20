@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('grabber:atom')->everyThirtyMinutes();
-        $schedule->command('grabber:rss')->everyThirtyMinutes();
+        $schedule->command('ag:atom')->everyThirtyMinutes();
+        $schedule->command('ag:rss')->everyThirtyMinutes();
     }
 }
