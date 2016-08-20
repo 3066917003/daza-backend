@@ -1044,6 +1044,11 @@ paths:
     get:
       tags:
         - articles
+      parameters:
+        - name: type
+          in: formData
+          description: 类型 [up, down]
+          type: string
       responses:
         200:
           description: OK
@@ -1788,6 +1793,9 @@ definitions:
       avatar_url:
         type: string
         description: 头像链接（原始尺寸）
+      user_gravatar:
+        type: boolean
+        description: 使用Gravatar头像
       age:
         type: integer
         description: 年龄
@@ -2026,10 +2034,13 @@ definitions:
       source_link:
         type: string
         description: 来源链接
-      view_count:
+      vote_up_count:
         type: integer
-        description: 喜欢数
-      like_count:
+        description: 顶文章人数
+      vote_down_count:
+        type: integer
+        description: 踩文章人数
+      view_count:
         type: integer
         description: 阅读数
       comment_count:

@@ -33,8 +33,9 @@ class CreateArticlesTable extends Migration
             $table->string('location');         // 位置
             $table->double('longitude', 7, 7);  // 经度
             $table->double('latitude', 7, 7);   // 纬度
+            $table->integer('vote_up_count');   // 顶文章人数
+            $table->integer('vote_down_count'); // 踩文章人数
             $table->integer('view_count');      // 阅读数
-            $table->integer('like_count');      // 喜欢数
             $table->integer('comment_count');   // 评论数
             $table->dateTime('published_at');   // 发表时间
             $table->softDeletes();

@@ -41,8 +41,9 @@ class ArticleController extends Controller
             'articles.title',
             'articles.summary',
             'articles.image_url',
+            'articles.vote_up_count',
+            'articles.vote_down_count',
             'articles.view_count',
-            'articles.like_count',
             'articles.comment_count',
             'articles.published_at',
         ];
@@ -73,8 +74,9 @@ class ArticleController extends Controller
             'articles.title',
             'articles.summary',
             'articles.image_url',
+            'articles.vote_up_count',
+            'articles.vote_down_count',
             'articles.view_count',
-            'articles.like_count',
             'articles.comment_count',
             'articles.published_at',
         ];
@@ -98,8 +100,9 @@ class ArticleController extends Controller
             'articles.title',
             'articles.summary',
             'articles.image_url',
+            'articles.vote_up_count',
+            'articles.vote_down_count',
             'articles.view_count',
-            'articles.like_count',
             'articles.comment_count',
             'articles.published_at',
         ];
