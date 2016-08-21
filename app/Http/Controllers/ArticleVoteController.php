@@ -50,11 +50,21 @@ class ArticleVoteController extends Controller
         ];
         $this->validate($request, $rules);
 
+        // 每篇文章只能投票一次（顶、踩共一次）
         $data = ArticleVote::firstOrCreate([
             'user_id' => Auth::id(),
             'article_id' => $id,
             'type' => $type,
         ]);
+        if ($data) {
+            // 更新文章投票数
+            $upvote_count   = ArticleVote::where(['article_id' => $id, 'type' => 'up'])->count();
+            $downvote_count = ArticleVote::where(['article_id' => $id, 'type' => 'down'])->count();
+            Article::find($id)->update([
+                'upvote_count'   => $upvote_count,
+                'downvote_count' => $downvote_count
+            ]);
+        }
         return $this->success();
     }
 

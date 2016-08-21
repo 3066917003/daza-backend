@@ -11,7 +11,8 @@
         "barryvdh/laravel-cors": "^0.8.0",
         "guzzlehttp/guzzle": "^6.2",
         "paquettg/php-html-parser": "^1.7",
-        "tymon/jwt-auth": "0.5.*"
+        "tymon/jwt-auth": "0.5.*",
+        "predis/predis": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

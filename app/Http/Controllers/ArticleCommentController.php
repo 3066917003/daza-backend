@@ -54,6 +54,9 @@ class ArticleCommentController extends Controller
         $data = ArticleComment::create($params);
 
         if ($data) {
+            // 更新文章评论数
+            $comment_count = ArticleComment::where('article_id', $id)->count();
+            Article::find($id)->update(['comment_count' => $comment_count]);
             return $this->success($data);
         }
 

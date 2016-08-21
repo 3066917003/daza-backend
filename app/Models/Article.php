@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Auth;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -14,7 +16,9 @@ class Article extends Model
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = [
+        'voted',
+    ];
 
     /**
      * The attributes that should be casted to native types.
@@ -38,6 +42,17 @@ class Article extends Model
     protected $hidden = [
         'deleted_at'
     ];
+
+    public function getVotedAttribute()
+    {
+        if (Auth::check()) {
+            return ArticleVote::where([
+                'user_id'    => Auth::id(),
+                'article_id' => $this->id,
+            ])->exists();
+        }
+        return false;
+    }
 
     public function user()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Jobs\SendWelcomeEmail;
 
 use Auth;
 use JWTAuth;
@@ -46,6 +47,8 @@ class AccountController extends Controller
         // 注册时默认使用Gravatar头像
         $user->useGravatar();
         if ($user->save()) {
+            // [JOB] 发送欢迎邮件
+            $this->dispatch(new SendWelcomeEmail($user));
             return $this->login($request);
         }
         return $this->failure();
@@ -117,10 +120,7 @@ class AccountController extends Controller
         $use_gravatar = in_array($request->input('use_gravatar'), ['true', 'on', '1']);
 
         $user = User::find(Auth::id());
-        if ($use_gravatar) {
-            unset($params['avatar_url']);
-            $user->useGravatar();
-        }
+        $user->useGravatar($use_gravatar, $params);
         if ($user->update($params)) {
             return $this->success($user);
         }

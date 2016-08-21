@@ -102,9 +102,16 @@ class User extends Authenticatable
     }
 
     // 使用Gravatar
-    public function useGravatar()
+    public function useGravatar($use_gravatar, &$params = [])
     {
-        $this->avatar_url = "https://cn.gravatar.com/avatar/" . md5( strtolower( trim( $this->email ) ) );
+        $this->use_gravatar = $use_gravatar;
+        if ($use_gravatar) {
+            $this->avatar_url = "https://cn.gravatar.com/avatar/" . md5( strtolower( trim( $this->email ) ) );
+        } else {
+            $this->avatar_url = $params['avatar_url'];
+        }
+        unset($params['avatar_url']);
+        unset($params['use_gravatar']);
     }
 
     public function topics()
