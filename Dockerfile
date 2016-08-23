@@ -9,7 +9,6 @@ RUN apt-get update     \
       git           \
       cron          \
       vim           \
-      python-letsencrypt-apache \
  && docker-php-ext-install \
       mcrypt    \
       mbstring  \
@@ -21,14 +20,28 @@ RUN apt-get update     \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-#COPY _linux/etc/environment /etc/environment
-
 ADD _linux/var/spool/cron/crontabs/root /var/spool/cron/crontabs/root
 RUN chown -R root:crontab /var/spool/cron/crontabs/root \
  && chmod 600 /var/spool/cron/crontabs/root
 RUN touch /var/log/cron.log
 
 RUN a2enmod rewrite
+
+# Let's encrypt
+ENV RSA_KEY_SIZE=4096
+ENV DOMAIN=mock-api.daza.io
+
+WORKDIR /etc
+RUN mkdir letsencrypt
+RUN mkdir letsencrypt/archive
+
+WORKDIR /opt
+
+RUN git clone https://github.com/letsencrypt/letsencrypt
+WORKDIR /opt/letsencrypt
+
+RUN chmod a+x ./certbot-auto
+CMD ./certbot-auto certonly -a manual --rsa-key-size $RSA_KEY_SIZE -d $DOMAIN
 
 WORKDIR /app
 
