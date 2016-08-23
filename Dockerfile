@@ -60,4 +60,6 @@ RUN chown -R www-data:www-data /app \
 
 RUN chmod 777 ./entrypoint.sh
 
+EXPOSE 80 443
+
 ENTRYPOINT ["./entrypoint.sh"]
