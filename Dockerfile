@@ -38,7 +38,7 @@ RUN git clone https://github.com/letsencrypt/letsencrypt
 WORKDIR /opt/letsencrypt
 
 RUN chmod a+x ./certbot-auto
-CMD ./certbot-auto --apache -d mock-api.daza.io
+RUN ./certbot-auto --apache -d mock-api.daza.io
 
 WORKDIR /app
 
