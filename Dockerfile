@@ -9,6 +9,7 @@ RUN apt-get update     \
       git           \
       cron          \
       vim           \
+      python-letsencrypt-apache \
  && docker-php-ext-install \
       mcrypt    \
       mbstring  \

@@ -47,6 +47,7 @@ class ArticleCommentController extends Controller
         ]);
         $rules = [
             'article_id' => 'exists:articles,id,deleted_at,NULL',
+            'content' => 'required',
         ];
         $this->validate($request, $rules);
 
