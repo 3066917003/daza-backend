@@ -41,7 +41,7 @@ RUN git clone https://github.com/letsencrypt/letsencrypt
 WORKDIR /opt/letsencrypt
 
 RUN chmod a+x ./certbot-auto
-RUN echo yes | ./certbot-auto certonly -a manual --rsa-key-size $RSA_KEY_SIZE -d $DOMAIN
+RUN echo yes | ./certbot-auto certonly -a manual --rsa-key-size $RSA_KEY_SIZE -d $DOMAIN -email app@daza.io
 
 WORKDIR /app
 
