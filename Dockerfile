@@ -27,22 +27,6 @@ RUN touch /var/log/cron.log
 
 RUN a2enmod rewrite
 
-# Let's encrypt
-ENV RSA_KEY_SIZE=4096
-ENV DOMAIN=mock-api.daza.io
-
-WORKDIR /etc
-RUN mkdir letsencrypt
-RUN mkdir letsencrypt/archive
-
-WORKDIR /opt
-
-RUN git clone https://github.com/letsencrypt/letsencrypt
-WORKDIR /opt/letsencrypt
-
-RUN chmod a+x ./certbot-auto
-RUN echo yes | ./certbot-auto --apache --os-packages-only --non-interactive --agree-tos
-
 WORKDIR /app
 
 COPY ./composer.json /app/
@@ -59,7 +43,5 @@ RUN chown -R www-data:www-data /app \
  && composer install
 
 RUN chmod 777 ./entrypoint.sh
-
-EXPOSE 80 443
 
 ENTRYPOINT ["./entrypoint.sh"]
