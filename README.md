@@ -14,7 +14,7 @@
 ## 项目依赖
 - [PHP >= 5.5.9](http://php.net/)
 - [MySQL >= 5.6](https://www.mysql.com/)
-- [Laravel >= 5.2](http://laravel.com/)
+- [Laravel >= 5.3](http://laravel.com/)
 
 ## 快速开始
 
@@ -65,10 +65,6 @@ $ php artisan db:seed --class=MockdataSeeder
 ```
 $ php artisan serve
 $ open http://localhost:8000
-```
-或
-```
-$ npm start
 ```
 
 ## 如何部署

@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Jobs\SendWelcomeEmail;
 
 use Auth;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -47,8 +43,6 @@ class AccountController extends Controller
         // 注册时默认使用Gravatar头像
         $user->useGravatar();
         if ($user->save()) {
-            // [JOB] 发送欢迎邮件
-            $this->dispatch(new SendWelcomeEmail($user));
             return $this->login($request);
         }
         return $this->failure();
@@ -65,33 +59,27 @@ class AccountController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        try {
-            // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return $this->failure(trans('auth.failed'), 401);
-            }
-            $user = Auth::user();
-            // 设置JWT令牌
-            $user->jwt_token = [
-                'access_token' => $token,
-                'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
-            ];
-            return $this->success($user);
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return $this->failure(trans('jwt.could_not_create_token'), 500);
-        }
+
+        // try {
+        //     // attempt to verify the credentials and create a token for the user
+        //     if (! $token = JWTAuth::attempt($credentials)) {
+        //         return $this->failure(trans('auth.failed'), 401);
+        //     }
+        //     $user = Auth::user();
+        //     // 设置JWT令牌
+        //     $user->jwt_token = [
+        //         'access_token' => $token,
+        //         'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
+        //     ];
+        //     return $this->success($user);
+        // } catch (JWTException $e) {
+        //     // something went wrong whilst attempting to encode the token
+        //     return $this->failure(trans('jwt.could_not_create_token'), 500);
+        // }
     }
 
     public function logout(Request $request)
     {
-        try {
-            JWTAuth::parseToken()->invalidate();
-        } catch (TokenBlacklistedException $e) {
-            return $this->failure(trans('jwt.the_token_has_been_blacklisted'), 500);
-        } catch (JWTException $e) {
-            // 忽略该异常（Authorization为空时会发生）
-        }
         return $this->success();
     }
 

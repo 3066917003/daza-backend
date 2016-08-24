@@ -16,7 +16,7 @@ define('GENDER_FEMALE'      , 'female');
 
 class User extends Authenticatable
 {
-    use SoftDeletes;
+    use HasApiTokens, Notifiable, SoftDeletes;
 
     /**
      * The accessors to append to the model's array form.
