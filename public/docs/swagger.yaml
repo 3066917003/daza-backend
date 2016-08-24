@@ -52,13 +52,17 @@ info:
       - `daza://events/{event_id}`
       - `daza://tags/{tag_name}`
 
-basePath: /v1
+basePath: /
+schemes:
+  - http
+  - https
 produces:
   - application/json
 consumes:
   - application/json
 
 tags:
+  - name: oauth2
   - name: account
   - name: users
   - name: categories
@@ -143,6 +147,23 @@ securityDefinitions:
     in: header
     description: JWT
 paths:
+  /oauth/token:
+    post:
+      tags:
+        - oauth2
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              data:
+                $ref: '#/definitions/AccessToken'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /account/register:
     post:
       tags:
@@ -1752,11 +1773,15 @@ definitions:
   AccessToken:
     type: object
     properties:
-      access_token:
+      token_type:
         type: string
       expires_in:
         type: integer
         format: int32
+      access_token:
+        type: string
+      refresh_token:
+        type: string
   User:
     type: object
     description: 用户
@@ -2034,12 +2059,12 @@ definitions:
       source_link:
         type: string
         description: 来源链接
-      vote_up_count:
+      upvote_count:
         type: integer
-        description: 顶文章人数
-      vote_down_count:
+        description: 赞成票数
+      downvote_count:
         type: integer
-        description: 踩文章人数
+        description: 反对票数
       view_count:
         type: integer
         description: 阅读数

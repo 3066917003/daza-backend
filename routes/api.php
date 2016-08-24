@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1'], function () {
+Route::group([], function () {
     // account
     Route::post('/account/register', 'AccountController@register');
     Route::post('/account/login', 'AccountController@login');
