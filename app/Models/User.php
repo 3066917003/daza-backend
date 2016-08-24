@@ -6,6 +6,8 @@ use Auth;
 use Carbon\Carbon;
 use Validator;
 
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
