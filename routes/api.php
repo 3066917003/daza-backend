@@ -1,21 +1,19 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
 |
 */
 
-Route::get('/', function () {
-    return redirect('/docs');
-});
-
-Route::group(['prefix' => 'v1', 'middleware' => ['api']], function () {
+Route::group(['prefix' => 'v1'], function () {
     // account
     Route::post('/account/register', 'AccountController@register');
     Route::post('/account/login', 'AccountController@login');
@@ -42,8 +40,6 @@ Route::group(['prefix' => 'v1', 'middleware' => ['api']], function () {
     Route::post('/topics/{topic_id}/subscribe', 'TopicSubscriberController@subscribe');
     Route::post('/topics/{topic_id}/unsubscribe', 'TopicSubscriberController@unsubscribe');
     // articles
-    Route::get('/articles/latest', 'ArticleController@latest');
-    Route::get('/articles/popular', 'ArticleController@popular');
     Route::resource('/articles', 'ArticleController');
     Route::resource('/articles/{article_id}/votes', 'ArticleVoteController');
     Route::resource('/articles/{article_id}/comments', 'ArticleCommentController');

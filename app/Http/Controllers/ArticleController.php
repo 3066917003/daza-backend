@@ -32,8 +32,6 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        $params = $request->all();
-
         $columns = [
             'articles.id',
             'articles.user_id',
@@ -48,68 +46,30 @@ class ArticleController extends Controller
             'articles.published_at',
         ];
 
-        $query = Article::select($columns)
-            ->with(['user', 'topic', 'tags'])
-            ->orderBy('published_at', 'desc');
+        $query = Article::select($columns)->with(['user', 'topic', 'tags']);
 
-        // 通过分类获取文章
-        $category_id = $request->query('category_id');
-        if ($category_id) {
+        $category_id   = $request->query('category_id');
+        $category_slug = $request->query('category_slug');
+
+        if ($category_slug) {
+            switch ($category_slug) {
+                // 最新的文章
+                case 'latest':
+                    break;
+                    // 最受欢迎的文章（推荐）
+                case 'popular':
+                    $query->orderBy('articles.upvote_count', 'desc');
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        } elseif ($category_id) {
             $query->leftJoin('topics', 'articles.topic_id', '=', 'topics.id');
             $query->where('topics.category_id', $category_id);
         }
 
-        return $this->pagination($query->paginate());
-    }
-
-    // 最新的文章
-    public function latest(Request $request)
-    {
-        $params = $request->all();
-
-        $columns = [
-            'articles.id',
-            'articles.user_id',
-            'articles.topic_id',
-            'articles.title',
-            'articles.summary',
-            'articles.image_url',
-            'articles.upvote_count',
-            'articles.downvote_count',
-            'articles.view_count',
-            'articles.comment_count',
-            'articles.published_at',
-        ];
-
-        $query = Article::select($columns)
-            ->with(['user', 'topic'])
-            ->orderBy('published_at', 'desc');
-
-        return $this->pagination($query->paginate());
-    }
-
-    // 最受欢迎的文章（推荐）
-    public function popular(Request $request)
-    {
-        $params = $request->all();
-
-        $columns = [
-            'articles.id',
-            'articles.user_id',
-            'articles.topic_id',
-            'articles.title',
-            'articles.summary',
-            'articles.image_url',
-            'articles.upvote_count',
-            'articles.downvote_count',
-            'articles.view_count',
-            'articles.comment_count',
-            'articles.published_at',
-        ];
-
-        $query = Article::select($columns)
-            ->with(['user', 'topic'])
-            ->orderBy('published_at', 'desc');
+        $query->orderBy('articles.published_at', 'desc');
 
         return $this->pagination($query->paginate());
     }

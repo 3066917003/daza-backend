@@ -28,4 +28,14 @@ class Kernel extends ConsoleKernel
         $schedule->command('ag:atom')->everyThirtyMinutes();
         $schedule->command('ag:rss')->everyThirtyMinutes();
     }
+
+    /**
+     * Register the Closure based commands for the application.
+     *
+     * @return void
+     */
+    protected function commands()
+    {
+        require base_path('routes/console.php');
+    }
 }
