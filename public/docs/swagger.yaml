@@ -891,6 +891,17 @@ paths:
         - articles
       parameters:
         - $ref: '#/parameters/page'
+        - name: category_id
+          in: query
+          description: 分类Id
+          type: integer
+        - name: category_slug
+          in: query
+          description: 分类slug
+          type: string
+          enum:
+            - latest
+            - popular
       responses:
         200:
           description: OK
@@ -960,52 +971,6 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/Article'
-        default:
-          description: error payload
-          schema:
-            $ref: '#/definitions/Result'
-  /articles/latest:
-    get:
-      tags:
-        - articles
-      parameters:
-        - $ref: '#/parameters/page'
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              code:
-                type: integer
-              pagination:
-                $ref: '#/definitions/Pagination'
-              data:
-                type: array
-                items:
-                  $ref: '#/definitions/Article'
-        default:
-          description: error payload
-          schema:
-            $ref: '#/definitions/Result'
-  /articles/popular:
-    get:
-      tags:
-        - articles
-      parameters:
-        - $ref: '#/parameters/page'
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              code:
-                type: integer
-              pagination:
-                $ref: '#/definitions/Pagination'
-              data:
-                type: array
-                items:
-                  $ref: '#/definitions/Article'
         default:
           description: error payload
           schema:
@@ -1919,6 +1884,9 @@ definitions:
       id:
         type: integer
         description: Id
+      slug:
+        type: string
+        description: Slug
       name:
         type: string
         description: 名称
