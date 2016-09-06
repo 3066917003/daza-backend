@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Category;
 use App\Models\Article;
 use App\Models\ArticleViewer;
 
@@ -51,22 +52,29 @@ class ArticleController extends Controller
         $category_id   = $request->query('category_id');
         $category_slug = $request->query('category_slug');
 
-        if ($category_slug) {
-            switch ($category_slug) {
-                // 最新的文章
-                case 'latest':
-                    break;
-                    // 最受欢迎的文章（推荐）
-                case 'popular':
-                    $query->orderBy('articles.upvote_count', 'desc');
-                    break;
-                default:
-                    # code...
-                    break;
-            }
-        } elseif ($category_id) {
-            $query->leftJoin('topics', 'articles.topic_id', '=', 'topics.id');
-            $query->where('topics.category_id', $category_id);
+        if (!$category_id && !$category_slug) {
+            $category_slug = 'latest';
+        }
+
+        switch ($category_slug) {
+            // 最新的文章
+            case 'latest':
+                break;
+            // 最受欢迎的文章（推荐）
+            case 'popular':
+                $query->orderBy('articles.upvote_count', 'desc');
+                break;
+            default:
+                // 通过 Slug 查询分类Id
+                if ($category_slug) {
+                    $category = Category::where('slug', $category_slug)->first();
+                    if ($category) {
+                        $category_id = $category->id;
+                    }
+                }
+                $query->leftJoin('topics', 'articles.topic_id', '=', 'topics.id');
+                $query->where('topics.category_id', $category_id);
+                break;
         }
 
         $query->orderBy('articles.published_at', 'desc');
