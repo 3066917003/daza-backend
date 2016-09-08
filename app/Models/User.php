@@ -116,6 +116,11 @@ class User extends Authenticatable
         unset($params['use_gravatar']);
     }
 
+    public function configs()
+    {
+        return $this->hasMany('App\Models\Config');
+    }
+
     public function topics()
     {
         return $this->hasMany('App\Models\Topic');

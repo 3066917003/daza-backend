@@ -14,7 +14,7 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('slug', 191)->unique();
+            $table->string('slug', 191)->unique()->nullable();
             $table->string('name', 191)->unique();  // 名称
             $table->string('standard_name');        // 标准名称
             $table->string('image_url');            // 图片链接（原始尺寸）

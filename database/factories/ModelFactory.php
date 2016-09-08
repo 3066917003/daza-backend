@@ -47,21 +47,6 @@ $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
-    return [
-        'title'     => $faker->name,
-        'content'   => $faker->text,
-        'image_url' => $faker->imageUrl($width = 640, $height = 480),
-        'city'      => $faker->city,
-    ];
-});
-
-$factory->define(App\Models\Tweet::class, function (Faker\Generator $faker) {
-    return [
-        'content' => $faker->text,
-    ];
-});
-
 $factory->define(App\Models\Tag::class, function (Faker\Generator $faker) {
     return [
         'name'        => $faker->name,
