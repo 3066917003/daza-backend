@@ -34,7 +34,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:360,1',
+            'throttle:120,1',
             'bindings',
         ],
     ];
@@ -47,13 +47,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth'        => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic'  => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'bindings'    => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can'         => \Illuminate\Auth\Middleware\Authorize::class,
         'guest'       => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'    => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'jwt.auth'    => \App\Http\Middleware\JWTAuthenticate::class,
-        'jwt.refresh' => \App\Http\Middleware\JWTRefreshToken::class,
     ];
 }

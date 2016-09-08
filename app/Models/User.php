@@ -126,17 +126,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Article');
     }
 
-    public function tweets()
-    {
-        return $this->hasMany('App\Models\Tweet');
-    }
-
-    public function events()
-    {
-        // TODO: 关联用户参加的活动
-        return $this->hasMany('App\Models\Event');
-    }
-
     public function assets()
     {
         return $this->hasMany('App\Models\Asset', 'target_id')->where('target_type', 'article');

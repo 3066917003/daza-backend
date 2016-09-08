@@ -24,9 +24,7 @@ class ArticleController extends Controller
         $this->middleware('auth:api', [
             'except' => [
                 'index',
-                'latest',
-                'popular',
-                'show'
+                'show',
             ]
         ]);
     }
