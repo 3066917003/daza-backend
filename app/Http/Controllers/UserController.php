@@ -15,12 +15,14 @@ class UserController extends Controller
 
     public function __construct()
     {
-        // 执行 auth 认证
-        $this->middleware('auth:api', [
+        // 执行 jwt.auth 认证
+        $this->middleware('jwt.auth', [
             'except' => [
                 'show'
             ]
         ]);
+        // 设置 jwt.try_get_user 中间件，用于尝试通过 Token 获取当前登录用户
+        $this->middleware('jwt.try_get_user', ['only' => ['show']]);
     }
 
     public function show(Request $request, $id)

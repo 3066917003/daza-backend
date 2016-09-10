@@ -162,13 +162,12 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
         Barryvdh\Cors\ServiceProvider::class,
-        // Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -228,8 +227,8 @@ return [
         /*
          * Third-party Libraries Class Aliases...
          */
-        // 'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        // 'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
 
 ];

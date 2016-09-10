@@ -6,8 +6,6 @@ use Auth;
 use Carbon\Carbon;
 use Validator;
 
-use Laravel\Passport\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,7 +16,7 @@ define('GENDER_FEMALE'      , 'female');
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, SoftDeletes;
+    use SoftDeletes;
 
     /**
      * The accessors to append to the model's array form.
