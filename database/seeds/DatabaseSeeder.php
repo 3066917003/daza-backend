@@ -49,10 +49,24 @@ class DatabaseSeeder extends Seeder
         ];
         DB::table('categories')->insert($categories);
         $topics = [
-            ['type' => 'type', 'user_id' => 1, 'name' => 'iPc.me', 'source_format' => 'rss+xml', 'source_link' => 'http://feed.ipc.me'],
-            ['type' => 'type', 'user_id' => 1, 'name' => 'RubyChina', 'source_format' => 'rss+xml', 'source_link' => 'https://ruby-china.org/topics/feed'],
-            ['type' => 'type', 'user_id' => 1, 'name' => 'CNode', 'source_format' => 'rss+xml', 'source_link' => 'https://cnodejs.org/rss'],
+            ['type' => 'feed', 'user_id' => 1, 'name' => 'iPc.me', 'source_format' => 'rss+xml', 'source_link' => 'http://feed.ipc.me'],
+            ['type' => 'feed', 'user_id' => 1, 'name' => 'RubyChina', 'source_format' => 'rss+xml', 'source_link' => 'https://ruby-china.org/topics/feed'],
+            ['type' => 'feed', 'user_id' => 1, 'name' => 'CNode', 'source_format' => 'rss+xml', 'source_link' => 'https://cnodejs.org/rss'],
+            ['type' => 'feed', 'user_id' => 1, 'name' => 'V2EX', 'source_format' => 'rss+xml', 'source_link' => 'https://www.v2ex.com/index.xml'],
         ];
         DB::table('topics')->insert($topics);
+        $tags = [
+            ['name' => 'Android'],
+            ['name' => 'iOS'],
+            ['name' => 'macOS'],
+            ['name' => 'Windows'],
+            ['name' => 'Java'],
+            ['name' => 'JavaScript'],
+            ['name' => 'C++'],
+            ['name' => 'Python'],
+            ['name' => 'Ruby'],
+            ['name' => 'Docker'],
+        ];
+        DB::table('tags')->insert($tags);
     }
 }

@@ -64,7 +64,6 @@ consumes:
   - application/json
 
 tags:
-  - name: oauth2
   - name: account
   - name: users
   - name: categories
@@ -129,23 +128,6 @@ securityDefinitions:
     in: header
     description: JWT
 paths:
-  /oauth/token:
-    post:
-      tags:
-        - oauth2
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              code:
-                type: integer
-              data:
-                $ref: '#/definitions/AccessToken'
-        default:
-          description: error payload
-          schema:
-            $ref: '#/definitions/Result'
   /account/register:
     post:
       tags:
@@ -1383,6 +1365,10 @@ definitions:
       site_admin:
         type: boolean
         description: 站点管理员
+      config:
+        type: array
+        items:
+          $ref: '#/definitions/UserConfig'
       jwt_token:
         $ref: '#/definitions/AccessToken'
   UserRelationship:
@@ -1402,6 +1388,26 @@ definitions:
       target_user_id:
         type: integer
         description: 目标用户Id
+  UserConfig:
+    type: object
+    description: 用户配置
+    required:
+      - id
+      - user_id
+      - key
+    properties:
+      id:
+        type: integer
+        description: Id
+      user_id:
+        type: integer
+        description: 用户Id
+      key:
+        type: string
+        description: Key
+      value:
+        type: string
+        description: Value
   Category:
     type: object
     description: 分类
