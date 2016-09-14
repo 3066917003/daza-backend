@@ -6,7 +6,9 @@ use App\Models\User;
 use App\Models\Topic;
 use App\Models\TopicSubscriber;
 
+use DB;
 use Auth;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -47,6 +49,10 @@ class TopicSubscriberController extends Controller
             'user_id'  => Auth::id(),
             'topic_id' => $id
         ]);
+
+        // 更新主题订阅数
+        $subscriber_count = TopicSubscriber::where(['topic_id' => $id])->count();
+        DB::table('topics')->where('id', $id)->update(['subscriber_count' => $subscriber_count]);
 
         return $this->success();
     }

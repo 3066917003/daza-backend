@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Auth;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -14,7 +16,9 @@ class Topic extends Model
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = [
+        'subscribed',
+    ];
 
     /**
      * The attributes that should be casted to native types.
@@ -38,6 +42,17 @@ class Topic extends Model
     protected $hidden = [
         'deleted_at'
     ];
+
+    public function getSubscribedAttribute()
+    {
+        if (Auth::check()) {
+            return TopicSubscriber::where([
+                'user_id'  => Auth::id(),
+                'topic_id' => $this->id,
+            ])->exists();
+        }
+        return false;
+    }
 
     public function user()
     {

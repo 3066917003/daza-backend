@@ -76,7 +76,7 @@ class TopicController extends Controller
 
     public function show(Request $request, $id)
     {
-        $data = Topic::find($id);
+        $data = Topic::with('user')->find($id);
         return $this->success($data);
     }
 

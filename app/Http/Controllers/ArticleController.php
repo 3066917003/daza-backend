@@ -7,8 +7,8 @@ use App\Models\Category;
 use App\Models\Article;
 use App\Models\ArticleViewer;
 
-use Auth;
 use DB;
+use Auth;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -97,6 +97,7 @@ class ArticleController extends Controller
         ]);
 
         $params = array_merge($params, ['user_id' => Auth::id()]);
+        $params['published_at'] = Carbon::now();
 
         $data = Article::create($params);
         if ($data) {
