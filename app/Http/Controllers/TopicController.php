@@ -76,7 +76,13 @@ class TopicController extends Controller
 
     public function show(Request $request, $id)
     {
-        $data = Topic::with('user')->find($id);
+        $query = Topic::with('user');
+        if (intval($id)) {
+            $query->where('id', $id);
+        } else {
+            $query->where('slug', $id);
+        }
+        $data = $query->first();
         return $this->success($data);
     }
 

@@ -106,17 +106,30 @@ class ArticleController extends Controller
         return $this->failure();
     }
 
-    public function show(Request $request, $article_id)
+    public function show(Request $request, $id)
     {
-        $request->merge(['article' => $article_id]);
-        $this->validate($request, ['article' => 'exists:articles,id']);
+        $request->merge(['article' => $id]);
+        $rules = [];
+
+        $query = Article::with(['topic', 'topic.user', 'tags']);
+
+        if (intval($id)) {
+            $rules['article'] = 'exists:articles,id';
+            $query->where('id', $id);
+        } else {
+            $rules['article'] = 'exists:articles,guid';
+            $query->where('guid', $id);
+        }
+        $this->validate($request, $rules);
+
+        $data = $query->first();
 
         $user_id = Auth::check() ? Auth::id() : 0;
 
         // 记录文章阅读者记录
         $params = [
             'user_id'    => $user_id,
-            'article_id' => $article_id,
+            'article_id' => $data->id,
             'ip_address' => $request->ip(),
             'user_agent' => $request->header('User-Agent'),
         ];
@@ -126,12 +139,10 @@ class ArticleController extends Controller
         if (!ArticleViewer::where($params)->where('created_at', '>=', $dt)->exists()) {
             $viewer = ArticleViewer::create($params);
             if ($viewer) {
-                $view_count = ArticleViewer::where('article_id', $article_id)->count();
-                DB::table('articles')->where('id', $article_id)->update(['view_count' => $view_count]);
+                $view_count = ArticleViewer::where('article_id', $id)->count();
+                DB::table('articles')->where('id', $id)->update(['view_count' => $view_count]);
             }
         }
-
-        $data = Article::with(['topic', 'topic.user', 'tags'])->find($article_id);
         return $this->success($data);
     }
 

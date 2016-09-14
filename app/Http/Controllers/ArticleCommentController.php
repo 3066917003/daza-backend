@@ -29,11 +29,10 @@ class ArticleCommentController extends Controller
 
     public function index(Request $request, $id)
     {
-        $request->merge(['article' => $id]);
-        $rules = [
-            'article' => 'exists:articles,id,deleted_at,NULL',
-        ];
-        $this->validate($request, $rules);
+        if (!intval($id)) {
+            $article = Article::where('guid', $id)->first();
+            $id = $article ? $article->id : 0;
+        }
 
         $query = ArticleComment::with('user')->where('article_id', $id);
 
