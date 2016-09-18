@@ -15,22 +15,19 @@ class DatabaseSeeder extends Seeder
     {
         $users = [
             [
+                'id'         => 1,
+                'username'   => 'dazaio',
+                'email'      => 'app@daza.io',
+                'name'       => '「daza.io」',
+                'password'   => bcrypt('123456'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'id'         => 2,
                 'username'   => 'lijy91' ,
                 'email'      => 'lijy91@foxmail.com',
-                'password'   => bcrypt('123456'),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],
-            [
-                'username'   => 'daza_io',
-                'email'      => 'app@daza.io',
-                'password'   => bcrypt('123456'),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],
-            [
-                'username'   => 'robot_daza_io',
-                'email'      => 'robot@daza.io',
+                'name'       => '痕迹',
                 'password'   => bcrypt('123456'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -49,6 +46,15 @@ class DatabaseSeeder extends Seeder
         ];
         DB::table('categories')->insert($categories);
         $topics = [
+            [
+                'user_id'     => 1,
+                'slug'        => 'help',
+                'name'        => '帮助中心',
+                'description' => '您可以在「daza.io」官方帮助中心找到各种提示和辅导手册，从中了解如何使用本产品以及其他常见问题的答案。',
+            ],
+        ];
+        DB::table('topics')->insert($topics);
+        $topics= [
             ['type' => 'feed', 'user_id' => 1, 'name' => 'iPc.me', 'source_format' => 'rss+xml', 'source_link' => 'http://feed.ipc.me'],
             ['type' => 'feed', 'user_id' => 1, 'name' => 'RubyChina', 'source_format' => 'rss+xml', 'source_link' => 'https://ruby-china.org/topics/feed'],
             ['type' => 'feed', 'user_id' => 1, 'name' => 'CNode', 'source_format' => 'rss+xml', 'source_link' => 'https://cnodejs.org/rss'],
