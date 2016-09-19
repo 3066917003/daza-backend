@@ -18,11 +18,12 @@ class UserController extends Controller
         // 执行 jwt.auth 认证
         $this->middleware('jwt.auth', [
             'except' => [
-                'show'
+                'show',
+                'topics',
             ]
         ]);
         // 设置 jwt.try_get_user 中间件，用于尝试通过 Token 获取当前登录用户
-        $this->middleware('jwt.try_get_user', ['only' => ['show']]);
+        $this->middleware('jwt.try_get_user', ['only' => ['show', 'topics']]);
     }
 
     public function show(Request $request, $id)
@@ -32,6 +33,12 @@ class UserController extends Controller
 
         $data = User::find($id);
         return $this->success($data);
+    }
+
+    public function topics(Request $request, $id)
+    {
+        $data = User::find($id);
+        return $this->success($data->topics);
     }
 
 }

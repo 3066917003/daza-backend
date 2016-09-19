@@ -110,6 +110,7 @@ class RssArticleGrabber extends Command
                     $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->guid]));
 
                     $article->update([
+                        'type'          => 'feed',
                         'link'          => $value->link,
                         'title'         => $value->title,
                         'content'       => $value->description,

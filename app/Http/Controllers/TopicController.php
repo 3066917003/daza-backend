@@ -60,10 +60,10 @@ class TopicController extends Controller
         $this->validate($request, [
             'type'           => 'required',
             'name'           => 'required|unique:topics',
+            'website'        => 'url',
             // 'image_url'      => 'url',
             // 'description'    => 'required',
             // 'source_format'  => '',
-            // 'source_program' => '',
             // 'source_link'    => 'url',
         ]);
 
