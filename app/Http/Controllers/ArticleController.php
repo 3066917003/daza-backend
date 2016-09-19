@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Article;
+use App\Models\ArticleTag;
 use App\Models\ArticleViewer;
 
 use DB;
@@ -84,12 +85,12 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        $params = $request->all();
+        $params = $request->except(['tags']);
 
         $this->validate($request, [
             'topic_id'    => 'required|exists:topics,id',
             'title'       => 'required|min:6|max:255',
-            'content'     => 'required',
+            // 'content'     => 'required',
             'author'      => 'min:2',
             'author_link' => 'url',
             'source'      => 'min:2',
@@ -101,6 +102,23 @@ class ArticleController extends Controller
 
         $data = Article::create($params);
         if ($data) {
+            // 如果存在 tags 参数，则保存相关的数据
+            if ($request->exists('tags')) {
+                $tags = $request->input('tags');
+                if (!is_array($tags)) {
+                    $tags = explode(",", $request->input('tags'));
+                }
+
+                $article_tags = [];
+                foreach ($tags as $key => $value) {
+                    if (strlen($value) == 0) {
+                        continue;
+                    }
+                    array_push($article_tags, new ArticleTag(['name' => ((string) $value)]));
+                }
+
+                $data->tags()->saveMany($article_tags);
+            }
             return $this->success($data);
         }
         return $this->failure();

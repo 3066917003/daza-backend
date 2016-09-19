@@ -795,6 +795,16 @@ paths:
           description: 主题Id
           type: integer
           required: true
+        - name: guid
+          in: formData
+          description: GUID
+          type: string
+          required: true
+        - name: type
+          in: formData
+          description: 类型
+          type: string
+          required: true
         - name: title
           in: formData
           description: 标题
@@ -812,7 +822,6 @@ paths:
           in: formData
           description: 内容
           type: string
-          required: true
         - name: author
           in: formData
           description: 作者
@@ -829,6 +838,12 @@ paths:
           in: formData
           description: 来源链接
           type: string
+        - name: tags
+          in: formData
+          description: 文章标签
+          type: array
+          items:
+            type: string
       responses:
         200:
           description: OK
@@ -1525,6 +1540,8 @@ definitions:
         description: 类型
         enum:
           - ad
+          - share
+          - original
       link:
         type: string
         description: 文章链接
