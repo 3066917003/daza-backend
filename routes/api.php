@@ -20,6 +20,7 @@ Route::group([], function () {
     Route::post('/account/logout', 'AccountController@logout');
     Route::get('/account/profile', 'AccountController@getProfile');
     Route::put('/account/profile', 'AccountController@updateProfile');
+    Route::put('/account/configs', 'AccountController@configs');
     Route::post('/account/password_reset', 'AccountController@passwordReset');
     Route::post('/account/password_modify', 'AccountController@passwordModify');
     // users

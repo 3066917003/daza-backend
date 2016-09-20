@@ -226,98 +226,6 @@
                 }
             }
         },
-        "/account/password_reset": {
-            "post": {
-                "tags": [
-                    "account"
-                ],
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "formData",
-                        "description": "邮箱",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "verify_code",
-                        "in": "formData",
-                        "description": "验证码",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "new_password",
-                        "in": "formData",
-                        "description": "新密码",
-                        "type": "string",
-                        "format": "password",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "code": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "error payload",
-                        "schema": {
-                            "$ref": "#/definitions/Result"
-                        }
-                    }
-                }
-            }
-        },
-        "/account/password_modify": {
-            "post": {
-                "tags": [
-                    "account"
-                ],
-                "parameters": [
-                    {
-                        "name": "old_password",
-                        "in": "formData",
-                        "description": "原密码",
-                        "type": "string",
-                        "format": "password",
-                        "required": true
-                    },
-                    {
-                        "name": "new_password",
-                        "in": "formData",
-                        "description": "新密码",
-                        "type": "string",
-                        "format": "password",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "code": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "error payload",
-                        "schema": {
-                            "$ref": "#/definitions/Result"
-                        }
-                    }
-                }
-            }
-        },
         "/account/profile": {
             "get": {
                 "tags": [
@@ -445,6 +353,137 @@
                                 },
                                 "data": {
                                     "$ref": "#/definitions/User"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "error payload",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/configs": {
+            "put": {
+                "tags": [
+                    "account"
+                ],
+                "parameters": [
+                    {
+                        "name": "configs",
+                        "in": "formData",
+                        "type": "string",
+                        "description": "名称"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserConfig"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "error payload",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/password_reset": {
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "邮箱",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "verify_code",
+                        "in": "formData",
+                        "description": "验证码",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "new_password",
+                        "in": "formData",
+                        "description": "新密码",
+                        "type": "string",
+                        "format": "password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "error payload",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/password_modify": {
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "parameters": [
+                    {
+                        "name": "old_password",
+                        "in": "formData",
+                        "description": "原密码",
+                        "type": "string",
+                        "format": "password",
+                        "required": true
+                    },
+                    {
+                        "name": "new_password",
+                        "in": "formData",
+                        "description": "新密码",
+                        "type": "string",
+                        "format": "password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
                                 }
                             }
                         }
@@ -2626,9 +2665,16 @@
                     "type": "integer",
                     "description": "用户Id"
                 },
-                "type": {
+                "reason": {
                     "type": "string",
-                    "description": "类型"
+                    "description": "原因",
+                    "enum": [
+                        "followed",
+                        "subscribed",
+                        "upvoted",
+                        "comment",
+                        "mention"
+                    ]
                 },
                 "title": {
                     "type": "string",

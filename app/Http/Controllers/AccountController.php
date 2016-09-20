@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserConfig;
 
 use Auth;
 use JWTAuth;
@@ -68,7 +69,7 @@ class AccountController extends Controller
             if (! $token = JWTAuth::attempt($credentials)) {
                 return $this->failure(trans('auth.failed'), 401);
             }
-            $user = Auth::user();
+            $user = User::with('configs')->find(Auth::id());
                 // 设置JWT令牌
             $user->jwt_token = [
                 'access_token' => $token,
@@ -102,7 +103,7 @@ class AccountController extends Controller
         } catch (JWTException $e) {
             return $this->failure(trans('token_invalid'), 500);
         }
-        $data = User::find(Auth::id());
+        $data = User::with('configs')->find(Auth::id());
         $data->jwt_token = [
             'access_token' => $newToken,
             'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
@@ -132,6 +133,23 @@ class AccountController extends Controller
         $user->useGravatar($use_gravatar, $params);
         if ($user->update($params)) {
             return $this->success($user);
+        }
+        return $this->failure();
+    }
+
+    public function configs(Request $request)
+    {
+        $params = $request->all();
+        foreach ($params as $key => $value) {
+            $config = UserConfig::firstOrCreate([
+                'user_id' => Auth::id(),
+                'key' => $key,
+            ]);
+            $config->update(['value' => $value]);
+        }
+        $data = UserConfig::where('user_id', Auth::id())->get();
+        if ($data) {
+             return $this->success($data);
         }
         return $this->failure();
     }

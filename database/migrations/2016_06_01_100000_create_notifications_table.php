@@ -15,7 +15,7 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');     // 用户Id
-            $table->string('type');         // 类型[,]
+            $table->string('reason');       // 原因[,]
             $table->string('title');        // 标题
             $table->string('content');      // 内容
             $table->boolean('unread');      // 通知未读

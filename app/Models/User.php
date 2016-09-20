@@ -116,7 +116,7 @@ class User extends Authenticatable
 
     public function configs()
     {
-        return $this->hasMany('App\Models\Config');
+        return $this->hasMany('App\Models\UserConfig');
     }
 
     public function topics()
