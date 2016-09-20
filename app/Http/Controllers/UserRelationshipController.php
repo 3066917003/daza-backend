@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserRelationship;
 
+use DB;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -54,6 +55,13 @@ class UserRelationshipController extends Controller
             default:
                 return $this->failure();
         }
+        // 更新粉丝数及关注数
+        $followers_count = UserRelationship::where('target_user_id', $id)->count();
+        $following_count = UserRelationship::where('user_id', $id)->count();
+        DB::table('users')->where('id', $id)->update([
+            'followers_count'   => $followers_count,
+            'following_count' => $following_count
+        ]);
         return $this->success();
     }
 

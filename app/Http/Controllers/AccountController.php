@@ -66,15 +66,15 @@ class AccountController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
-            return $this->failure(trans('auth.failed'), 401);
-        }
-        $user = Auth::user();
-            // 设置JWT令牌
-        $user->jwt_token = [
+                return $this->failure(trans('auth.failed'), 401);
+            }
+            $user = Auth::user();
+                // 设置JWT令牌
+            $user->jwt_token = [
                 'access_token' => $token,
-            'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
-        ];
-        return $this->success($user);
+                'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
+            ];
+            return $this->success($user);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return $this->failure(trans('jwt.could_not_create_token'), 500);
@@ -95,7 +95,18 @@ class AccountController extends Controller
 
     public function getProfile(Request $request)
     {
+        try {
+            $newToken = JWTAuth::parseToken()->refresh();
+        } catch (TokenExpiredException $e) {
+            return $this->failure(trans('token_expired'), 500);
+        } catch (JWTException $e) {
+            return $this->failure(trans('token_invalid'), 500);
+        }
         $data = User::find(Auth::id());
+        $data->jwt_token = [
+            'access_token' => $newToken,
+            'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
+        ];
         return $this->success($data);
     }
 

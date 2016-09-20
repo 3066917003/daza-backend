@@ -1333,6 +1333,9 @@ definitions:
       last_name:
         type: string
         description: 姓
+      real_name:
+        type: string
+        description: 真实姓名
       avatar_url:
         type: string
         description: 头像链接（原始尺寸）
@@ -1380,7 +1383,19 @@ definitions:
       site_admin:
         type: boolean
         description: 站点管理员
-      config:
+      followers_count:
+        type: integer
+        description: 粉丝数
+      following_count:
+        type: integer
+        description: 关注数
+      topic_count:
+        type: integer
+        description: 主题数
+      article_count:
+        type: integer
+        description: 文章数
+      configs:
         type: array
         items:
           $ref: '#/definitions/UserConfig'

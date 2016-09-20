@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Article;
 use App\Models\ArticleVote;
 
+use DB;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -62,7 +63,7 @@ class ArticleVoteController extends Controller
             // 更新文章投票数
             $upvote_count   = ArticleVote::where(['article_id' => $id, 'type' => 'up'])->count();
             $downvote_count = ArticleVote::where(['article_id' => $id, 'type' => 'down'])->count();
-            Article::find($id)->update([
+            DB::table('articles')->where('id', $id)->update([
                 'upvote_count'   => $upvote_count,
                 'downvote_count' => $downvote_count
             ]);
