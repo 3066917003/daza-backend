@@ -1825,18 +1825,46 @@
                 }
             }
         },
-        "/notifications/mark": {
-            "post": {
+        "/notifications/counts": {
+            "get": {
                 "tags": [
                     "notifications"
                 ],
-                "parameters": [
-                    {
-                        "name": "notification_id",
-                        "in": "formData",
-                        "description": "通知Id",
-                        "type": "integer"
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "count": {
+                                            "type": "integer"
+                                        },
+                                        "unread_count": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "error payload",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        }
                     }
+                }
+            }
+        },
+        "/notifications/mark_as_read": {
+            "post": {
+                "tags": [
+                    "notifications"
                 ],
                 "responses": {
                     "200": {

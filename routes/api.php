@@ -45,16 +45,12 @@ Route::group([], function () {
     Route::resource('/articles/{article_id}/votes', 'ArticleVoteController');
     Route::resource('/articles/{article_id}/comments', 'ArticleCommentController');
     Route::get('/articles/{article_id}/viewers', 'ArticleViewerController@index');
-    // tweets
-    Route::resource('/tweets', 'TweetController');
-    Route::resource('/tweets/{tweet_id}/likes', 'TweetLikeController');
-    Route::resource('/tweets/{tweet_id}/comments', 'TweetCommentController');
-    // events
-    Route::resource('/events', 'EventController');
     // tags
     Route::resource('/tags', 'TagController');
     // notifications
+    Route::get('/notifications/counts', 'NotificationController@counts');
+    Route::post('/notifications/mark_as_read', 'NotificationController@markAsRead');
     Route::resource('/notifications', 'NotificationController');
-    Route::post('/notifications/mark', 'NotificationController@mark');
+    // assets
     Route::resource('/assets', 'AssetController');
 });
