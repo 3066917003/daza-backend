@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserRelationship;
+use App\Models\Notification;
 
 use DB;
 use Auth;
@@ -59,9 +60,17 @@ class UserRelationshipController extends Controller
         $followers_count = UserRelationship::where('target_user_id', $id)->count();
         $following_count = UserRelationship::where('user_id', $id)->count();
         DB::table('users')->where('id', $id)->update([
-            'followers_count'   => $followers_count,
+            'followers_count' => $followers_count,
             'following_count' => $following_count
         ]);
+        // 创建一条消息通知
+        if (Auth::id() !== $id) {
+            Notification::create([
+                'user_id'      => $id,
+                'reason'       => 'followed',
+                'from_user_id' => Auth::id(),
+            ]);
+        }
         return $this->success();
     }
 

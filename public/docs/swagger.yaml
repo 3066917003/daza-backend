@@ -300,11 +300,6 @@ paths:
     put:
       tags:
         - account
-      parameters:
-        - name: configs
-          in: formData
-          type: string
-          description: 名称
       responses:
         200:
           description: OK
@@ -1142,10 +1137,19 @@ paths:
         - notifications
       parameters:
         - $ref: '#/parameters/page'
-        - name: type
-          in: formData
-          description: 类型
+        - name: reason
+          in: query
+          description: 原因
           type: string
+      description: |
+        ### reason
+        原因 | 描述
+        :--- | :---
+        followed | 有人关注了我
+        subscribed | 订阅了我的主题
+        upvoted | 赞了我的文章
+        comment | 评论我
+        mention | 提及我
       responses:
         200:
           description: OK
@@ -1765,6 +1769,9 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
+      unread:
+        type: string
+        description: 通知未读
       reason:
         type: string
         description: 原因
@@ -1774,15 +1781,24 @@ definitions:
           - upvoted
           - comment
           - mention
+      from_user_id:
+        type: integer
+        description: 来自用户Id
+      topic_id:
+        type: integer
+        description: 主题Id
+      article_id:
+        type: integer
+        description: 文章Id
+      article_comment_id:
+        type: integer
+        description: 文章评论Id
       title:
         type: string
         description: 标题
       content:
         type: string
         description: 内容
-      unread:
-        type: string
-        description: 通知未读
   Asset:
     type: object
     description: 资源

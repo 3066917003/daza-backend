@@ -41,9 +41,24 @@ class Notification extends Model
         'deleted_at'
     ];
 
-    public function user()
+    public function from_user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function topic()
+    {
+        return $this->belongsTo('App\Models\Topic');
+    }
+
+    public function article()
+    {
+        return $this->belongsTo('App\Models\Article');
+    }
+
+    public function article_comment()
+    {
+        return $this->belongsTo('App\Models\ArticleComment');
     }
 
 }

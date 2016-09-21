@@ -22,13 +22,17 @@ class NotificationController extends Controller
 
     public function index(Request $request)
     {
-        $type = $request->query('type');
+        $reason = $request->query('reason');
 
         $query = Notification::orderBy('created_at', 'asc')
+            ->with('from_user')
+            ->with('topic')
+            ->with('article')
+            ->with('article_comment')
             ->where('user_id', Auth::id());
 
-        if ($type) {
-            $query->where('type', $type);
+        if ($reason) {
+            $query->where('reason', $reason);
         }
 
         return $this->pagination($query->paginate());
