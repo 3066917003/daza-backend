@@ -110,13 +110,14 @@ class RssArticleGrabber extends Command
                     $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->guid]));
 
                     $article->update([
-                        'type'          => 'feed',
-                        'link'          => $value->link,
-                        'title'         => $value->title,
-                        'content'       => $value->description,
-                        'image_url'     => $image_url,
-                        'author'        => $author,
-                        'published_at'  => new DateTime($value->pubDate),
+                        'type'           => 'feed',
+                        'link'           => $value->link,
+                        'title'          => $value->title,
+                        'content_format' => 'html',
+                        'content'        => $value->description,
+                        'image_url'      => $image_url,
+                        'author'         => $author,
+                        'published_at'   => new DateTime($value->pubDate),
                     ]);
                     $article->tags()->forceDelete();
                     $article->tags()->saveMany($article_tags);

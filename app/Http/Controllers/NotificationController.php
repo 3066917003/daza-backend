@@ -79,18 +79,10 @@ class NotificationController extends Controller
         return $this->success($data);
     }
 
-    public function mark_as_read(Request $request)
+    public function markAsRead(Request $request)
     {
-        $notification_id = $request->input('notification_id');
-        $this->validate($request, [
-            'notification_id' => 'exists:notifications,id,deleted_at,NULL,user_id,' . Auth::id()
-        ]);
-
-        $data = Notification::find($notification_id);
-        if ($data->update(['unread' => true])) {
-            return $this->success();
-        }
-        return $this->failure();
+        Notification::where('user_id', Auth::id())->update(['unread' => false]);
+        return $this->success();
     }
 
 }

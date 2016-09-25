@@ -54,4 +54,6 @@ Route::group([], function () {
     Route::resource('/notifications', 'NotificationController');
     // assets
     Route::resource('/assets', 'AssetController');
+    // qiniu
+    Route::get('/qiniu/token', 'QiniuController@token');
 });

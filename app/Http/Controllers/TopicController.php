@@ -36,22 +36,6 @@ class TopicController extends Controller
         return $this->pagination($query->paginate());
     }
 
-    // 最新的分类
-    public function latest(Request $request)
-    {
-        $query = Topic::orderBy('created_at', 'desc');
-
-        return $this->pagination($query->paginate());
-    }
-
-    // 最受欢迎的分类（推荐）
-    public function popular(Request $request)
-    {
-        $query = Topic::orderBy('created_at', 'desc');
-
-        return $this->pagination($query->paginate());
-    }
-
     public function store(Request $request)
     {
         $request->merge(['user_id' => Auth::id()]);
@@ -107,8 +91,9 @@ class TopicController extends Controller
             'articles.title',
             'articles.summary',
             'articles.image_url',
+            'articles.upvote_count',
+            'articles.downvote_count',
             'articles.view_count',
-            'articles.like_count',
             'articles.comment_count',
             'articles.published_at',
         ];

@@ -1928,10 +1928,16 @@
                         "$ref": "#/parameters/page"
                     },
                     {
-                        "name": "type",
-                        "in": "formData",
-                        "description": "类型",
+                        "name": "target_type",
+                        "in": "query",
+                        "description": "目标类型",
                         "type": "string"
+                    },
+                    {
+                        "name": "target_id",
+                        "in": "query",
+                        "description": "目标Id",
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -1968,6 +1974,18 @@
                 ],
                 "parameters": [
                     {
+                        "name": "target_type",
+                        "in": "formData",
+                        "description": "目标类型",
+                        "type": "string"
+                    },
+                    {
+                        "name": "target_id",
+                        "in": "formData",
+                        "description": "目标Id",
+                        "type": "integer"
+                    },
+                    {
                         "name": "mime_type",
                         "in": "formData",
                         "description": "MIME类型",
@@ -1993,6 +2011,31 @@
                             "properties": {
                                 "code": {
                                     "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "error payload",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/qiniu/token": {
+            "get": {
+                "tags": [
+                    "qiniu"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "token": {
+                                    "type": "string"
                                 }
                             }
                         }
@@ -2718,6 +2761,7 @@
                     "type": "string",
                     "description": "目标类型",
                     "enum": [
+                        "user",
                         "category",
                         "topic",
                         "article",

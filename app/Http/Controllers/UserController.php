@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Topic;
 
 use Auth;
 
@@ -37,8 +38,8 @@ class UserController extends Controller
 
     public function topics(Request $request, $id)
     {
-        $data = User::find($id);
-        return $this->success($data->topics);
+        $query = Topic::where('user_id', $id);
+        return $this->pagination($query->paginate());
     }
 
 }
