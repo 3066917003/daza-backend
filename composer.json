@@ -13,7 +13,8 @@
         "paquettg/php-html-parser": "^1.7",
         "predis/predis": "~1.0",
         "tymon/jwt-auth": "0.5.*",
-        "qiniu/php-sdk": "^7.0"
+        "qiniu/php-sdk": "^7.0",
+        "crisu83/shortid": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

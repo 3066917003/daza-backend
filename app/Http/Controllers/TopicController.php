@@ -7,6 +7,7 @@ use App\Models\Topic;
 use App\Models\Article;
 
 use Auth;
+use Crisu83\ShortId\ShortId;
 
 use Illuminate\Http\Request;
 
@@ -67,11 +68,32 @@ class TopicController extends Controller
             $query->where('slug', $id);
         }
         $data = $query->first();
+        if (!$data->short_id) {
+            $shortid = ShortId::create();
+            $data->update(['short_id' => $shortid->generate()]);
+        }
         return $this->success($data);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $params = $request->only([
+            'category_id',
+            'type',
+            'source_format',
+            'source_link',
+            'name',
+            'image_url',
+            'description',
+        ]);
+
+        var_dump($params);
+
+        $data = Topic::find($id);
+        if ($data) {
+            $data->update($params);
+            return $this->success($data);
+        }
         return $this->failure();
     }
 

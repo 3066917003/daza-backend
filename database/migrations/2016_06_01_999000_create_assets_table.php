@@ -16,7 +16,7 @@ class CreateAssetsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');         // 用户Id
             $table->string('target_type');      // 目标类型
-            $table->integer('target_id');       // 目标Id
+            $table->string('target_id');        // 目标Id（或ShortId）
             $table->string('mime_type');        // MIME类型
             $table->integer('size');            // 大小
             $table->string('url');              // 链接
