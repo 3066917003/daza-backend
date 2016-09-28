@@ -7,10 +7,12 @@ use App\Models\Category;
 use App\Models\Article;
 use App\Models\ArticleTag;
 use App\Models\ArticleViewer;
+use App\Models\Tag;
 
 use DB;
 use Auth;
 use Carbon\Carbon;
+use Crisu83\ShortId\ShortId;
 
 use Illuminate\Http\Request;
 
@@ -115,8 +117,9 @@ class ArticleController extends Controller
                         continue;
                     }
                     array_push($article_tags, new ArticleTag(['name' => ((string) $value)]));
+                    // 创建标签，如果存在则会被忽略掉
+                    Tag::firstOrCreate(['name' => ((string) $value)]);
                 }
-
                 $data->tags()->saveMany($article_tags);
             }
             return $this->success($data);
@@ -141,6 +144,11 @@ class ArticleController extends Controller
         $this->validate($request, $rules);
 
         $data = $query->first();
+        // 如果ShortId为空则创建一个
+        if (!$data->short_id) {
+            $shortid = ShortId::create();
+            $data->update(['short_id' => $shortid->generate()]);
+        }
 
         $user_id = Auth::check() ? Auth::id() : 0;
 
