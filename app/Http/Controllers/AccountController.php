@@ -73,7 +73,7 @@ class AccountController extends Controller
                 // 设置JWT令牌
             $user->jwt_token = [
                 'access_token' => $token,
-                'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
+                'expires_in'   => Carbon::now()->addMinutes(config('jwt.ttl'))->timestamp
             ];
             return $this->success($user);
         } catch (JWTException $e) {
@@ -106,7 +106,7 @@ class AccountController extends Controller
         $data = User::with('configs')->find(Auth::id());
         $data->jwt_token = [
             'access_token' => $newToken,
-            'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
+            'expires_in'   => Carbon::now()->addMinutes(config('jwt.ttl'))->timestamp
         ];
         return $this->success($data);
     }
