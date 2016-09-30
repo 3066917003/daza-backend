@@ -24,7 +24,7 @@ class NotificationController extends Controller
     {
         $reason = $request->query('reason');
 
-        $query = Notification::orderBy('created_at', 'asc')
+        $query = Notification::orderBy('created_at', 'desc')
             ->with('from_user')
             ->with('topic')
             ->with('article')

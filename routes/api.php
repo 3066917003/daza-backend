@@ -48,6 +48,7 @@ Route::group([], function () {
     Route::get('/articles/{article_id}/viewers', 'ArticleViewerController@index');
     // tags
     Route::resource('/tags', 'TagController');
+    Route::get('/tags/{name}/articles', 'TagController@articles');
     // notifications
     Route::get('/notifications/counts', 'NotificationController@counts');
     Route::post('/notifications/mark_as_read', 'NotificationController@markAsRead');
