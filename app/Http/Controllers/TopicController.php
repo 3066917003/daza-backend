@@ -77,6 +77,12 @@ class TopicController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->merge(['topic' => $id]);
+        $rules = [
+            'topic' => 'exists:topics,id,user_id,' . Auth::id(),
+        ];
+        $this->validate($request, $rules);
+
         $params = $request->only([
             'category_id',
             'type',
