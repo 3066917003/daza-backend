@@ -38,8 +38,10 @@ class ArticleController extends Controller
     {
         $columns = [
             'articles.id',
+            'articles.short_id',
             'articles.user_id',
             'articles.topic_id',
+            'articles.type',
             'articles.title',
             'articles.summary',
             'articles.image_url',
@@ -174,6 +176,12 @@ class ArticleController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->merge(['article' => $id]);
+        $rules = [
+            'article' => 'exists:articles,id,user_id,' . Auth::id(),
+        ];
+        $this->validate($request, $rules);
+
         $params = $request->only([
             'topic_id',
             'type',
@@ -190,6 +198,28 @@ class ArticleController extends Controller
         $data = Article::find($id);
         if ($data) {
             $data->update($params);
+            // 如果存在 tags 参数，则保存相关的数据
+            if ($request->exists('tags')) {
+                $tags = $request->input('tags');
+                if (!is_array($tags)) {
+                    $tags = explode(",", $request->input('tags'));
+                }
+
+                // 先将不存在的标签删除
+                ArticleTag::where('article_id', $id)->whereNotIn('name', $tags)->delete();
+
+                foreach ($tags as $key => $value) {
+                    if (strlen($value) == 0) {
+                        continue;
+                    }
+                    ArticleTag::firstOrCreate([
+                        'article_id' => $id,
+                        'name' => ((string) $value)
+                    ]);
+                    // 创建标签，如果存在则会被忽略掉
+                    Tag::firstOrCreate(['name' => ((string) $value)]);
+                }
+            }
             return $this->success($data);
         }
         return $this->failure();
