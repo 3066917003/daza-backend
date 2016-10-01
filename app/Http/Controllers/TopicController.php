@@ -87,8 +87,6 @@ class TopicController extends Controller
             'description',
         ]);
 
-        var_dump($params);
-
         $data = Topic::find($id);
         if ($data) {
             $data->update($params);
@@ -108,8 +106,10 @@ class TopicController extends Controller
 
         $columns = [
             'articles.id',
+            'articles.short_id',
             'articles.user_id',
             'articles.topic_id',
+            'articles.type',
             'articles.title',
             'articles.summary',
             'articles.image_url',
@@ -119,6 +119,13 @@ class TopicController extends Controller
             'articles.comment_count',
             'articles.published_at',
         ];
+
+        if (!intval($id)) {
+            $topic = Topic::where('slug', $id)->first();
+            if ($topic) {
+                $id = $topic->id;
+            }
+        }
 
         $query = Article::select($columns)
             ->with(['user', 'topic'])

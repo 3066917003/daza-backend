@@ -172,8 +172,26 @@ class ArticleController extends Controller
         return $this->success($data);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $params = $request->only([
+            'topic_id',
+            'type',
+            'title',
+            'summary',
+            'content_format',
+            'content',
+            'image_url',
+            'location',
+            'longitude',
+            'latitude',
+        ]);
+
+        $data = Article::find($id);
+        if ($data) {
+            $data->update($params);
+            return $this->success($data);
+        }
         return $this->failure();
     }
 

@@ -64,8 +64,10 @@ class TagController extends Controller
     {
         $columns = [
             'articles.id',
+            'articles.short_id',
             'articles.user_id',
             'articles.topic_id',
+            'articles.type',
             'articles.title',
             'articles.summary',
             'articles.image_url',
