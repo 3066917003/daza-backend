@@ -68,6 +68,7 @@ class TagController extends Controller
             'articles.user_id',
             'articles.topic_id',
             'articles.type',
+            'articles.link',
             'articles.title',
             'articles.summary',
             'articles.image_url',
