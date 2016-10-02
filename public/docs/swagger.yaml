@@ -560,27 +560,6 @@ paths:
           description: error payload
           schema:
             $ref: '#/definitions/Result'
-  /categories/{category_id}/articles:
-    parameters:
-      - $ref: '#/parameters/category-id'
-    get:
-      tags:
-        - categories
-      parameters:
-        - $ref: '#/parameters/page'
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              code:
-                type: integer
-              pagination:
-                $ref: '#/definitions/Pagination'
-              data:
-                type: array
-                items:
-                  $ref: '#/definitions/Article'
   /topics:
     get:
       tags:
@@ -1131,6 +1110,27 @@ paths:
           description: error payload
           schema:
             $ref: '#/definitions/Result'
+  /tags/{tag_name}/articles:
+    parameters:
+      - $ref: '#/parameters/tag-name'
+    get:
+      tags:
+        - tags
+      parameters:
+        - $ref: '#/parameters/page'
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Article'
   /notifications:
     get:
       tags:
@@ -1279,7 +1279,7 @@ paths:
         - name: target_id
           in: formData
           description: 目标Id
-          type: integer
+          type: string
         - name: mime_type
           in: formData
           description: MIME类型
@@ -1536,22 +1536,35 @@ definitions:
       topic_count:
         type: integer
         description: 主题数
+      article_count:
+        type: integer
+        description: 文章数
   Topic:
     type: object
     description: 主题
     required:
       - id
+      - short_id
       - user_id
     properties:
       id:
         type: integer
         description: Id
+      short_id:
+        type: string
+        description: ShortId
       user_id:
         type: integer
         description: 用户Id
       category_id:
         type: integer
         description: 分类Id
+      name:
+        type: string
+        description: 名称
+      slug:
+        type: string
+        description: Slug
       type:
         type: string
         description: 类型
@@ -1559,9 +1572,6 @@ definitions:
           - feed
           - original
           - official
-      name:
-        type: string
-        description: 名称
       website:
         type: string
         description: 主页
@@ -1609,11 +1619,15 @@ definitions:
     description: 文章
     required:
       - id
+      - short_id
       - user_id
     properties:
       id:
         type: integer
         description: Id
+      short_id:
+        type: string
+        description: ShortId
       user_id:
         type: integer
         description: 用户Id
@@ -1639,6 +1653,9 @@ definitions:
       summary:
         type: string
         description: 摘要
+      content_format:
+        type: string
+        description: 内容格式
       content:
         type: string
         description: 内容
@@ -1752,6 +1769,7 @@ definitions:
     required:
       - id
       - article_id
+      - name
     properties:
       id:
         type: integer
@@ -1775,6 +1793,9 @@ definitions:
       name:
         type: string
         description: 名称
+      slug:
+        type: string
+        description: Slug
       standard_name:
         type: string
         description: 标准名称
@@ -1784,6 +1805,9 @@ definitions:
       description:
         type: string
         description: 描述
+      article_count:
+        type: string
+        description: 文章数
   Notification:
     type: object
     description: 通知
@@ -1797,7 +1821,7 @@ definitions:
         type: integer
         description: 用户Id
       unread:
-        type: string
+        type: boolean
         description: 通知未读
       reason:
         type: string
@@ -1848,8 +1872,8 @@ definitions:
           - article
           - tag
       target_id:
-        type: integer
-        description: 目标Id
+        type: string
+        description: 目标Id（或ShortId）
       mime_type:
         type: string
         description: MIME类型
