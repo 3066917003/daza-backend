@@ -61,12 +61,19 @@ class TopicController extends Controller
 
     public function show(Request $request, $id)
     {
+        $request->merge(['topic' => $id]);
+        $rules = [];
+
         $query = Topic::with('user');
         if (intval($id)) {
             $query->where('id', $id);
+            $rules['topic'] = 'exists:topics,id';
         } else {
             $query->where('slug', $id);
+            $rules['topic'] = 'exists:topics,slug';
         }
+        $this->validate($request, $rules);
+
         $data = $query->first();
         if (!$data->short_id) {
             $shortid = ShortId::create();
@@ -116,6 +123,7 @@ class TopicController extends Controller
             'articles.user_id',
             'articles.topic_id',
             'articles.type',
+            'articles.link',
             'articles.title',
             'articles.summary',
             'articles.image_url',
@@ -138,6 +146,10 @@ class TopicController extends Controller
             ->where('topic_id', $id)
             ->orderBy('published_at', 'desc');
 
+        if ($request->exists('per_page')) {
+            $per_page = intval($request->query('per_page'));
+            return $this->pagination($query->paginate($per_page));
+        }
         return $this->pagination($query->paginate());
     }
 
