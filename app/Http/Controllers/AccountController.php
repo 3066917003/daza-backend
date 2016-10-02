@@ -99,9 +99,9 @@ class AccountController extends Controller
         try {
             $newToken = JWTAuth::parseToken()->refresh();
         } catch (TokenExpiredException $e) {
-            return $this->failure(trans('token_expired'), 500);
+            return $this->failure(trans('token_expired'), $e->getStatusCode());
         } catch (JWTException $e) {
-            return $this->failure(trans('token_invalid'), 500);
+            return $this->failure(trans('token_invalid'), $e->getStatusCode());
         }
         $data = User::with('configs')->find(Auth::id());
         $data->jwt_token = [
