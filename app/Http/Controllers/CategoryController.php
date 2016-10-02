@@ -65,28 +65,4 @@ class CategoryController extends Controller
         return $this->pagination($query->paginate());
     }
 
-    public function articles(Request $request, $id)
-    {
-        $columns = [
-            'articles.id',
-            'articles.user_id',
-            'articles.topic_id',
-            'articles.title',
-            'articles.summary',
-            'articles.image_url',
-            'articles.view_count',
-            'articles.like_count',
-            'articles.comment_count',
-            'articles.published_at',
-        ];
-
-        $query = Article::select($columns)
-            ->with(['user', 'topic'])
-            ->leftJoin('topics', 'articles.topic_id', '=', 'topics.id')
-            ->where('topics.category_id', $id)
-            ->orderBy('published_at', 'desc');
-
-        return $this->pagination($query->paginate());
-    }
-
 }

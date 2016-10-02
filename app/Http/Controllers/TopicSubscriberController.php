@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Topic;
 use App\Models\TopicSubscriber;
+use App\Models\Notification;
 
 use DB;
 use Auth;
@@ -54,6 +55,16 @@ class TopicSubscriberController extends Controller
         $subscriber_count = TopicSubscriber::where(['topic_id' => $id])->count();
         DB::table('topics')->where('id', $id)->update(['subscriber_count' => $subscriber_count]);
 
+        // 创建一条消息通知
+        $topic = Topic::find($id);
+        if (Auth::id() !== $topic->user_id) {
+            Notification::create([
+                'user_id'      => $topic->user_id,
+                'reason'       => 'subscribed',
+                'from_user_id' => Auth::id(),
+                'topic_id'     => $id,
+            ]);
+        }
         return $this->success();
     }
 

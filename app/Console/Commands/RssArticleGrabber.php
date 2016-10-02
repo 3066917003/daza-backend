@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Topic;
 use App\Models\Article;
 use App\Models\ArticleTag;
+use App\Models\Tag;
 
 use DateTime;
 use GuzzleHttp\Client;
@@ -40,7 +41,10 @@ class RssArticleGrabber extends Command
      */
     public function handle()
     {
-        $lists = Topic::orderBy('id', 'desc')->where('source_format', 'rss+xml')->get();
+        $lists = Topic::orderBy('id', 'desc')
+            ->where('type', 'feed')
+            ->where('source_format', 'rss+xml')
+            ->get();
 
         $client = new Client();
 
@@ -105,18 +109,21 @@ class RssArticleGrabber extends Command
                     $category_tags = $value->category;
                     foreach ($category_tags as $category) {
                         array_push($article_tags, new ArticleTag(['name' => ((string) $category)]));
+                        // 创建标签，如果存在则会被忽略掉
+                        Tag::firstOrCreate(['name' => ((string) $category)]);
                     }
 
                     $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->guid]));
 
                     $article->update([
-                        'type'          => 'feed',
-                        'link'          => $value->link,
-                        'title'         => $value->title,
-                        'content'       => $value->description,
-                        'image_url'     => $image_url,
-                        'author'        => $author,
-                        'published_at'  => new DateTime($value->pubDate),
+                        'type'           => 'feed',
+                        'link'           => $value->link,
+                        'title'          => $value->title,
+                        'content_format' => 'html',
+                        'content'        => $value->description,
+                        'image_url'      => $image_url,
+                        'author'         => $author,
+                        'published_at'   => new DateTime($value->pubDate),
                     ]);
                     $article->tags()->forceDelete();
                     $article->tags()->saveMany($article_tags);

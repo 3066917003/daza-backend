@@ -205,66 +205,6 @@ paths:
           description: error payload
           schema:
             $ref: '#/definitions/Result'
-  /account/password_reset:
-    post:
-      tags:
-        - account
-      parameters:
-        - name: email
-          in: formData
-          description: 邮箱
-          type: string
-          required: true
-        - name: verify_code
-          in: formData
-          description: 验证码
-          type: string
-          required: true
-        - name: new_password
-          in: formData
-          description: 新密码
-          type: string
-          format: password
-          required: true
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              code:
-                type: integer
-        default:
-          description: error payload
-          schema:
-            $ref: '#/definitions/Result'
-  /account/password_modify:
-    post:
-      tags:
-        - account
-      parameters:
-        - name: old_password
-          in: formData
-          description: 原密码
-          type: string
-          format: password
-          required: true
-        - name: new_password
-          in: formData
-          description: 新密码
-          type: string
-          format: password
-          required: true
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              code:
-                type: integer
-        default:
-          description: error payload
-          schema:
-            $ref: '#/definitions/Result'
   /account/profile:
     get:
       tags:
@@ -352,6 +292,86 @@ paths:
                 type: integer
               data:
                 $ref: '#/definitions/User'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
+  /account/configs:
+    put:
+      tags:
+        - account
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/UserConfig'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
+  
+  /account/password_reset:
+    post:
+      tags:
+        - account
+      parameters:
+        - name: email
+          in: formData
+          description: 邮箱
+          type: string
+          required: true
+        - name: verify_code
+          in: formData
+          description: 验证码
+          type: string
+          required: true
+        - name: new_password
+          in: formData
+          description: 新密码
+          type: string
+          format: password
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
+  /account/password_modify:
+    post:
+      tags:
+        - account
+      parameters:
+        - name: old_password
+          in: formData
+          description: 原密码
+          type: string
+          format: password
+          required: true
+        - name: new_password
+          in: formData
+          description: 新密码
+          type: string
+          format: password
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
         default:
           description: error payload
           schema:
@@ -540,27 +560,6 @@ paths:
           description: error payload
           schema:
             $ref: '#/definitions/Result'
-  /categories/{category_id}/articles:
-    parameters:
-      - $ref: '#/parameters/category-id'
-    get:
-      tags:
-        - categories
-      parameters:
-        - $ref: '#/parameters/page'
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              code:
-                type: integer
-              pagination:
-                $ref: '#/definitions/Pagination'
-              data:
-                type: array
-                items:
-                  $ref: '#/definitions/Article'
   /topics:
     get:
       tags:
@@ -1111,16 +1110,46 @@ paths:
           description: error payload
           schema:
             $ref: '#/definitions/Result'
+  /tags/{tag_name}/articles:
+    parameters:
+      - $ref: '#/parameters/tag-name'
+    get:
+      tags:
+        - tags
+      parameters:
+        - $ref: '#/parameters/page'
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Article'
   /notifications:
     get:
       tags:
         - notifications
       parameters:
         - $ref: '#/parameters/page'
-        - name: type
-          in: formData
-          description: 类型
+        - name: reason
+          in: query
+          description: 原因
           type: string
+      description: |
+        ### reason
+        原因 | 描述
+        :--- | :---
+        followed | 有人关注了我
+        subscribed | 订阅了我的主题
+        upvoted | 赞了我的文章
+        comment | 评论我
+        mention | 提及我
       responses:
         200:
           description: OK
@@ -1171,15 +1200,32 @@ paths:
           description: error payload
           schema:
             $ref: '#/definitions/Result'
-  /notifications/mark:
+  /notifications/counts:
+    get:
+      tags:
+        - notifications
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              data:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  unread_count:
+                    type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
+  /notifications/mark_as_read:
     post:
       tags:
         - notifications
-      parameters:
-        - name: notification_id
-          in: formData
-          description: 通知Id
-          type: integer
       responses:
         200:
           description: OK
@@ -1197,10 +1243,14 @@ paths:
         - assets
       parameters:
         - $ref: '#/parameters/page'
-        - name: type
-          in: formData
-          description: 类型
+        - name: target_type
+          in: query
+          description: 目标类型
           type: string
+        - name: target_id
+          in: query
+          description: 目标Id
+          type: integer
       responses:
         200:
           description: OK
@@ -1222,6 +1272,14 @@ paths:
       tags:
         - assets
       parameters:
+        - name: target_type
+          in: formData
+          description: 目标类型
+          type: string
+        - name: target_id
+          in: formData
+          description: 目标Id
+          type: string
         - name: mime_type
           in: formData
           description: MIME类型
@@ -1241,6 +1299,21 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
+  /qiniu/token:
+    get:
+      tags:
+        - qiniu
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              token:
+                type: string
         default:
           description: error payload
           schema:
@@ -1333,6 +1406,9 @@ definitions:
       last_name:
         type: string
         description: 姓
+      real_name:
+        type: string
+        description: 真实姓名
       avatar_url:
         type: string
         description: 头像链接（原始尺寸）
@@ -1380,7 +1456,19 @@ definitions:
       site_admin:
         type: boolean
         description: 站点管理员
-      config:
+      followers_count:
+        type: integer
+        description: 粉丝数
+      following_count:
+        type: integer
+        description: 关注数
+      topic_count:
+        type: integer
+        description: 主题数
+      article_count:
+        type: integer
+        description: 文章数
+      configs:
         type: array
         items:
           $ref: '#/definitions/UserConfig'
@@ -1448,22 +1536,35 @@ definitions:
       topic_count:
         type: integer
         description: 主题数
+      article_count:
+        type: integer
+        description: 文章数
   Topic:
     type: object
     description: 主题
     required:
       - id
+      - short_id
       - user_id
     properties:
       id:
         type: integer
         description: Id
+      short_id:
+        type: string
+        description: ShortId
       user_id:
         type: integer
         description: 用户Id
       category_id:
         type: integer
         description: 分类Id
+      name:
+        type: string
+        description: 名称
+      slug:
+        type: string
+        description: Slug
       type:
         type: string
         description: 类型
@@ -1471,9 +1572,6 @@ definitions:
           - feed
           - original
           - official
-      name:
-        type: string
-        description: 名称
       website:
         type: string
         description: 主页
@@ -1521,11 +1619,15 @@ definitions:
     description: 文章
     required:
       - id
+      - short_id
       - user_id
     properties:
       id:
         type: integer
         description: Id
+      short_id:
+        type: string
+        description: ShortId
       user_id:
         type: integer
         description: 用户Id
@@ -1551,6 +1653,9 @@ definitions:
       summary:
         type: string
         description: 摘要
+      content_format:
+        type: string
+        description: 内容格式
       content:
         type: string
         description: 内容
@@ -1664,6 +1769,7 @@ definitions:
     required:
       - id
       - article_id
+      - name
     properties:
       id:
         type: integer
@@ -1687,6 +1793,9 @@ definitions:
       name:
         type: string
         description: 名称
+      slug:
+        type: string
+        description: Slug
       standard_name:
         type: string
         description: 标准名称
@@ -1696,6 +1805,9 @@ definitions:
       description:
         type: string
         description: 描述
+      article_count:
+        type: string
+        description: 文章数
   Notification:
     type: object
     description: 通知
@@ -1708,18 +1820,36 @@ definitions:
       user_id:
         type: integer
         description: 用户Id
-      type:
+      unread:
+        type: boolean
+        description: 通知未读
+      reason:
         type: string
-        description: 类型
+        description: 原因
+        enum:
+          - followed
+          - subscribed
+          - upvoted
+          - comment
+          - mention
+      from_user_id:
+        type: integer
+        description: 来自用户Id
+      topic_id:
+        type: integer
+        description: 主题Id
+      article_id:
+        type: integer
+        description: 文章Id
+      article_comment_id:
+        type: integer
+        description: 文章评论Id
       title:
         type: string
         description: 标题
       content:
         type: string
         description: 内容
-      unread:
-        type: string
-        description: 通知未读
   Asset:
     type: object
     description: 资源
@@ -1736,13 +1866,14 @@ definitions:
         type: string
         description: 目标类型
         enum:
+          - user
           - category
           - topic
           - article
           - tag
       target_id:
-        type: integer
-        description: 目标Id
+        type: string
+        description: 目标Id（或ShortId）
       mime_type:
         type: string
         description: MIME类型

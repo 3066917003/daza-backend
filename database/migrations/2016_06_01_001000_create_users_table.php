@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('name', 191)->unique()->nullable();      // 名称
             $table->string('first_name');                           // 名
             $table->string('last_name');                            // 姓
+            $table->string('real_name');                            // 真实姓名
             $table->string('avatar_url');                           // 头像链接（原始尺寸）
             $table->boolean('use_gravatar')->default(false);        // 使用Gravatar头像
             $table->integer('age');                                 // 年龄
@@ -35,6 +36,10 @@ class CreateUsersTable extends Migration
             $table->string('bio');                                  // 简介
             $table->integer('status')->default(1);                  // 状态[ 0 => 'Unactive', 1 => 'Active']
             $table->boolean('site_admin')->default(false);          // 站点管理员
+            $table->integer('followers_count');                     // 粉丝数
+            $table->integer('following_count');                     // 关注数
+            $table->integer('topic_count');                         // 主题数
+            $table->integer('article_count');                       // 文章数
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

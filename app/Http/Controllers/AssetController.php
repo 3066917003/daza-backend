@@ -22,7 +22,14 @@ class AssetController extends Controller
 
     public function index(Request $request)
     {
-        $query = Asset::orderBy('created_at', 'asc');
+        $target_type = $request->query('target_type');
+        $target_id   = $request->query('target_id');
+
+        $query = Asset::orderBy('created_at', 'asc')
+            ->where('user_id', Auth::id())
+            ->where('target_type', $target_type)
+            ->where('target_id', $target_id);
+
         return $this->pagination($query->paginate());
     }
 

@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             ['id' => 6, 'name' => '设计'],
             ['id' => 7, 'name' => '产品'],
             ['id' => 8, 'name' => '博客'],
+            ['id' => 9, 'name' => '其他'],
         ];
         DB::table('categories')->insert($categories);
         $topics = [

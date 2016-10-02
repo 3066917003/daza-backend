@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserConfig;
 
 use Auth;
 use JWTAuth;
@@ -66,15 +67,15 @@ class AccountController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
-            return $this->failure(trans('auth.failed'), 401);
-        }
-        $user = Auth::user();
-            // 设置JWT令牌
-        $user->jwt_token = [
+                return $this->failure(trans('auth.failed'), 401);
+            }
+            $user = User::with('configs')->find(Auth::id());
+                // 设置JWT令牌
+            $user->jwt_token = [
                 'access_token' => $token,
-            'expires_in'   => Carbon::now()->subMinutes(config('jwt.ttl'))->timestamp
-        ];
-        return $this->success($user);
+                'expires_in'   => Carbon::now()->addMinutes(config('jwt.ttl'))->timestamp
+            ];
+            return $this->success($user);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return $this->failure(trans('jwt.could_not_create_token'), 500);
@@ -95,7 +96,18 @@ class AccountController extends Controller
 
     public function getProfile(Request $request)
     {
-        $data = User::find(Auth::id());
+        try {
+            $newToken = JWTAuth::parseToken()->refresh();
+        } catch (TokenExpiredException $e) {
+            return $this->failure(trans('token_expired'), $e->getStatusCode());
+        } catch (JWTException $e) {
+            return $this->failure(trans('token_invalid'), $e->getStatusCode());
+        }
+        $data = User::with('configs')->find(Auth::id());
+        $data->jwt_token = [
+            'access_token' => $newToken,
+            'expires_in'   => Carbon::now()->addMinutes(config('jwt.ttl'))->timestamp
+        ];
         return $this->success($data);
     }
 
@@ -121,6 +133,23 @@ class AccountController extends Controller
         $user->useGravatar($use_gravatar, $params);
         if ($user->update($params)) {
             return $this->success($user);
+        }
+        return $this->failure();
+    }
+
+    public function configs(Request $request)
+    {
+        $params = $request->all();
+        foreach ($params as $key => $value) {
+            $config = UserConfig::firstOrCreate([
+                'user_id' => Auth::id(),
+                'key' => $key,
+            ]);
+            $config->update(['value' => $value]);
+        }
+        $data = UserConfig::where('user_id', Auth::id())->get();
+        if ($data) {
+             return $this->success($data);
         }
         return $this->failure();
     }

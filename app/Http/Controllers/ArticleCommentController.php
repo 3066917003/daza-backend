@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Article;
 use App\Models\ArticleComment;
+use App\Models\Notification;
 
+use DB;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -58,7 +60,21 @@ class ArticleCommentController extends Controller
         if ($data) {
             // 更新文章评论数
             $comment_count = ArticleComment::where('article_id', $id)->count();
-            Article::find($id)->update(['comment_count' => $comment_count]);
+            DB::table('articles')->where('id', $id)->update([
+                'comment_count' => $comment_count
+            ]);
+            // 创建一条消息通知
+            $article = Article::find($id);
+            if (Auth::id() !== $article->user_id) {
+                Notification::create([
+                    'user_id'      => $article->user_id,
+                    'reason'       => 'comment',
+                    'from_user_id' => Auth::id(),
+                    'topic_id'     => $article->topic_id,
+                    'article_id'   => $id,
+                    'article_comment_id' => $data->id,
+                ]);
+            }
             return $this->success($data);
         }
 

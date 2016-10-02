@@ -7,6 +7,7 @@ use App\Models\Topic;
 use App\Models\Article;
 
 use Auth;
+use Crisu83\ShortId\ShortId;
 
 use Illuminate\Http\Request;
 
@@ -30,22 +31,6 @@ class TopicController extends Controller
     }
 
     public function index(Request $request)
-    {
-        $query = Topic::orderBy('created_at', 'desc');
-
-        return $this->pagination($query->paginate());
-    }
-
-    // 最新的分类
-    public function latest(Request $request)
-    {
-        $query = Topic::orderBy('created_at', 'desc');
-
-        return $this->pagination($query->paginate());
-    }
-
-    // 最受欢迎的分类（推荐）
-    public function popular(Request $request)
     {
         $query = Topic::orderBy('created_at', 'desc');
 
@@ -83,11 +68,36 @@ class TopicController extends Controller
             $query->where('slug', $id);
         }
         $data = $query->first();
+        if (!$data->short_id) {
+            $shortid = ShortId::create();
+            $data->update(['short_id' => $shortid->generate()]);
+        }
         return $this->success($data);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $request->merge(['topic' => $id]);
+        $rules = [
+            'topic' => 'exists:topics,id,user_id,' . Auth::id(),
+        ];
+        $this->validate($request, $rules);
+
+        $params = $request->only([
+            'category_id',
+            'type',
+            'source_format',
+            'source_link',
+            'name',
+            'image_url',
+            'description',
+        ]);
+
+        $data = Topic::find($id);
+        if ($data) {
+            $data->update($params);
+            return $this->success($data);
+        }
         return $this->failure();
     }
 
@@ -102,16 +112,26 @@ class TopicController extends Controller
 
         $columns = [
             'articles.id',
+            'articles.short_id',
             'articles.user_id',
             'articles.topic_id',
+            'articles.type',
             'articles.title',
             'articles.summary',
             'articles.image_url',
+            'articles.upvote_count',
+            'articles.downvote_count',
             'articles.view_count',
-            'articles.like_count',
             'articles.comment_count',
             'articles.published_at',
         ];
+
+        if (!intval($id)) {
+            $topic = Topic::where('slug', $id)->first();
+            if ($topic) {
+                $id = $topic->id;
+            }
+        }
 
         $query = Article::select($columns)
             ->with(['user', 'topic'])

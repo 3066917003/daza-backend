@@ -20,6 +20,7 @@ Route::group([], function () {
     Route::post('/account/logout', 'AccountController@logout');
     Route::get('/account/profile', 'AccountController@getProfile');
     Route::put('/account/profile', 'AccountController@updateProfile');
+    Route::put('/account/configs', 'AccountController@configs');
     Route::post('/account/password_reset', 'AccountController@passwordReset');
     Route::post('/account/password_modify', 'AccountController@passwordModify');
     // users
@@ -45,16 +46,15 @@ Route::group([], function () {
     Route::resource('/articles/{article_id}/votes', 'ArticleVoteController');
     Route::resource('/articles/{article_id}/comments', 'ArticleCommentController');
     Route::get('/articles/{article_id}/viewers', 'ArticleViewerController@index');
-    // tweets
-    Route::resource('/tweets', 'TweetController');
-    Route::resource('/tweets/{tweet_id}/likes', 'TweetLikeController');
-    Route::resource('/tweets/{tweet_id}/comments', 'TweetCommentController');
-    // events
-    Route::resource('/events', 'EventController');
     // tags
     Route::resource('/tags', 'TagController');
+    Route::get('/tags/{name}/articles', 'TagController@articles');
     // notifications
+    Route::get('/notifications/counts', 'NotificationController@counts');
+    Route::post('/notifications/mark_as_read', 'NotificationController@markAsRead');
     Route::resource('/notifications', 'NotificationController');
-    Route::post('/notifications/mark', 'NotificationController@mark');
+    // assets
     Route::resource('/assets', 'AssetController');
+    // qiniu
+    Route::get('/qiniu/token', 'QiniuController@token');
 });
