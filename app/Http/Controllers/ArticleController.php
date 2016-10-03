@@ -95,7 +95,7 @@ class ArticleController extends Controller
         $this->validate($request, [
             'topic_id'    => 'required|exists:topics,id',
             'title'       => 'required|min:2|max:255',
-            // 'content'     => 'required',
+            'content'     => 'min:2',
             'author'      => 'min:2',
             'author_link' => 'url',
             'source'      => 'min:2',

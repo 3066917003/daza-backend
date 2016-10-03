@@ -33,8 +33,8 @@ class CreateArticlesTable extends Migration
             $table->string('source');                               // 来源
             $table->string('source_link');                          // 来源链接
             $table->string('location');                             // 位置
-            $table->double('longitude', 7, 7);                      // 经度
-            $table->double('latitude', 7, 7);                       // 纬度
+            $table->double('longitude', 12, 7);                      // 经度
+            $table->double('latitude', 12, 7);                       // 纬度
             $table->integer('upvote_count');                        // 赞成票数
             $table->integer('downvote_count');                      // 反对票数
             $table->integer('view_count');                          // 阅读数
