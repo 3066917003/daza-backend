@@ -113,7 +113,11 @@ class RssArticleGrabber extends Command
                         Tag::firstOrCreate(['name' => ((string) $category)]);
                     }
 
-                    $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->guid]));
+                    $guid = $value->guid;
+                    if (!$guid) {
+                        $guid = $value->link;
+                    }
+                    $article = Article::firstOrCreate(array_merge($data, ['guid' => $guid]));
 
                     $article->update([
                         'type'           => 'feed',
