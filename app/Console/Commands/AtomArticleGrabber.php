@@ -105,6 +105,13 @@ class AtomArticleGrabber extends Command
 
                     $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->id]));
 
+                    $published_at = new DateTime();
+                    if ($value->published !== null) {
+                        $published_at = new DateTime($value->published);
+                    } elseif ($value->updated !== null) {
+                        $published_at = new DateTime($value->updated);
+                    }
+
                     $article->update([
                         'type'           => 'feed',
                         'link'           => $value->link->attributes()->href,
