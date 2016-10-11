@@ -41,7 +41,9 @@ class AtomArticleGrabber extends Command
      */
     public function handle()
     {
-        $lists = Topic::orderBy('id', 'desc')->where('source_format', 'atom+xml')->get();
+        $lists = Topic::orderBy('id', 'desc')
+            ->where('source_format', 'atom+xml')
+            ->get();
 
         $client = new Client();
 
@@ -106,9 +108,9 @@ class AtomArticleGrabber extends Command
                     $article = Article::firstOrCreate(array_merge($data, ['guid' => $value->id]));
 
                     $published_at = new DateTime();
-                    if ($value->published !== null) {
+                    if (strlen((string)$value->published) > 0) {
                         $published_at = new DateTime($value->published);
-                    } elseif ($value->updated !== null) {
+                    } elseif (strlen((string)$value->updated) > 0) {
                         $published_at = new DateTime($value->updated);
                     }
 
