@@ -86,6 +86,7 @@ class ArticleController extends Controller
                 break;
         }
 
+        $query->has('topic');
         $query->orderBy('articles.published_at', 'desc');
 
         return $this->pagination($query->paginate());
