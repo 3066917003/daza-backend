@@ -86,7 +86,7 @@ class TagController extends Controller
 
         $query = Article::select($columns)
             ->with(['user', 'topic'])
-            ->has('topic');
+            ->has('topic')
             ->whereIn('id', $article_ids)
             ->orderBy('published_at', 'desc');
 
