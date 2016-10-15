@@ -2182,7 +2182,7 @@
                     "type": "string",
                     "description": "头像链接（原始尺寸）"
                 },
-                "user_gravatar": {
+                "use_gravatar": {
                     "type": "boolean",
                     "description": "使用Gravatar头像"
                 },
