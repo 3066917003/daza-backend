@@ -7,3 +7,4 @@ Homestead.yaml
 .env
 
 npm-debug.log
+/public/vendor
