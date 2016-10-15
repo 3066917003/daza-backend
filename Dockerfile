@@ -29,6 +29,8 @@ RUN a2enmod rewrite
 
 WORKDIR /app
 
+RUN git clone --depth=1 https://github.com/swagger-api/swagger-ui.git public/vendor/swagger-ui
+
 COPY ./composer.json /app/
 COPY ./composer.lock /app/
 RUN composer install --no-autoloader --no-scripts
