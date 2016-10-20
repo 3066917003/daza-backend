@@ -2,6 +2,11 @@
 
 [![Build Status](https://api.travis-ci.org/lijy91/daza-backend.svg?branch=master)](https://travis-ci.org/lijy91/daza-backend)
 
+
+## 线上地址
+- 主页：[http://daza.io](http://daza.io)
+- 接口：[http://api.daza.io](http://api.daza.io)
+
 ## 相关项目
 - [daza-backend](https://github.com/lijy91/daza-backend)
 - [daza-frontend](https://github.com/lijy91/daza-frontend)
@@ -69,6 +74,14 @@ $ open http://localhost:8000
 
 ## 如何部署
 TODO
+
+## 加入讨论组
+![](http://obryq3mj0.bkt.clouddn.com/topic/ByRafuLR/r1no_q9R.jpg?imageView2/2/w/480/h/480)
+
+> 微信限制，加我微信时请注明加入讨论组。
+
+## 捐赠作者
+![](http://obryq3mj0.bkt.clouddn.com/topic/ByRafuLR/r1WH8F90.jpg?imageView2/2/w/480/h/480)
 
 ## License
 
