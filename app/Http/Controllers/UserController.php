@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Topic;
+use App\Models\TopicSubscriber;
 
 use Auth;
 
@@ -21,6 +22,7 @@ class UserController extends Controller
             'except' => [
                 'show',
                 'topics',
+                'subscribes',
             ]
         ]);
         // 设置 jwt.try_get_user 中间件，用于尝试通过 Token 获取当前登录用户
@@ -39,6 +41,13 @@ class UserController extends Controller
     public function topics(Request $request, $id)
     {
         $query = Topic::where('user_id', $id);
+        return $this->pagination($query->paginate());
+    }
+
+    public function subscribes(Request $request, $id)
+    {
+        $query = TopicSubscriber::where('user_id', $id);
+        $query->with('topic');
         return $this->pagination($query->paginate());
     }
 
