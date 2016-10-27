@@ -29,6 +29,7 @@ Route::group([], function () {
     Route::get('/users/{user_id}/followers', 'UserRelationshipController@followers');
     Route::get('/users/{user_id}/following', 'UserRelationshipController@following');
     Route::get('/users/{user_id}/topics', 'UserController@topics');
+    Route::get('/users/{user_id}/subscribes', 'UserController@subscribes');
     // categories
     Route::resource('/categories', 'CategoryController');
     Route::get('/categories/{category_id}/topics', 'CategoryController@topics');
