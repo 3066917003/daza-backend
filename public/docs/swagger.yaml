@@ -1708,9 +1708,15 @@ definitions:
       source_link:
         type: string
         description: 来源链接
+      upvoted:
+        type: boolean
+        description: 已赞成
       upvote_count:
         type: integer
         description: 赞成票数
+      downvoted:
+        type: boolean
+        description: 已反对
       downvote_count:
         type: integer
         description: 反对票数
