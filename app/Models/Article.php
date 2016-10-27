@@ -17,7 +17,7 @@ class Article extends Model
      * @var array
      */
     protected $appends = [
-        'voted',
+        'upvoted',
     ];
 
     /**
@@ -43,12 +43,13 @@ class Article extends Model
         'deleted_at'
     ];
 
-    public function getVotedAttribute()
+    public function getUpvotedAttribute()
     {
         if (Auth::check()) {
             return ArticleVote::where([
                 'user_id'    => Auth::id(),
                 'article_id' => $this->id,
+                'type'       => 'up',
             ])->exists();
         }
         return false;
