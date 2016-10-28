@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Topic;
 use App\Models\TopicSubscriber;
+use App\Models\ArticleVote;
 
 use Auth;
 
@@ -23,10 +24,11 @@ class UserController extends Controller
                 'show',
                 'topics',
                 'subscribes',
+                'upvotes',
             ]
         ]);
         // 设置 jwt.try_get_user 中间件，用于尝试通过 Token 获取当前登录用户
-        $this->middleware('jwt.try_get_user', ['only' => ['show', 'topics']]);
+        $this->middleware('jwt.try_get_user', ['only' => ['show', 'topics', 'subscribes', 'upvotes']]);
     }
 
     public function show(Request $request, $id)
@@ -48,6 +50,13 @@ class UserController extends Controller
     {
         $query = TopicSubscriber::where('user_id', $id);
         $query->with('topic');
+        return $this->pagination($query->paginate());
+    }
+
+    public function upvotes(Request $request, $id)
+    {
+        $query = ArticleVote::where('user_id', $id);
+        $query->with('article');
         return $this->pagination($query->paginate());
     }
 

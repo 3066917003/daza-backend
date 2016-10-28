@@ -518,6 +518,31 @@ paths:
           description: error payload
           schema:
             $ref: '#/definitions/Result'
+  /users/{user_id}/upvotes:
+    parameters:
+      - $ref: '#/parameters/user-id'
+    get:
+      tags:
+        - users
+      parameters:
+        - $ref: '#/parameters/page'
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/ArticleVote'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
   /categories:
     get:
       tags:
