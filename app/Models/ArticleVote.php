@@ -46,7 +46,7 @@ class ArticleVote extends Model
 
     public function article()
     {
-        return $this->belongsTo('App\Models\Article');
+        return $this->belongsTo('App\Models\Article')->with('topic');
     }
 
 }

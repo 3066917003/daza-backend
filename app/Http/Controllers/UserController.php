@@ -43,6 +43,7 @@ class UserController extends Controller
     public function topics(Request $request, $id)
     {
         $query = Topic::where('user_id', $id);
+        $query->orderBy('created_at', 'desc');
         return $this->pagination($query->paginate());
     }
 
@@ -50,6 +51,7 @@ class UserController extends Controller
     {
         $query = TopicSubscriber::where('user_id', $id);
         $query->with('topic');
+        $query->orderBy('created_at', 'desc');
         return $this->pagination($query->paginate());
     }
 
@@ -57,6 +59,7 @@ class UserController extends Controller
     {
         $query = ArticleVote::where('user_id', $id);
         $query->with('article');
+        $query->orderBy('created_at', 'desc');
         return $this->pagination($query->paginate());
     }
 
