@@ -71,7 +71,10 @@ class ArticleController extends Controller
                 break;
             // 最受欢迎的文章（推荐）
             case 'popular':
-                $query->orderBy('articles.upvote_count', 'desc');
+                $dt = Carbon::now();
+                $dt->subDay(3);
+                $query->orderBy('articles.view_count', 'desc');
+                $query->where('articles.published_at', '>=', $dt);
                 break;
             default:
                 // 通过 Slug 查询分类Id
