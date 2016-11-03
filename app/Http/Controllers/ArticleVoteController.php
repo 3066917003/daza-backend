@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Article;
 use App\Models\ArticleVote;
 use App\Models\Notification;
+use App\Notifications\YunBa;
 
 use DB;
 use Auth;
@@ -72,13 +73,14 @@ class ArticleVoteController extends Controller
         // 创建一条消息通知
         $article = Article::find($id);
         if (Auth::id() !== $article->user_id) {
-            Notification::create([
+            $notification = Notification::create([
                 'user_id'      => $article->user_id,
                 'reason'       => 'upvoted',
                 'from_user_id' => Auth::id(),
                 'topic_id'     => $article->topic_id,
                 'article_id'   => $id,
             ]);
+            $notification->notify(new YunBa());
         }
         return $this->success();
     }

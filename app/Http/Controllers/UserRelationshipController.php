@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserRelationship;
 use App\Models\Notification;
+use App\Notifications\YunBa;
 
 use DB;
 use Auth;
@@ -65,11 +66,12 @@ class UserRelationshipController extends Controller
         ]);
         // 创建一条消息通知
         if (Auth::id() !== $id) {
-            Notification::create([
+            $notification = Notification::create([
                 'user_id'      => $id,
                 'reason'       => 'followed',
                 'from_user_id' => Auth::id(),
             ]);
+            $notification->notify(new YunBa());
         }
         return $this->success();
     }

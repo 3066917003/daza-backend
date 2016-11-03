@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Topic;
 use App\Models\TopicSubscriber;
 use App\Models\Notification;
+use App\Notifications\YunBa;
 
 use DB;
 use Auth;
@@ -58,12 +59,13 @@ class TopicSubscriberController extends Controller
         // 创建一条消息通知
         $topic = Topic::find($id);
         if (Auth::id() !== $topic->user_id) {
-            Notification::create([
+            $notification = Notification::create([
                 'user_id'      => $topic->user_id,
                 'reason'       => 'subscribed',
                 'from_user_id' => Auth::id(),
                 'topic_id'     => $id,
             ]);
+            $notification->notify(new YunBa());
         }
         return $this->success();
     }
