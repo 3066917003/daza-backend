@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Article;
 use App\Models\ArticleVote;
 use App\Models\Notification;
-use App\Notifications\YunBa;
 
 use DB;
 use Auth;
@@ -80,7 +79,6 @@ class ArticleVoteController extends Controller
                 'topic_id'     => $article->topic_id,
                 'article_id'   => $id,
             ]);
-            $notification->notify(new YunBa());
         }
         return $this->success();
     }

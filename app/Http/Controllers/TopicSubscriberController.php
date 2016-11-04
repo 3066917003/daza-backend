@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Topic;
 use App\Models\TopicSubscriber;
 use App\Models\Notification;
-use App\Notifications\YunBa;
 
 use DB;
 use Auth;
@@ -65,7 +64,6 @@ class TopicSubscriberController extends Controller
                 'from_user_id' => Auth::id(),
                 'topic_id'     => $id,
             ]);
-            $notification->notify(new YunBa());
         }
         return $this->success();
     }

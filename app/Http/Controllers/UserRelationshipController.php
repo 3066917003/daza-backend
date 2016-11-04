@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserRelationship;
 use App\Models\Notification;
-use App\Notifications\YunBa;
 
 use DB;
 use Auth;
@@ -71,7 +70,6 @@ class UserRelationshipController extends Controller
                 'reason'       => 'followed',
                 'from_user_id' => Auth::id(),
             ]);
-            $notification->notify(new YunBa());
         }
         return $this->success();
     }
