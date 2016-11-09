@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f606ddd659378880bf983e7707caaae0",
-    "content-hash": "19f1f23aa257f7c0bdbf64207a01bacd",
+    "hash": "5e9034a95c1a4eaeae3d13dc44afbac3",
+    "content-hash": "30c225cd6c95eb8610adf1226aecc827",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -428,6 +428,58 @@
             "time": "2016-06-24 23:00:38"
         },
         {
+            "name": "illuminate/notifications",
+            "version": "v5.3.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/notifications.git",
+                "reference": "ec002793039693ff3e65e48eccc8b6273be3dee5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/illuminate/notifications/ec002793039693ff3e65e48eccc8b6273be3dee5.zip",
+                "reference": "ec002793039693ff3e65e48eccc8b6273be3dee5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/broadcasting": "5.3.*",
+                "illuminate/bus": "5.3.*",
+                "illuminate/contracts": "5.3.*",
+                "illuminate/support": "5.3.*",
+                "php": ">=5.6.4",
+                "ramsey/uuid": "~3.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Required to use the Slack transport.",
+                "illuminate/database": "Required to use the database transport (5.3.*).",
+                "nexmo/client": "Required to use the Nexmo transport."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Notifications\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Notifications package.",
+            "homepage": "https://laravel.com",
+            "time": "2016-10-03 12:46:21"
+        },
+        {
             "name": "ircmaxell/random-lib",
             "version": "v1.2.0",
             "source": {
@@ -672,6 +724,53 @@
                 "tokenizer"
             ],
             "time": "2015-12-05 17:17:57"
+        },
+        {
+            "name": "laravel-notification-channels/webhook",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-notification-channels/webhook.git",
+                "reference": "b649cbdff2af113fdedb4fbd35774f59d96e9459"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/laravel-notification-channels/webhook/b649cbdff2af113fdedb4fbd35774f59d96e9459.zip",
+                "reference": "b649cbdff2af113fdedb4fbd35774f59d96e9459",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "illuminate/notifications": "5.3.*",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "orchestra/database": "3.3.x-dev",
+                "orchestra/testbench": "3.3.x-dev",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\Webhook\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "m.pociot@gmail.com",
+                    "homepage": "http://www.marcelpociot.com"
+                }
+            ],
+            "description": "Webhook Notifications driver",
+            "homepage": "https://github.com/laravel-notification-channels/webhook",
+            "time": "2016-10-30 09:28:33"
         },
         {
             "name": "laravel/framework",

@@ -58,7 +58,7 @@ class TopicSubscriberController extends Controller
         // 创建一条消息通知
         $topic = Topic::find($id);
         if (Auth::id() !== $topic->user_id) {
-            Notification::create([
+            $notification = Notification::create([
                 'user_id'      => $topic->user_id,
                 'reason'       => 'subscribed',
                 'from_user_id' => Auth::id(),

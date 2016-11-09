@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Notification extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Notifiable;
 
     /**
      * The accessors to append to the model's array form.
@@ -59,6 +60,11 @@ class Notification extends Model
     public function article_comment()
     {
         return $this->belongsTo('App\Models\ArticleComment');
+    }
+
+    public function routeNotificationForWebhook()
+    {
+        return 'http://rest.yunba.io:8080';
     }
 
 }

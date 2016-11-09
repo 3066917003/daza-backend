@@ -66,7 +66,7 @@ class ArticleCommentController extends Controller
             // 创建一条消息通知
             $article = Article::find($id);
             if (Auth::id() !== $article->user_id) {
-                Notification::create([
+                $notification = Notification::create([
                     'user_id'      => $article->user_id,
                     'reason'       => 'comment',
                     'from_user_id' => Auth::id(),

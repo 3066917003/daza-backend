@@ -65,7 +65,7 @@ class UserRelationshipController extends Controller
         ]);
         // 创建一条消息通知
         if (Auth::id() !== $id) {
-            Notification::create([
+            $notification = Notification::create([
                 'user_id'      => $id,
                 'reason'       => 'followed',
                 'from_user_id' => Auth::id(),

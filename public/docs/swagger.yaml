@@ -300,6 +300,27 @@ paths:
     put:
       tags:
         - account
+      parameters:
+        - name: notification_followed
+          in: formData
+          type: boolean
+          description: 有人关注了我
+        - name: notification_subscribed
+          in: formData
+          type: boolean
+          description: 订阅了我的主题
+        - name: notification_upvoted
+          in: formData
+          type: boolean
+          description: 赞了我的文章
+        - name: notification_comment
+          in: formData
+          type: boolean
+          description: 评论我
+        - name: notification_mention
+          in: formData
+          type: boolean
+          description: 提及我
       responses:
         200:
           description: OK
