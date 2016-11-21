@@ -58,7 +58,7 @@ class AccountController extends Controller
         $rules = [
             'email'    => 'required|email|exists:users',
             'password' => 'required|between:6,32',
-            'username' => 'min:5|max:32|alpha_dash|exists:users',
+            'username' => 'between:4,32|alpha_dash|exists:users',
         ];
         $this->validate($request, $rules);
 
