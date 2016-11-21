@@ -124,7 +124,7 @@ class AtomArticleGrabber extends Command
                         'image_url'      => $image_url,
                         'author'         => $author_name,
                         'author_link'    => $author_link,
-                        'published_at'   => new DateTime($value->updated),
+                        'published_at'   => $published_at,
                     ]);
                 }
             },
