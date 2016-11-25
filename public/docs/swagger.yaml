@@ -4,6 +4,7 @@ info:
   version: "0.0.1"
   title: daza.io RESTful API
   description: |
+    >「daza.io」是希望成为一款基于技能树的技术内容聚合阅读应用，我们会根据你的技能帮你进行筛选，让你在这个信息过载的时代里更高效地获取你所需的内容。
     
     请求响应示例
     ```json
@@ -71,6 +72,8 @@ tags:
   - name: articles
   - name: tags
   - name: notifications
+  - name: assets
+  - name: search
 
 parameters:
   page:
@@ -1370,6 +1373,87 @@ paths:
             properties:
               code:
                 type: integer
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
+  /search/users:
+    get:
+      tags:
+        - search
+      parameters:
+        - $ref: '#/parameters/page'
+        - name: keyword
+          in: query
+          description: 关键词
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/User'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
+  /search/topics:
+    get:
+      tags:
+        - search
+      parameters:
+        - $ref: '#/parameters/page'
+        - name: keyword
+          in: query
+          description: 关键词
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Topic'
+        default:
+          description: error payload
+          schema:
+            $ref: '#/definitions/Result'
+  /search/articles:
+    get:
+      tags:
+        - search
+      parameters:
+        - $ref: '#/parameters/page'
+        - name: keyword
+          in: query
+          description: 关键词
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              code:
+                type: integer
+              pagination:
+                $ref: '#/definitions/Pagination'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Article'
         default:
           description: error payload
           schema:
