@@ -57,6 +57,10 @@ Route::group([], function () {
     Route::resource('/notifications', 'NotificationController');
     // assets
     Route::resource('/assets', 'AssetController');
+    // search
+    Route::get('/search/users', 'SearchController@users');
+    Route::get('/search/topics', 'SearchController@topics');
+    Route::get('/search/articles', 'SearchController@articles');
     // qiniu
     Route::get('/qiniu/token', 'QiniuController@token');
 });
