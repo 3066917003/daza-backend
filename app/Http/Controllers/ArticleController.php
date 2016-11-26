@@ -46,17 +46,16 @@ class ArticleController extends Controller
             'articles.title',
             'articles.summary',
             'articles.image_url',
-            'articles.location',
-            'articles.longitude',
-            'articles.latitude',
+            // 'articles.location',
+            // 'articles.longitude',
+            // 'articles.latitude',
             'articles.upvote_count',
-            'articles.downvote_count',
             'articles.view_count',
             'articles.comment_count',
             'articles.published_at',
         ];
 
-        $query = Article::select($columns)->with(['user', 'topic', 'tags']);
+        $query = Article::select($columns)->with(['topic', 'topic.user']);
 
         $category_id   = $request->query('category_id');
         $category_slug = $request->query('category_slug');
