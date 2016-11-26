@@ -57,12 +57,12 @@ class Article extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User')->select('id', 'username', 'name', 'avatar_url');
     }
 
     public function topic()
     {
-        return $this->belongsTo('App\Models\Topic');
+        return $this->belongsTo('App\Models\Topic')->select('id', 'short_id', 'user_id', 'name', 'image_url', 'description', 'subscriber_count');
     }
 
     public function tags()
