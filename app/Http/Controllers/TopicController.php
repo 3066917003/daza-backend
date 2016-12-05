@@ -32,7 +32,8 @@ class TopicController extends Controller
 
     public function index(Request $request)
     {
-        $query = Topic::orderBy('created_at', 'desc')
+        $query = Topic::with('user')
+            ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc');
 
         return $this->pagination($query->paginate());
