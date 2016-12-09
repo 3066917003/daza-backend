@@ -32,7 +32,9 @@ class TopicController extends Controller
 
     public function index(Request $request)
     {
-        $query = Topic::orderBy('created_at', 'desc');
+        $query = Topic::with('user')
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc');
 
         return $this->pagination($query->paginate());
     }
@@ -127,11 +129,11 @@ class TopicController extends Controller
             'articles.title',
             'articles.summary',
             'articles.image_url',
-            'articles.location',
-            'articles.longitude',
-            'articles.latitude',
+            // 'articles.location',
+            // 'articles.longitude',
+            // 'articles.latitude',
             'articles.upvote_count',
-            'articles.downvote_count',
+            // 'articles.downvote_count',
             'articles.view_count',
             'articles.comment_count',
             'articles.published_at',
@@ -145,7 +147,6 @@ class TopicController extends Controller
         }
 
         $query = Article::select($columns)
-            ->with(['user', 'topic'])
             ->where('topic_id', $id)
             ->orderBy('published_at', 'desc');
 

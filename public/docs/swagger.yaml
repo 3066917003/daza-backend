@@ -1967,7 +1967,7 @@ definitions:
         type: string
         description: 描述
       article_count:
-        type: string
+        type: integer
         description: 文章数
   Notification:
     type: object
