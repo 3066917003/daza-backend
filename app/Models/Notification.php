@@ -44,7 +44,7 @@ class Notification extends Model
 
     public function from_user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User')->select('id', 'username', 'name', 'avatar_url');
     }
 
     public function topic()
