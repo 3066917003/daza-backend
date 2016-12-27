@@ -59,9 +59,9 @@ $ php artisan migrate
 $ php artisan db:seed
 ```
 
-### 生成测试数据（***仅供开发测试时使用***）
+### 生成测试数据（***从现有主题爬取文章***）
 ```
-$ php artisan db:seed --class=MockdataSeeder
+$ php artisan ag:rss
 ```
 
 ### 运行
