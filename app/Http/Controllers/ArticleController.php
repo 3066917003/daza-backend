@@ -99,7 +99,7 @@ class ArticleController extends Controller
         $params = $request->except(['tags']);
 
         $this->validate($request, [
-            'topic_id'    => 'required|exists:topics,id',
+            'topic_id'    => 'required|exists:topics,id,user_id,' . Auth::id(),
             'title'       => 'required|min:2|max:255',
             'content'     => 'min:2',
             'author'      => 'min:2',
