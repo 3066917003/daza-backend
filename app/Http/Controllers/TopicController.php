@@ -95,11 +95,12 @@ class TopicController extends Controller
         $params = $request->only([
             'category_id',
             'type',
-            'source_format',
-            'source_link',
+            'website',
             'name',
             'image_url',
             'description',
+            'source_format',
+            'source_link',
         ]);
 
         $data = Topic::find($id);
