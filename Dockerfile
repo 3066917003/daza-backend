@@ -25,7 +25,12 @@ RUN chown -R root:crontab /var/spool/cron/crontabs/root \
  && chmod 600 /var/spool/cron/crontabs/root
 RUN touch /var/log/cron.log
 
-RUN a2enmod rewrite
+RUN a2enmod rewrite && \
+    a2enmod deflate
+
+ADD _linux/etc/apache2/mods-available/deflate.conf /etc/apache2/mods-available/deflate.conf
+RUN chown -R root:root /etc/apache2/mods-available/deflate.conf \
+ && chmod 600 /etc/apache2/mods-available/deflate.conf
 
 WORKDIR /app
 
