@@ -25,7 +25,8 @@ RUN chown -R root:crontab /var/spool/cron/crontabs/root \
  && chmod 600 /var/spool/cron/crontabs/root
 RUN touch /var/log/cron.log
 
-RUN a2enmod rewrite
+RUN a2enmod rewrite && \
+    a2enmod deflate
 
 WORKDIR /app
 
