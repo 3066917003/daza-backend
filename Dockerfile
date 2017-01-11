@@ -28,6 +28,10 @@ RUN touch /var/log/cron.log
 RUN a2enmod rewrite && \
     a2enmod deflate
 
+ADD _linux/etc/apache2/mods-available/deflate.conf /etc/apache2/mods-available/deflate.conf
+RUN chown -R root:root /etc/apache2/mods-available/deflate.conf \
+ && chmod 600 /etc/apache2/mods-available/deflate.conf
+
 WORKDIR /app
 
 RUN git clone --depth=1 https://github.com/swagger-api/swagger-ui.git public/vendor/swagger-ui
