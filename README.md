@@ -5,7 +5,7 @@
 [![Build Status](https://api.travis-ci.org/lijy91/daza-backend.svg?branch=master)](https://travis-ci.org/lijy91/daza-backend)
 
 ## 截图
-![](https://oeolgl6y5.qnssl.com/topic/ByRafuLR/r1Cg7u8A.png?imageView2/2/w/1280/h/1280)
+![](https://oeolgl6y5.qnssl.com/article/BkS76m6rl/ryJuOmyUg.io%20-%20https___www.daza.io_.png?i0mageView2/2/w/800/h/800)
 
 ## 线上地址
 - 主页：[https://daza.io](https://daza.io)

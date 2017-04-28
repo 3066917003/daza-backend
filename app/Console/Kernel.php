@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('ag:atom')->everyThirtyMinutes();
-        $schedule->command('ag:rss')->everyThirtyMinutes();
+        $schedule->command('ag:atom')->dailyAt('07:00');
+        $schedule->command('ag:rss')->dailyAt('08:00');
     }
 
     /**
