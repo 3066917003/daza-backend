@@ -8,8 +8,8 @@
 ![](https://oeolgl6y5.qnssl.com/article/BkS76m6rl/ryJuOmyUg.io%20-%20https___www.daza.io_.png?i0mageView2/2/w/800/h/800)
 
 ## 线上地址
-- 主页：[https://daza.io](https://daza.io)
-- 接口：[https://api.daza.io](https://api.daza.io)
+- 主页：[http://daza.blankapp.org](http://daza.blankapp.org)
+- 接口：[http://daza-api.blankapp.org](http://daza-api.blankapp.org)
 
 ## 项目说明
 > 本项目使用 PHP + MySQL 进行开发，基于 Laravel 框架的 API Only 项目。
@@ -75,18 +75,6 @@ $ open http://localhost:8000
 - [daza-frontend](https://github.com/lijy91/daza-frontend)
 - [daza-ios](https://github.com/lijy91/daza-ios)
 - [daza-android](https://github.com/lijy91/daza-android)
-
-## 关于作者
-
-![](https://oeolgl6y5.qnssl.com/topic/ByRafuLR/r1no_q9R.jpg?imageView2/2/w/200)
-
-> 如果你有什么好想法想告诉我，或者想加入讨论组（注明加入讨论组），请加我微信。
-
-## 捐赠
-
-![](http://obryq3mj0.bkt.clouddn.com/topic/ByRafuLR/r1WH8F90.jpg?imageView2/2/w/200)
-
-> 如果你觉得我的工作对你有帮助，那你可以为项目捐赠运营费用。
 
 ## License
 
